@@ -40,4 +40,10 @@ php artisan db:seed --class=GenresTableSeeder
 
 php artisan migrate:refresh
 php artisan db:seed
+
+
+php artisan make:controller GenresController --resource
+
+
+composer require laravelcollective/html
 `

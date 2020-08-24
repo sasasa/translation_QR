@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a href="/genres" class="btn btn-primary">ジャンル管理</a>
+                    <a href="/items" class="btn btn-primary">メニューアイテム管理</a>
                 </div>
             </div>
         </div>

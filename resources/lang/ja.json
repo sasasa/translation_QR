@@ -1,4 +1,6 @@
 {
+  "Dashboard": "ダッシュボード",
+  
   "welcome": "Welcome, :name",
   "Login":"ログイン",
   "E-Mail Address":"メールアドレス",

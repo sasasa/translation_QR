@@ -156,6 +156,9 @@ return [
 
         'genre_name' => 'ジャンル',
         'genre_key' => 'ジャンルキー',
+        'genre_id' => 'ジャンル',
+
+        'upfile' => '画像'
     ],
 
 ];

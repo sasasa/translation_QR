@@ -12,7 +12,7 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
         // 前提としてstorage/app/public内にdog.jpgが存在していること
-        for($i = 1; $i <= 100; $i++) {
+        for($i = 1; $i <= 10; $i++) {
             if ( Storage::disk('public')->exists('han.jpg') ) {
                 Storage::disk('public')->copy('han.jpg', 'han'. $i. '.jpg');
             } else {
@@ -32,7 +32,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'ja_JP',
                 'item_name' => 'ハンバーガー【'. $i. '】',
-                'item_key' => 'hamburger1',
+                'item_key' => 'hamburger'. $i,
                 'item_desc' => 'ハンバーガー【'. $i. '】の説明',
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
@@ -43,7 +43,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'en_US',
                 'item_name' => 'hamburger【'. $i. '】',
-                'item_key' => 'hamburger1',
+                'item_key' => 'hamburger'. $i,
                 'item_desc' => 'hamburger【'. $i. '】description',
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
@@ -54,7 +54,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'zh_CN',
                 'item_name' => '汉堡包【'. $i. '】',
-                'item_key' => 'hamburger1',
+                'item_key' => 'hamburger'. $i,
                 'item_desc' => '汉堡包【'. $i. '】描述',
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
@@ -65,7 +65,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'ko_KR',
                 'item_name' => '햄버거【'. $i. '】',
-                'item_key' => 'hamburger1',
+                'item_key' => 'hamburger'. $i,
                 'item_desc' => '햄버거【'. $i. '】설명',
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
@@ -78,7 +78,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'ja_JP',
                 'item_name' => 'コーラ【'. $i. '】',
-                'item_key' => 'cola1',
+                'item_key' => 'cola'. $i,
                 'item_desc' => 'コーラ【'. $i. '】の説明',
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
@@ -89,7 +89,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'en_US',
                 'item_name' => 'cola【'. $i. '】',
-                'item_key' => 'cola1',
+                'item_key' => 'cola'. $i,
                 'item_desc' => 'cola【'. $i. '】description',
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
@@ -100,7 +100,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'zh_CN',
                 'item_name' => '可乐【'. $i. '】',
-                'item_key' => 'cola1',
+                'item_key' => 'cola'. $i,
                 'item_desc' => '可乐【'. $i. '】描述',
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
@@ -111,7 +111,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'ko_KR',
                 'item_name' => '콜라【'. $i. '】',
-                'item_key' => 'cola1',
+                'item_key' => 'cola'. $i,
                 'item_desc' => '콜라【'. $i. '】설명',
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
@@ -124,7 +124,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'ja_JP',
                 'item_name' => '定食【'. $i. '】',
-                'item_key' => 'set meal1',
+                'item_key' => 'set meal'. $i,
                 'item_desc' => '定食【'. $i. '】の説明',
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
@@ -135,7 +135,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'en_US',
                 'item_name' => 'set meal【'. $i. '】',
-                'item_key' => 'set meal1',
+                'item_key' => 'set meal'. $i,
                 'item_desc' => 'set meal【'. $i. '】description',
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
@@ -146,7 +146,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'zh_CN',
                 'item_name' => '套餐【'. $i. '】',
-                'item_key' => 'set meal1',
+                'item_key' => 'set meal'. $i,
                 'item_desc' => '套餐【'. $i. '】描述',
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
@@ -157,7 +157,7 @@ class ItemsTableSeeder extends Seeder
             DB::table('items')->insert([
                 'lang' => 'ko_KR',
                 'item_name' => '정식【'. $i. '】',
-                'item_key' => 'set meal1',
+                'item_key' => 'set meal'. $i,
                 'item_desc' => '정식【'. $i. '】설명',
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,

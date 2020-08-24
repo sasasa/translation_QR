@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
 
     public function items($lang)
     {
-        return view('items.index', [
+        return view('items.items', [
             'items' => \App\Item::where('lang', 'like', $lang. '%')->orderBy('id', 'DESC')->get(),
             'genres' => \App\Genre::where('lang', 'like', $lang. '%')->get(),
             'lang' => $lang
@@ -24,21 +25,36 @@ class ItemsController extends Controller
             $q->where('genre_key', $genre);
         });
 
-        return view('items.index', [
+        return view('items.items', [
             'items' => $item_query->orderBy('id', 'DESC')->get(),
             'genres' => \App\Genre::where('lang', 'like', $lang. '%')->get(),
             'lang' => $lang
         ]);
     }
 
-    public function create()
+    public function index()
     {
-        //
+        return view('items.index', [
+            'items' => \App\Item::orderBy('id', 'DESC')->paginate(12),
+        ]);
     }
 
-    public function store(Request $request)
+    public function create()
     {
-        //
+        return view('items.create');
+    }
+
+    public function store(Request $req)
+    {
+        $this->validate($req, \App\Item::$rules);
+        $file = $req->upfile;
+        $file_name = basename($file->store('public'));
+        $item = new \App\Item();
+        $item->fill($req->all());
+        $item->image_path = $file_name;
+        $item->save();
+
+        return redirect('/items');
     }
 
     public function show($id)
@@ -46,18 +62,36 @@ class ItemsController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(\App\Item $item)
     {
-        //
+        return view('items.edit', [
+            'item' => $item
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $req, \App\Item $item)
     {
-        //
+        if( $req->delete_image ) {
+            $this->validate($req, \App\Item::$rules);
+
+            $file = $req->upfile;
+            $file_name = basename($file->store('public'));
+            Storage::disk('public')->delete($item->image_path);
+            $item->image_path = $file_name;
+        } else {
+            $this->validate($req, \App\Item::$update_rules);
+        }
+        $item->fill($req->all());
+        $item->save();
+
+        return redirect('/items');
     }
 
-    public function destroy($id)
+    public function destroy(\App\Item $item)
     {
-        //
+        Storage::disk('public')->delete($item->image_path);
+        $item->delete();
+
+        return redirect('/items');
     }
 }
