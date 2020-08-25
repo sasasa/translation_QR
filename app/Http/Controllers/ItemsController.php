@@ -8,15 +8,6 @@ use Illuminate\Support\Facades\Storage;
 class ItemsController extends Controller
 {
 
-    public function items($lang)
-    {
-        return view('items.items', [
-            'items' => \App\Item::where('lang', 'like', $lang. '%')->orderBy('id', 'DESC')->get(),
-            'genres' => \App\Genre::where('lang', 'like', $lang. '%')->get(),
-            'lang' => $lang
-        ]);
-    }
-
     public function genre($lang, $genre)
     {
         $item_query = \App\Item::query();
@@ -27,8 +18,9 @@ class ItemsController extends Controller
 
         return view('items.items', [
             'items' => $item_query->orderBy('id', 'DESC')->get(),
-            'genres' => \App\Genre::where('lang', 'like', $lang. '%')->get(),
-            'lang' => $lang
+            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->get(),
+            'lang' => $lang,
+            'current_genre' => $genre,
         ]);
     }
 

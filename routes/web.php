@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('items', 'ItemsController');
     Route::resource('genres', 'GenresController');
+    Route::post('json/parents/{lang}', 'GenresController@parents');
 });
-Route::get('{lang}/items', 'ItemsController@items');
+
 Route::get('{lang}/{genre}/items', 'ItemsController@genre');
 
 Route::get('/', function () {

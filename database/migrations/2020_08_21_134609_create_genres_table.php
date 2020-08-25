@@ -21,6 +21,10 @@ class CreateGenresTable extends Migration
             $table->string('genre_name');
             // URLのkey
             $table->string('genre_key');
+            // 表示順(昇順)
+            $table->integer('genre_order');
+            // 親
+            $table->biginteger('parent_id')->nullable()->index();
 
             $table->timestamps();
         });

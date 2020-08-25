@@ -9,6 +9,8 @@
     <th>{{__('validation.attributes.genre_key')}}</th>
     <th>{{__('validation.attributes.lang')}}</th>
     <th>{{__('validation.attributes.genre_name')}}</th>
+    <th>{{__('validation.attributes.genre_order')}}</th>
+    <th>{{__('validation.attributes.parent_id')}}</th>
     <th></th>
     <th></th>
   </tr>
@@ -22,6 +24,12 @@
       </td>
       <td>
         {{ $genre->genre_name }}
+      </td>
+      <td>
+        {{ $genre->genre_order }}
+      </td>
+      <td>
+        {{ $genre->parent ? $genre->parent->genre_name.'【'.$genre->parent->lang_jp.'】' : '無し'}}
       </td>
       <td>
         <a href="/genres/{{$genre->id}}/edit" class="btn btn-sm btn-primary">編集する</a>

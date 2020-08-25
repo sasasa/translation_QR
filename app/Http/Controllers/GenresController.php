@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 class GenresController extends Controller
 {
 
+    public function parents($lang)
+    {
+        return response()->json([
+            'genres' => \App\Genre::optionsForSelectParentsByLang($lang)
+        ]);
+    }
+
     public function index()
     {
         return view('genres.index', [

@@ -156,7 +156,10 @@ return [
 
         'genre_name' => 'ジャンル',
         'genre_key' => 'ジャンルキー',
+        'genre_order' => '表示順(昇順)',
+        'parent_id' => '親',
         'genre_id' => 'ジャンル',
+        
 
         'upfile' => '画像'
     ],
