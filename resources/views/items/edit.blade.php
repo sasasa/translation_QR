@@ -76,7 +76,7 @@
 
   <div class="form-group">
     <label for="genre_id">{{__('validation.attributes.genre_id')}}:</label>
-    {{ Form::select('genre_id', \App\Genre::optionsForSelect(), old('genre_id', $item->genre_id), empty($errors->first('genre_id')) ? ['class'=>"form-control", 'id'=>'genre_id'] : ['class'=>"form-control is-invalid", 'id'=>'genre_id']) }}
+    {{ Form::select('genre_id', \App\Genre::optionsForSelectByLang($item->lang), old('genre_id', $item->genre_id), empty($errors->first('genre_id')) ? ['class'=>"form-control", 'id'=>'genre_id'] : ['class'=>"form-control is-invalid", 'id'=>'genre_id']) }}
     @error('genre_id')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>

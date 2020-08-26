@@ -16,6 +16,7 @@
 
                     <a href="/genres" class="btn btn-primary">ジャンル管理</a>
                     <a href="/items" class="btn btn-primary">メニューアイテム管理</a>
+                    <a href="/ja/food/items" class="btn btn-primary">メニュー確認</a>
                 </div>
             </div>
         </div>

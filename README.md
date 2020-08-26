@@ -36,7 +36,8 @@ composer require laravel/helpers
 php artisan make:model Genre -m
 php artisan make:seeder GenresTableSeeder
 php artisan db:seed --class=GenresTableSeeder
-
+php artisan make:seeder UsersTableSeeder
+php artisan db:seed --class=UsersTableSeeder
 
 php artisan migrate:refresh
 php artisan db:seed

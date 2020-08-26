@@ -10,7 +10,7 @@ class Genre extends Model
     use Translatable;
 
     public static $rules = [
-        'genre_key' => 'required|max:60',
+        'genre_key' => 'required|alpha_dash|max:60',
         'genre_name' => 'required|max:60',
         'lang' => 'required',
     ];
@@ -36,10 +36,10 @@ class Genre extends Model
         return $this->hasMany('App\Genre', 'parent_id')->orderBy('genre_order', 'ASC');
     }
 
-    public static function optionsForSelect()
+    public static function optionsForSelectByLang($lang)
     {
         $ret = [];
-        self::orderBy('genre_order', 'ASC')->each(function($genre) use(&$ret){
+        self::where('lang', $lang)->orderBy('genre_order', 'ASC')->each(function($genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
