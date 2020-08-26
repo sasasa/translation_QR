@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('{lang}/{genre}/items', 'ItemsController@genre');
+Route::get('{lang}/{genre}/json_items', 'ItemsController@json_items');
 
 Route::get('/', function () {
     return view('welcome');

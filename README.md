@@ -47,4 +47,8 @@ php artisan make:controller GenresController --resource
 
 
 composer require laravelcollective/html
+
+npm install
+npm run dev
+npm run watch
 `

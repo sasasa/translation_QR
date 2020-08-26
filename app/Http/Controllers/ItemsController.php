@@ -10,17 +10,23 @@ class ItemsController extends Controller
 
     public function genre($lang, $genre)
     {
+        return view('items.items', [
+            'lang' => $lang,
+            'current_genre' => $genre,
+        ]);
+    }
+
+    public function json_items($lang, $genre)
+    {
         $item_query = \App\Item::query();
         $item_query->where('lang', 'like', $lang. '%');
         $item_query->whereHas('genre', function($q) use($genre){
             $q->where('genre_key', $genre);
         });
 
-        return view('items.items', [
-            'items' => $item_query->orderBy('id', 'DESC')->get(),
-            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->get(),
-            'lang' => $lang,
-            'current_genre' => $genre,
+        return response()->json([
+            'items' => $item_query->orderBy('id', 'DESC')->with('genre')->get(),
+            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->with('children')->get(),
         ]);
     }
 
