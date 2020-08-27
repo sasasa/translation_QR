@@ -10,8 +10,8 @@
 
         <div v-for="genre in genres" v-bind:key="genre.id">
             <a v-bind:href="`/${lang}/${genre.genre_key}/items`">{{genre.genre_name}}</a>
-            <ul v-for="child_genre in genre.children" v-bind:key="child_genre.id">
-                <li>
+            <ul>
+                <li v-for="child_genre in genre.children" v-bind:key="child_genre.id">
                     <a v-bind:href="`/${lang}/${child_genre.genre_key}/items`">{{child_genre.genre_name}}</a>
                 </li>
             </ul>
@@ -36,10 +36,6 @@
                     <th>価格</th>
                     <td>{{item.item_price}}</td>
                 </tr>
-                <!-- <tr>
-                    <th>言語</th>
-                    <td>{{item.lang}}</td>
-                </tr> -->
                 <tr>
                     <th>説明</th>
                     <td>{{item.item_desc}}</td>
@@ -47,12 +43,24 @@
                 <tr>
                     <th>購入する</th>
                     <td>
-                        <span class="h1">＋</span>
-                        <span class="h1">－</span>
+                        <span v-on:click="plus(item)" class="h1 pointer">＋</span>
+                        <span v-on:click="minus(item)" class="h1 pointer">－</span>
+                        <span class="h1">{{item_number(item)}}</span>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="card">
+            <div class="card-header">ご注文金額</div>
+            <div class="card-body text-right">
+                {{total_items}}点 {{this.total_price}}円
+                <button 
+                    v-bind:disabled="orderDisabled"
+                    v-on:click="order"
+                    class="btn btn-primary">注文する
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -69,13 +77,62 @@
                 required: true,
             },
         },
+        computed: {
+            orderDisabled() {
+                return this.total_price == 0
+            },
+            total_items() {
+                return Object.keys(this.cart).reduce((accumulator, key) => {
+                    return accumulator + this.cart[key]
+                }, 0);
+            },
+            total_price() {
+                return Object.keys(this.cart).reduce((accumulator, key) => {
+                    let item = JSON.parse(key)
+                    return accumulator + (item.item_price * this.cart[key])
+                }, 0);
+            }
+        },
+        methods: {
+            item_number(item) {
+                let json_item = JSON.stringify(item)
+                return this.cart[json_item]
+            },
+            plus(item) {
+                let json_item = JSON.stringify(item)
+                if( this.cart[json_item] ) {
+                    Vue.set(this.cart, json_item, this.cart[json_item] + 1)
+                } else {
+                    Vue.set(this.cart, json_item, 1)
+                }
+                sessionStorage.setItem('cart', JSON.stringify(this.cart))
+            },
+            minus(item) {
+                this.cart = JSON.parse(sessionStorage.getItem('cart'));
+
+                let json_item = JSON.stringify(item)
+                if( this.cart[json_item] && this.cart[json_item] > 0 ) {
+                    Vue.set(this.cart, json_item, this.cart[json_item] - 1)
+                }
+                if (this.cart[json_item] == 0) {
+                    Vue.delete(this.cart, json_item);
+                }
+
+                sessionStorage.setItem('cart', JSON.stringify(this.cart))
+            },
+            order() {
+                this.$router.push({ name: 'order-component' })
+            },
+        },
         data() {
             return {
                 items: [],
                 genres: [],
+                cart: {},
             }
         },
         mounted() {
+            this.cart = JSON.parse(sessionStorage.getItem('cart'));
             axios
                 .get(`/${this.lang}/${this.current_genre}/json_items`)
                 .then((response) => {
@@ -87,3 +144,13 @@
         }
     }
 </script>
+
+<style scoped>
+.card {
+    position: sticky;
+    bottom:0px;
+}
+.pointer {
+    cursor: pointer;
+}
+</style>

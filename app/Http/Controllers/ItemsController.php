@@ -19,6 +19,7 @@ class ItemsController extends Controller
     public function json_items($lang, $genre)
     {
         $item_query = \App\Item::query();
+        $item_query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc']);
         $item_query->where('lang', 'like', $lang. '%');
         $item_query->whereHas('genre', function($q) use($genre){
             $q->where('genre_key', $genre);

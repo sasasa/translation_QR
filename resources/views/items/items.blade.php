@@ -5,10 +5,10 @@
 @section('content')
 
 <div id="app">
-  <menu-component
+  <router-view
     current_genre="{{$current_genre}}"
     lang="{{$lang}}"
-  ></menu-component>
+  />
 </div>
 
 @endsection
