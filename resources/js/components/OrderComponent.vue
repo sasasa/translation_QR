@@ -40,7 +40,7 @@
                     <button 
                         v-bind:disabled="orderDisabled"
                         v-on:click="order"
-                        class="btn btn-primary">注文する
+                        class="btn btn-danger">注文を確定する
                     </button>
                     <button 
                         v-on:click="back"
@@ -68,14 +68,11 @@
 <script>
     export default {
         name: 'order-component',
-
-        data() {
-            return {
-                cart: {},
-                before_order: true
-            }
-        },
         props: {
+            seat_hash: {
+                type: String,
+                required: true,
+            },
             current_genre: {
                 type: String,
                 required: true,
@@ -84,6 +81,12 @@
                 type: String,
                 required: true,
             },
+        },
+        data() {
+            return {
+                cart: {},
+                before_order: true
+            }
         },
         methods: {
             item_number(item) {

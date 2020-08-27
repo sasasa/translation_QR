@@ -1,18 +1,18 @@
 <template>
     <div>
         <div>
-            <a v-bind:href="`/ja/${current_genre}/items`">日本語</a>
-            <a v-bind:href="`/en/${current_genre}/items`">English</a>
-            <a v-bind:href="`/zh/${current_genre}/items`">中文</a>
-            <a v-bind:href="`/ko/${current_genre}/items`">한글</a>
+            <a v-bind:href="`/${seat_hash}/ja/${current_genre}/items`">日本語</a>
+            <a v-bind:href="`/${seat_hash}/en/${current_genre}/items`">English</a>
+            <a v-bind:href="`/${seat_hash}/zh/${current_genre}/items`">中文</a>
+            <a v-bind:href="`/${seat_hash}/ko/${current_genre}/items`">한글</a>
         </div>
 
 
         <div v-for="genre in genres" v-bind:key="genre.id">
-            <a v-bind:href="`/${lang}/${genre.genre_key}/items`">{{genre.genre_name}}</a>
+            <a v-bind:href="`/${seat_hash}/${lang}/${genre.genre_key}/items`">{{genre.genre_name}}</a>
             <ul>
                 <li v-for="child_genre in genre.children" v-bind:key="child_genre.id">
-                    <a v-bind:href="`/${lang}/${child_genre.genre_key}/items`">{{child_genre.genre_name}}</a>
+                    <a v-bind:href="`/${seat_hash}/${lang}/${child_genre.genre_key}/items`">{{child_genre.genre_name}}</a>
                 </li>
             </ul>
         </div>
@@ -57,7 +57,7 @@
                 <button 
                     v-bind:disabled="orderDisabled"
                     v-on:click="order"
-                    class="btn btn-primary">注文する
+                    class="btn btn-primary">次に進む
                 </button>
             </div>
         </div>
@@ -68,6 +68,10 @@
     export default {
         name: 'menu-component',
         props: {
+            seat_hash: {
+                type: String,
+                required: true,
+            },
             current_genre: {
                 type: String,
                 required: true,
@@ -76,6 +80,13 @@
                 type: String,
                 required: true,
             },
+        },
+        data() {
+            return {
+                items: [],
+                genres: [],
+                cart: {},
+            }
         },
         computed: {
             orderDisabled() {
@@ -124,23 +135,19 @@
                 this.$router.push({ name: 'order-component' })
             },
         },
-        data() {
-            return {
-                items: [],
-                genres: [],
-                cart: {},
-            }
-        },
         mounted() {
-            this.cart = JSON.parse(sessionStorage.getItem('cart'));
             axios
-                .get(`/${this.lang}/${this.current_genre}/json_items`)
+                .get(`/${this.seat_hash}/${this.lang}/${this.current_genre}/json_items`)
                 .then((response) => {
                     this.items = response.data.items
                     this.genres = response.data.genres
                     // alert(JSON.stringify(response))
                 })
-            
+                .catch((error) => {
+                    // handle error
+                    console.log(error);
+                })
+            // this.cart = JSON.parse(sessionStorage.getItem('cart'));
         }
     }
 </script>

@@ -8,6 +8,7 @@
   <router-view
     current_genre="{{$current_genre}}"
     lang="{{$lang}}"
+    seat_hash="{{$seat_hash}}"
   />
 </div>
 

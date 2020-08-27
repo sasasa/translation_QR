@@ -8,16 +8,25 @@ use Illuminate\Support\Facades\Storage;
 class ItemsController extends Controller
 {
 
-    public function genre($lang, $genre)
+    public function genre($seat_hash, $lang, $genre)
     {
-        return view('items.items', [
-            'lang' => $lang,
-            'current_genre' => $genre,
-        ]);
+        if (\App\Seat::where('seat_hash', $seat_hash)->first())
+        {
+            return view('items.items', [
+                'lang' => $lang,
+                'current_genre' => $genre,
+                'seat_hash' => $seat_hash
+            ]);
+        }
     }
 
-    public function json_items($lang, $genre)
+    public function json_items($seat_hash, $lang, $genre)
     {
+        if (!\App\Seat::where('seat_hash', $seat_hash)->first())
+        {
+            return false;
+        }
+        
         $item_query = \App\Item::query();
         $item_query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc']);
         $item_query->where('lang', 'like', $lang. '%');
@@ -26,7 +35,7 @@ class ItemsController extends Controller
         });
 
         return response()->json([
-            'items' => $item_query->orderBy('id', 'DESC')->with('genre')->get(),
+            'items' => $item_query->orderBy('id', 'DESC')->get(),
             'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->with('children')->get(),
         ]);
     }

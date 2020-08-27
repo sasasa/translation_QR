@@ -1977,6 +1977,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu-component',
   props: {
+    seat_hash: {
+      type: String,
+      required: true
+    },
     current_genre: {
       type: String,
       required: true
@@ -1985,6 +1989,13 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     }
+  },
+  data: function data() {
+    return {
+      items: [],
+      genres: [],
+      cart: {}
+    };
   },
   computed: {
     orderDisabled: function orderDisabled() {
@@ -2042,21 +2053,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  data: function data() {
-    return {
-      items: [],
-      genres: [],
-      cart: {}
-    };
-  },
   mounted: function mounted() {
     var _this3 = this;
 
-    this.cart = JSON.parse(sessionStorage.getItem('cart'));
-    axios.get("/".concat(this.lang, "/").concat(this.current_genre, "/json_items")).then(function (response) {
+    axios.get("/".concat(this.seat_hash, "/").concat(this.lang, "/").concat(this.current_genre, "/json_items")).then(function (response) {
       _this3.items = response.data.items;
       _this3.genres = response.data.genres; // alert(JSON.stringify(response))
-    });
+    })["catch"](function (error) {
+      // handle error
+      console.log(error);
+    }); // this.cart = JSON.parse(sessionStorage.getItem('cart'));
   }
 });
 
@@ -2140,13 +2146,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'order-component',
-  data: function data() {
-    return {
-      cart: {},
-      before_order: true
-    };
-  },
   props: {
+    seat_hash: {
+      type: String,
+      required: true
+    },
     current_genre: {
       type: String,
       required: true
@@ -2155,6 +2159,12 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     }
+  },
+  data: function data() {
+    return {
+      cart: {},
+      before_order: true
+    };
   },
   methods: {
     item_number: function item_number(item) {
@@ -38519,21 +38529,45 @@ var render = function() {
     "div",
     [
       _c("div", [
-        _c("a", { attrs: { href: "/ja/" + _vm.current_genre + "/items" } }, [
-          _vm._v("日本語")
-        ]),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "/" + _vm.seat_hash + "/ja/" + _vm.current_genre + "/items"
+            }
+          },
+          [_vm._v("日本語")]
+        ),
         _vm._v(" "),
-        _c("a", { attrs: { href: "/en/" + _vm.current_genre + "/items" } }, [
-          _vm._v("English")
-        ]),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "/" + _vm.seat_hash + "/en/" + _vm.current_genre + "/items"
+            }
+          },
+          [_vm._v("English")]
+        ),
         _vm._v(" "),
-        _c("a", { attrs: { href: "/zh/" + _vm.current_genre + "/items" } }, [
-          _vm._v("中文")
-        ]),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "/" + _vm.seat_hash + "/zh/" + _vm.current_genre + "/items"
+            }
+          },
+          [_vm._v("中文")]
+        ),
         _vm._v(" "),
-        _c("a", { attrs: { href: "/ko/" + _vm.current_genre + "/items" } }, [
-          _vm._v("한글")
-        ])
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "/" + _vm.seat_hash + "/ko/" + _vm.current_genre + "/items"
+            }
+          },
+          [_vm._v("한글")]
+        )
       ]),
       _vm._v(" "),
       _vm._l(_vm.genres, function(genre) {
@@ -38541,7 +38575,16 @@ var render = function() {
           _c(
             "a",
             {
-              attrs: { href: "/" + _vm.lang + "/" + genre.genre_key + "/items" }
+              attrs: {
+                href:
+                  "/" +
+                  _vm.seat_hash +
+                  "/" +
+                  _vm.lang +
+                  "/" +
+                  genre.genre_key +
+                  "/items"
+              }
             },
             [_vm._v(_vm._s(genre.genre_name))]
           ),
@@ -38555,7 +38598,13 @@ var render = function() {
                   {
                     attrs: {
                       href:
-                        "/" + _vm.lang + "/" + child_genre.genre_key + "/items"
+                        "/" +
+                        _vm.seat_hash +
+                        "/" +
+                        _vm.lang +
+                        "/" +
+                        child_genre.genre_key +
+                        "/items"
                     }
                   },
                   [_vm._v(_vm._s(child_genre.genre_name))]
@@ -38656,7 +38705,7 @@ var render = function() {
               attrs: { disabled: _vm.orderDisabled },
               on: { click: _vm.order }
             },
-            [_vm._v("注文する\n            ")]
+            [_vm._v("次に進む\n            ")]
           )
         ])
       ])
@@ -38774,11 +38823,11 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary",
+                  staticClass: "btn btn-danger",
                   attrs: { disabled: _vm.orderDisabled },
                   on: { click: _vm.order }
                 },
-                [_vm._v("注文する\n                ")]
+                [_vm._v("注文を確定する\n                ")]
               ),
               _vm._v(" "),
               _c(
