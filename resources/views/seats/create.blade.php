@@ -14,6 +14,16 @@
     </span>
     @enderror
   </div>
+
+  <div class="form-group">
+    <label for="how_many">{{__('validation.attributes.how_many')}}:</label>
+    <input value="{{old('how_many')}}" type="number" id="how_many" class="form-control @error('how_many') is-invalid @enderror" name="how_many">
+    @error('how_many')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+  </div>
   
   <button type="submit" class="btn btn-primary">登録</button>
 </form>

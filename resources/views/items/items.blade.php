@@ -9,6 +9,7 @@
     current_genre="{{$current_genre}}"
     lang="{{$lang}}"
     seat_hash="{{$seat_hash}}"
+    session_key="{{$session_key}}"
   />
 </div>
 

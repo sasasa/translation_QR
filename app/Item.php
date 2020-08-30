@@ -49,4 +49,15 @@ class Item extends Model
     {
         return $this->belongsTo('App\Genre');
     }
+
+    public static function allForlangAndGenre($lang, $genre)
+    {
+        $item_query = self::query();
+        $item_query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc']);
+        $item_query->where('lang', 'like', $lang. '%');
+        $item_query->whereHas('genre', function($q) use($genre){
+            $q->where('genre_key', $genre);
+        });
+        return $item_query->orderBy('id', 'DESC');
+    }
 }

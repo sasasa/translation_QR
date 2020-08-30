@@ -11,6 +11,10 @@
     <td><a href="/seats/{{$seat->id}}/edit">{{$seat->seat_name}}</a></td>
   </tr>
   <tr>
+    <th>{{__('validation.attributes.how_many')}}</th>
+    <td>{{$seat->how_many}}</td>
+  </tr>
+  <tr>
     <th>{{__('validation.attributes.seat_state')}}</th>
     <td>{{$seat->state_jp}}</td>
   </tr>

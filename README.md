@@ -61,6 +61,11 @@ php artisan make:seeder SeatsTableSeeder
 php artisan db:seed --class=SeatsTableSeeder
 php artisan make:controller SeatsController --resource
 
+php artisan make:model SeatSession -m
+php artisan make:seeder SeatSessionsTableSeeder
+php artisan db:seed --class=SeatSessionsTableSeeder
+
+
 php artisan make:model Order -m
 php artisan make:seeder OrdersTableSeeder
 php artisan db:seed --class=OrdersTableSeeder

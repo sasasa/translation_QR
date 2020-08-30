@@ -163,6 +163,7 @@ return [
         'seat_name' => '座席名',
         'seat_state' => '座席の状態',
         'seat_hash' => '座席のハッシュ',
+        'how_many' => '座席数',
         'qr_code' => 'QRコード',
 
         'upfile' => '画像'

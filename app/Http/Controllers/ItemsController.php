@@ -10,32 +10,34 @@ class ItemsController extends Controller
 
     public function genre($seat_hash, $lang, $genre)
     {
-        if (\App\Seat::where('seat_hash', $seat_hash)->first())
+        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
+        if (!$seat)
         {
-            return view('items.items', [
-                'lang' => $lang,
-                'current_genre' => $genre,
-                'seat_hash' => $seat_hash
-            ]);
+            return false;
         }
+
+        return view('items.items', [
+            'lang' => $lang,
+            'current_genre' => $genre,
+            'seat_hash' => $seat_hash,
+            'session_key' => $seat->createSession(),
+        ]);
     }
 
-    public function json_items($seat_hash, $lang, $genre)
+    public function json_items(Request $req, $seat_hash, $lang, $genre)
     {
-        if (!\App\Seat::where('seat_hash', $seat_hash)->first())
+        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
+        if (!$seat)
+        {
+            return false;
+        }
+        if ($seat->seatSession->session_key != $req->session_key)
         {
             return false;
         }
         
-        $item_query = \App\Item::query();
-        $item_query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc']);
-        $item_query->where('lang', 'like', $lang. '%');
-        $item_query->whereHas('genre', function($q) use($genre){
-            $q->where('genre_key', $genre);
-        });
-
         return response()->json([
-            'items' => $item_query->orderBy('id', 'DESC')->get(),
+            'items' => \App\Item::allForlangAndGenre($lang, $genre)->get(),
             'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->with('children')->get(),
         ]);
     }

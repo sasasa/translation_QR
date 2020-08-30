@@ -17,14 +17,23 @@ class Seat extends Model
     
     protected $fillable = [
         'seat_name',
+        'how_many',
     ];
     // 席の状態
     public static $seat_states = [
-        'empty' => '清算が終わり、席に誰も着いていない',
-        'presence' => '席に着いて注文中',
-        'waiting' => '出ていない料理が一つでもある',
-        'all_out' => '料理が全て出ている',
+        'empty' => '空き',
+        'presence' => '使用中',
     ];
+
+    public function seatSessions()
+    {
+        return $this->hasMany('App\SeatSession');
+    }
+    public function seatSession()
+    {
+        // return $this->seatSessions()->orderBy('id', 'DESC')->first();
+        return $this->hasOne('App\SeatSession')->orderBy('id', 'DESC');
+    }
 
     public function getstateJpAttribute()
     {
@@ -39,5 +48,22 @@ class Seat extends Model
     public function set_hash()
     {
         $this->seat_hash = hash('sha256', Uuid::uuid4());
+    }
+
+    public function createSession()
+    {
+        // 'in_use' => '利用中',
+        // 'end_of_use' => '利用終了',
+        if( $this->seatSession && $this->seatSession->session_state == "in_use" ) {
+            // セッションはすでに開始されている
+            return $this->seatSession->session_key;
+        } else {
+            $session = new \App\SeatSession();
+            $session->session_state = "in_use";
+            $session->seat_id = $this->id;
+            $session->set_hash();
+            $session->save();
+            return $session->session_key;
+        }
     }
 }

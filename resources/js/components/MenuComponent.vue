@@ -21,27 +21,23 @@
         <table class="table">
             <tbody v-for="item in items" v-bind:key="item.id">
                 <tr>
-                    <th>画像</th>
+                    <th>{{$t("message.image_path")}}</th>
                     <td><img v-bind:src="`/storage/${item.image_path}`"></td>
                 </tr>
-                <!-- <tr>
-                    <th>商品キー</th>
-                    <td>{{item.item_key}}</td>
-                </tr> -->
                 <tr>
-                    <th>商品名</th>
+                    <th>{{$t("message.item_name")}}</th>
                     <td>{{item.item_name}}</td>
                 </tr>
                 <tr>
-                    <th>価格</th>
+                    <th>{{$t("message.item_price")}}</th>
                     <td>{{item.item_price}}</td>
                 </tr>
                 <tr>
-                    <th>説明</th>
+                    <th>{{$t("message.item_desc")}}</th>
                     <td>{{item.item_desc}}</td>
                 </tr>
                 <tr>
-                    <th>購入する</th>
+                    <th>{{$t("message.add_to_cart")}}</th>
                     <td>
                         <span v-on:click="plus(item)" class="h1 pointer">＋</span>
                         <span v-on:click="minus(item)" class="h1 pointer">－</span>
@@ -51,13 +47,13 @@
             </tbody>
         </table>
         <div class="card">
-            <div class="card-header">ご注文金額</div>
+            <div class="card-header">{{$t("message.order_amount")}}</div>
             <div class="card-body text-right">
                 {{total_items}}点 {{this.total_price}}円
                 <button 
                     v-bind:disabled="orderDisabled"
                     v-on:click="order"
-                    class="btn btn-primary">次に進む
+                    class="btn btn-primary">{{$t("message.view_cart")}}
                 </button>
             </div>
         </div>
@@ -68,6 +64,10 @@
     export default {
         name: 'menu-component',
         props: {
+            session_key: {
+                type: String,
+                required: true,
+            }, 
             seat_hash: {
                 type: String,
                 required: true,
@@ -136,8 +136,11 @@
             },
         },
         mounted() {
+            let data = {
+                session_key: this.session_key
+            }
             axios
-                .get(`/${this.seat_hash}/${this.lang}/${this.current_genre}/json_items`)
+                .post(`/${this.seat_hash}/${this.lang}/${this.current_genre}/json_items`, data)
                 .then((response) => {
                     this.items = response.data.items
                     this.genres = response.data.genres
@@ -147,7 +150,11 @@
                     // handle error
                     console.log(error);
                 })
-            // this.cart = JSON.parse(sessionStorage.getItem('cart'));
+            let c = sessionStorage.getItem('cart')
+            if(c) {
+                this.cart = JSON.parse(c);
+            }
+            this.$i18n.locale = this.lang
         }
     }
 </script>

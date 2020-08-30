@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('items', 'ItemsController');
     Route::resource('genres', 'GenresController');
     Route::post('json/parents/{lang}', 'GenresController@json_parents');
@@ -25,16 +25,16 @@ Route::group(['middleware' => ['auth']], function () {
     
 });
 
-Route::get('{seat_hash}/{lang}/{genre}/json_items', 'ItemsController@json_items');
+Route::post('{seat_hash}/{lang}/{genre}/json_items', 'ItemsController@json_items');
 Route::get('{seat_hash}/{lang}/{genre}/items', 'ItemsController@genre');
 
-// Route::post('orders', 'OrdersController@store');
+Route::post('orders', 'OrdersController@store');
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
