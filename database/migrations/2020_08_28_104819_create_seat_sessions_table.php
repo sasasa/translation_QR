@@ -20,7 +20,8 @@ class CreateSeatSessionsTable extends Migration
             // セッションキー
             $table->string('session_key');
             // ステータス（in_use 利用中, end_of_use 利用終了）
-            $table->string('session_state');
+            // $table->string('session_state');
+            $table->enum('session_state', ['in_use', 'end_of_use'])->default('in_use');
             
             $table->timestamps();
         });

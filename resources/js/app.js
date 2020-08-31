@@ -45,6 +45,12 @@ const messages = {
             order_confirmation: 'Order confirmation',
             return_to_menu: 'Return to menu',
             order_completed: 'Order completed',
+
+            may_i_remove_it_from_your_cart: 'May I remove it from your cart?',
+            error: "Error, please call a representative.",
+            no_tax: 'Taxes not included.',
+            tax: 'including tax',
+            pay: 'Pay',
         },
     },
     ja: {
@@ -60,6 +66,12 @@ const messages = {
             order_confirmation: '注文を確定する',
             return_to_menu: 'メニューに戻る',
             order_completed: '注文が完了しました',
+
+            may_i_remove_it_from_your_cart: 'カートから削除してもよろしいですか？',
+            error: "エラー、恐れ入りますが係員を呼んでください。",
+            no_tax: '税を含まない',
+            tax: '税を含む',
+            pay: 'お会計',
         },
     },
     ko: {
@@ -75,6 +87,12 @@ const messages = {
             order_confirmation: '주문을 확정하는',
             return_to_menu: '메뉴로 돌아 가기',
             order_completed: '주문이 완료되었습니다',
+
+            may_i_remove_it_from_your_cart: '장바구니에서 삭제 하시겠습니까?',
+            error: "오류입니다. 담당자에게 문의하십시오.",
+            no_tax: '세금을 포함하지 않는',
+            tax: '세금을 포함',
+            pay: '결제하기',
         },
     },
     zh: {
@@ -90,6 +108,12 @@ const messages = {
             order_confirmation: '确认订单',
             return_to_menu: '返回菜单',
             order_completed: '订单完成',
+
+            may_i_remove_it_from_your_cart: '您确定要从购物车中删除它吗？',
+            error: "错误，请致电代表。",
+            no_tax: '不含税',
+            tax: '所含税款',
+            pay: '支付',
         },
     },
 }

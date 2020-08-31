@@ -31,7 +31,8 @@ class ItemsController extends Controller
         {
             return false;
         }
-        if ($seat->seatSession->session_key != $req->session_key)
+        $seatSession = $seat->seatSession;
+        if ($seatSession->session_key != $req->session_key)
         {
             return false;
         }
@@ -39,6 +40,8 @@ class ItemsController extends Controller
         return response()->json([
             'items' => \App\Item::allForlangAndGenre($lang, $genre)->get(),
             'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->with('children')->get(),
+
+            'ordered_orders' => $seatSession->orders,
         ]);
     }
 

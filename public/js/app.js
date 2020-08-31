@@ -1970,6 +1970,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu-component',
   props: {
@@ -1994,30 +2005,45 @@ __webpack_require__.r(__webpack_exports__);
     return {
       items: [],
       genres: [],
-      cart: {}
+      cart: {},
+      ordered_orders: []
     };
   },
   computed: {
     orderDisabled: function orderDisabled() {
       return this.total_price == 0;
     },
-    total_items: function total_items() {
+    payDisabled: function payDisabled() {
+      return this.all_itmes == 0;
+    },
+    all_itmes: function all_itmes() {
+      return this.ordered_orders.length;
+    },
+    all_price: function all_price() {
       var _this = this;
 
-      return Object.keys(this.cart).reduce(function (accumulator, key) {
-        return accumulator + _this.cart[key];
+      return Object.keys(this.ordered_orders).reduce(function (accumulator, idx) {
+        return accumulator + _this.ordered_orders[idx].tax_included_price;
       }, 0);
     },
-    total_price: function total_price() {
+    total_items: function total_items() {
       var _this2 = this;
 
       return Object.keys(this.cart).reduce(function (accumulator, key) {
+        return accumulator + _this2.cart[key];
+      }, 0);
+    },
+    total_price: function total_price() {
+      var _this3 = this;
+
+      return Object.keys(this.cart).reduce(function (accumulator, key) {
         var item = JSON.parse(key);
-        return accumulator + item.item_price * _this2.cart[key];
+        return accumulator + item.item_price * _this3.cart[key];
       }, 0);
     }
   },
   methods: {
+    pay: function pay() {},
     item_number: function item_number(item) {
       var json_item = JSON.stringify(item);
       return this.cart[json_item];
@@ -2054,14 +2080,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this4 = this;
 
     var data = {
       session_key: this.session_key
     };
     axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/").concat(this.current_genre, "/json_items"), data).then(function (response) {
-      _this3.items = response.data.items;
-      _this3.genres = response.data.genres; // alert(JSON.stringify(response))
+      _this4.items = response.data.items;
+      _this4.genres = response.data.genres;
+      _this4.ordered_orders = response.data.ordered_orders; // alert(JSON.stringify(response))
     })["catch"](function (error) {
       // handle error
       console.log(error);
@@ -2150,6 +2177,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'order-component',
   props: {
@@ -2173,7 +2218,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       cart: {},
-      before_order: true
+      before_order: true,
+      messages: {},
+      ordered_orders: []
     };
   },
   methods: {
@@ -2196,7 +2243,9 @@ __webpack_require__.r(__webpack_exports__);
       this.cart = JSON.parse(sessionStorage.getItem('cart'));
       var json_item = JSON.stringify(item);
 
-      if (this.cart[json_item] && this.cart[json_item] > 0) {
+      if (this.cart[json_item] && this.cart[json_item] > 1) {
+        Vue.set(this.cart, json_item, this.cart[json_item] - 1);
+      } else if (this.cart[json_item] && this.cart[json_item] == 1 && confirm(this.$t("message.may_i_remove_it_from_your_cart"))) {
         Vue.set(this.cart, json_item, this.cart[json_item] - 1);
       }
 
@@ -2213,21 +2262,49 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var data = {
-        cart: this.cart,
-        lang: this.lang
+        cart: this.orderCart,
+        lang: this.lang,
+        session_key: this.session_key,
+        seat_hash: this.seat_hash,
+        is_take_out: false
       };
       axios.post("/orders", data).then(function (response) {
         _this.before_order = false;
-        _this.message = '';
+        _this.messages = response.data.messages;
+        _this.ordered_orders = response.data.ordered_orders;
+        sessionStorage.clear();
       })["catch"](function (error) {
         // handle error
         console.log(error);
         _this.before_order = false;
-        _this.message = 'Error';
+        _this.message = _this.$t('message.error');
       });
     }
   },
   computed: {
+    payDisabled: function payDisabled() {
+      return this.all_itmes == 0;
+    },
+    all_itmes: function all_itmes() {
+      return this.ordered_orders.length;
+    },
+    all_price: function all_price() {
+      var _this2 = this;
+
+      return Object.keys(this.ordered_orders).reduce(function (accumulator, idx) {
+        return accumulator + _this2.ordered_orders[idx].tax_included_price;
+      }, 0);
+    },
+    orderCart: function orderCart() {
+      var _this3 = this;
+
+      return Object.keys(this.cart).map(function (key) {
+        var obj = {};
+        var objKey = JSON.parse(key);
+        obj[objKey.id] = _this3.cart[key];
+        return obj;
+      });
+    },
     items: function items() {
       return Object.keys(this.cart).map(function (key) {
         return JSON.parse(key);
@@ -2237,18 +2314,18 @@ __webpack_require__.r(__webpack_exports__);
       return this.total_price == 0;
     },
     total_items: function total_items() {
-      var _this2 = this;
+      var _this4 = this;
 
       return Object.keys(this.cart).reduce(function (accumulator, key) {
-        return accumulator + _this2.cart[key];
+        return accumulator + _this4.cart[key];
       }, 0);
     },
     total_price: function total_price() {
-      var _this3 = this;
+      var _this5 = this;
 
       return Object.keys(this.cart).reduce(function (accumulator, key) {
         var item = JSON.parse(key);
-        return accumulator + item.item_price * _this3.cart[key];
+        return accumulator + item.item_price * _this5.cart[key];
       }, 0);
     }
   },
@@ -40871,22 +40948,53 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body text-right" }, [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.total_items) +
-              "点 " +
-              _vm._s(this.total_price) +
-              "円\n            "
-          ),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { disabled: _vm.orderDisabled },
-              on: { click: _vm.order }
-            },
-            [_vm._v(_vm._s(_vm.$t("message.view_cart")) + "\n            ")]
-          )
+          _c("div", [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.total_items) +
+                "点 " +
+                _vm._s(_vm.total_price) +
+                "円(" +
+                _vm._s(_vm.$t("message.no_tax")) +
+                ")\n                "
+            ),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { disabled: _vm.orderDisabled },
+                on: { click: _vm.order }
+              },
+              [
+                _vm._v(
+                  _vm._s(_vm.$t("message.view_cart")) + "\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-3" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.all_itmes) +
+                "点" +
+                _vm._s(_vm.all_price) +
+                "円(" +
+                _vm._s(_vm.$t("message.tax")) +
+                ")\n                "
+            ),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { disabled: _vm.payDisabled },
+                on: { click: _vm.pay }
+              },
+              [_vm._v(_vm._s(_vm.$t("message.pay")) + "\n                ")]
+            )
+          ])
         ])
       ])
     ],
@@ -41000,7 +41108,9 @@ var render = function() {
                   _vm._s(_vm.total_items) +
                   "点 " +
                   _vm._s(this.total_price) +
-                  "円\n                "
+                  "円(" +
+                  _vm._s(_vm.$t("message.no_tax")) +
+                  ")\n                "
               ),
               _c(
                 "button",
@@ -41037,21 +41147,70 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body text-right" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.message) +
-                  "\n                "
-              ),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", on: { click: _vm.back } },
-                [
+              _c("div", [
+                _c("div", { staticClass: "text-left" }, [
                   _vm._v(
-                    _vm._s(_vm.$t("message.return_to_menu")) +
-                      "\n                "
+                    "\n                        (" +
+                      _vm._s(_vm.$t("message.tax")) +
+                      ")\n                    "
                   )
-                ]
-              )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  { staticClass: "text-left" },
+                  _vm._l(_vm.messages, function(value, key) {
+                    return _c("li", { key: key }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(key) +
+                          "------------" +
+                          _vm._s(value) +
+                          "円\n                        "
+                      )
+                    ])
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", on: { click: _vm.back } },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.$t("message.return_to_menu")) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-3" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.all_itmes) +
+                    "点" +
+                    _vm._s(_vm.all_price) +
+                    "円(" +
+                    _vm._s(_vm.$t("message.tax")) +
+                    ")\n                    "
+                ),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { disabled: _vm.payDisabled },
+                    on: { click: _vm.pay }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.$t("message.pay")) + "\n                    "
+                    )
+                  ]
+                )
+              ])
             ])
           ])
         ])
@@ -56344,7 +56503,12 @@ var messages = {
       view_cart: 'View cart',
       order_confirmation: 'Order confirmation',
       return_to_menu: 'Return to menu',
-      order_completed: 'Order completed'
+      order_completed: 'Order completed',
+      may_i_remove_it_from_your_cart: 'May I remove it from your cart?',
+      error: "Error, please call a representative.",
+      no_tax: 'Taxes not included.',
+      tax: 'including tax',
+      pay: 'Pay'
     }
   },
   ja: {
@@ -56358,7 +56522,12 @@ var messages = {
       view_cart: 'カートを見る',
       order_confirmation: '注文を確定する',
       return_to_menu: 'メニューに戻る',
-      order_completed: '注文が完了しました'
+      order_completed: '注文が完了しました',
+      may_i_remove_it_from_your_cart: 'カートから削除してもよろしいですか？',
+      error: "エラー、恐れ入りますが係員を呼んでください。",
+      no_tax: '税を含まない',
+      tax: '税を含む',
+      pay: 'お会計'
     }
   },
   ko: {
@@ -56372,7 +56541,12 @@ var messages = {
       view_cart: '장바구니',
       order_confirmation: '주문을 확정하는',
       return_to_menu: '메뉴로 돌아 가기',
-      order_completed: '주문이 완료되었습니다'
+      order_completed: '주문이 완료되었습니다',
+      may_i_remove_it_from_your_cart: '장바구니에서 삭제 하시겠습니까?',
+      error: "오류입니다. 담당자에게 문의하십시오.",
+      no_tax: '세금을 포함하지 않는',
+      tax: '세금을 포함',
+      pay: '결제하기'
     }
   },
   zh: {
@@ -56386,7 +56560,12 @@ var messages = {
       view_cart: '查看购物车',
       order_confirmation: '确认订单',
       return_to_menu: '返回菜单',
-      order_completed: '订单完成'
+      order_completed: '订单完成',
+      may_i_remove_it_from_your_cart: '您确定要从购物车中删除它吗？',
+      error: "错误，请致电代表。",
+      no_tax: '不含税',
+      tax: '所含税款',
+      pay: '支付'
     }
   }
 };

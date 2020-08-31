@@ -49,6 +49,10 @@ class Item extends Model
     {
         return $this->belongsTo('App\Genre');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 
     public static function allForlangAndGenre($lang, $genre)
     {

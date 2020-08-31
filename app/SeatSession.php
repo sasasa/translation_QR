@@ -21,6 +21,10 @@ class SeatSession extends Model
     {
         return $this->belongsTo('App\Seat');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 
     public function getstateJpAttribute()
     {

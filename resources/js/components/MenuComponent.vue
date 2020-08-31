@@ -49,12 +49,23 @@
         <div class="card">
             <div class="card-header">{{$t("message.order_amount")}}</div>
             <div class="card-body text-right">
-                {{total_items}}点 {{this.total_price}}円
-                <button 
-                    v-bind:disabled="orderDisabled"
-                    v-on:click="order"
-                    class="btn btn-primary">{{$t("message.view_cart")}}
-                </button>
+                <div>
+                    {{total_items}}点 {{total_price}}円({{$t('message.no_tax')}})
+                    <button 
+                        v-bind:disabled="orderDisabled"
+                        v-on:click="order"
+                        class="btn btn-primary">{{$t("message.view_cart")}}
+                    </button>
+                </div>
+                <hr>
+                <div class="mt-3">
+                    {{all_itmes}}点{{all_price}}円({{$t('message.tax')}})
+                    <button 
+                        v-bind:disabled="payDisabled"
+                        v-on:click="pay"
+                        class="btn btn-primary">{{$t("message.pay")}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -86,11 +97,23 @@
                 items: [],
                 genres: [],
                 cart: {},
+                ordered_orders: [],
             }
         },
         computed: {
             orderDisabled() {
                 return this.total_price == 0
+            },
+            payDisabled() {
+                return this.all_itmes == 0
+            },
+            all_itmes() {
+                return this.ordered_orders.length
+            },
+            all_price() {
+                return Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
+                    return accumulator + this.ordered_orders[idx].tax_included_price
+                }, 0);
             },
             total_items() {
                 return Object.keys(this.cart).reduce((accumulator, key) => {
@@ -105,6 +128,9 @@
             }
         },
         methods: {
+            pay() {
+
+            },
             item_number(item) {
                 let json_item = JSON.stringify(item)
                 return this.cart[json_item]
@@ -144,6 +170,7 @@
                 .then((response) => {
                     this.items = response.data.items
                     this.genres = response.data.genres
+                    this.ordered_orders = response.data.ordered_orders
                     // alert(JSON.stringify(response))
                 })
                 .catch((error) => {

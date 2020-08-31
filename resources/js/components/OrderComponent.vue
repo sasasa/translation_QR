@@ -32,7 +32,7 @@
             <div class="card">
                 <div class="card-header">{{$t("message.order_amount")}}</div>
                 <div class="card-body text-right">
-                    {{total_items}}点 {{this.total_price}}円
+                    {{total_items}}点 {{this.total_price}}円({{$t('message.no_tax')}})
                     <button 
                         v-bind:disabled="orderDisabled"
                         v-on:click="order"
@@ -50,11 +50,29 @@
             <div class="card">
                 <div class="card-header">{{$t("message.order_completed")}}</div>
                 <div class="card-body text-right">
-                    {{message}}
-                    <button 
-                        v-on:click="back"
-                        class="btn btn-primary">{{$t("message.return_to_menu")}}
-                    </button>
+                    <div>
+                        <div class="text-left">
+                            ({{$t('message.tax')}})
+                        </div>
+                        <ul class="text-left">
+                            <li v-for="(value, key) in messages" v-bind:key="key">
+                                {{key}}------------{{value}}円
+                            </li>
+                        </ul>
+                        <button 
+                            v-on:click="back"
+                            class="btn btn-primary">{{$t("message.return_to_menu")}}
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="mt-3">
+                        {{all_itmes}}点{{all_price}}円({{$t('message.tax')}})
+                        <button 
+                            v-bind:disabled="payDisabled"
+                            v-on:click="pay"
+                            class="btn btn-primary">{{$t("message.pay")}}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,7 +103,9 @@
         data() {
             return {
                 cart: {},
-                before_order: true
+                before_order: true,
+                messages: {},
+                ordered_orders: [],
             }
         },
         methods: {
@@ -106,7 +126,9 @@
                 this.cart = JSON.parse(sessionStorage.getItem('cart'));
 
                 let json_item = JSON.stringify(item)
-                if( this.cart[json_item] && this.cart[json_item] > 0 ) {
+                if( this.cart[json_item] && this.cart[json_item] > 1 ) {
+                    Vue.set(this.cart, json_item, this.cart[json_item] - 1)
+                } else if( this.cart[json_item] && this.cart[json_item] == 1 && confirm(this.$t("message.may_i_remove_it_from_your_cart"))) {
                     Vue.set(this.cart, json_item, this.cart[json_item] - 1)
                 }
                 if (this.cart[json_item] == 0) {
@@ -120,24 +142,48 @@
             },
             order() {
                 let data = {
-                    cart: this.cart,
+                    cart: this.orderCart,
                     lang: this.lang,
+                    session_key: this.session_key,
+                    seat_hash: this.seat_hash,
+                    is_take_out: false,
                 }
                 axios
                     .post(`/orders`, data)
                     .then((response) => {
                         this.before_order = false
-                        this.message = ''
+                        this.messages = response.data.messages
+                        this.ordered_orders = response.data.ordered_orders
+                        sessionStorage.clear()
                     })
                     .catch((error) => {
                         // handle error
                         console.log(error);
                         this.before_order = false
-                        this.message = 'Error'
+                        this.message = this.$t('message.error')
                     })
             }
         },
         computed: {
+            payDisabled() {
+                return this.all_itmes == 0
+            },
+            all_itmes() {
+                return this.ordered_orders.length
+            },
+            all_price() {
+                return Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
+                    return accumulator + this.ordered_orders[idx].tax_included_price
+                }, 0);
+            },
+            orderCart() {
+                return Object.keys(this.cart).map((key) => {
+                    let obj = {}
+                    let objKey = JSON.parse(key)
+                    obj[objKey.id] = this.cart[key]
+                    return obj
+                })
+            },
             items() {
                 return Object.keys(this.cart).map((key) => {
                     return JSON.parse(key);

@@ -18,7 +18,9 @@ class CreateSeatsTable extends Migration
             // 座席名
             $table->string('seat_name');
             // 座席名の状態
-            $table->string('seat_state')->default('empty');
+            // $table->string('seat_state')->default('empty');
+            $table->enum('seat_state', ['empty', 'presence'])->default('empty');
+
             // 座席のハッシュ
             $table->string('seat_hash');
 
