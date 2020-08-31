@@ -1981,6 +1981,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu-component',
   props: {
@@ -2195,6 +2201,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'order-component',
   props: {
@@ -2224,6 +2236,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    pay: function pay() {},
     item_number: function item_number(item) {
       var json_item = JSON.stringify(item);
       return this.cart[json_item];
@@ -40949,12 +40962,17 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body text-right" }, [
           _c("div", [
+            _c("span", { staticClass: "h1" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.total_items) +
+                  "点 " +
+                  _vm._s(_vm.total_price) +
+                  "円\n                "
+              )
+            ]),
             _vm._v(
-              "\n                " +
-                _vm._s(_vm.total_items) +
-                "点 " +
-                _vm._s(_vm.total_price) +
-                "円(" +
+              "\n                (" +
                 _vm._s(_vm.$t("message.no_tax")) +
                 ")\n                "
             ),
@@ -40976,12 +40994,17 @@ var render = function() {
           _c("hr"),
           _vm._v(" "),
           _c("div", { staticClass: "mt-3" }, [
+            _c("span", { staticClass: "h1" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.all_itmes) +
+                  "点" +
+                  _vm._s(_vm.all_price) +
+                  "円\n                "
+              )
+            ]),
             _vm._v(
-              "\n                " +
-                _vm._s(_vm.all_itmes) +
-                "点" +
-                _vm._s(_vm.all_price) +
-                "円(" +
+              "\n                (" +
                 _vm._s(_vm.$t("message.tax")) +
                 ")\n                "
             ),
@@ -41103,12 +41126,17 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body text-right" }, [
+              _c("span", { staticClass: "h1" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.total_items) +
+                    "点 " +
+                    _vm._s(this.total_price) +
+                    "円\n                "
+                )
+              ]),
               _vm._v(
-                "\n                " +
-                  _vm._s(_vm.total_items) +
-                  "点 " +
-                  _vm._s(this.total_price) +
-                  "円(" +
+                "\n                (" +
                   _vm._s(_vm.$t("message.no_tax")) +
                   ")\n                "
               ),
@@ -41188,12 +41216,17 @@ var render = function() {
               _c("hr"),
               _vm._v(" "),
               _c("div", { staticClass: "mt-3" }, [
+                _c("span", { staticClass: "h1" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.all_itmes) +
+                      "点" +
+                      _vm._s(_vm.all_price) +
+                      "円\n                    "
+                  )
+                ]),
                 _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.all_itmes) +
-                    "点" +
-                    _vm._s(_vm.all_price) +
-                    "円(" +
+                  "\n                    (" +
                     _vm._s(_vm.$t("message.tax")) +
                     ")\n                    "
                 ),

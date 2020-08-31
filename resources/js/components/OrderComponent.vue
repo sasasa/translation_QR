@@ -32,7 +32,10 @@
             <div class="card">
                 <div class="card-header">{{$t("message.order_amount")}}</div>
                 <div class="card-body text-right">
-                    {{total_items}}点 {{this.total_price}}円({{$t('message.no_tax')}})
+                    <span class="h1">
+                        {{total_items}}点 {{this.total_price}}円
+                    </span>
+                    ({{$t('message.no_tax')}})
                     <button 
                         v-bind:disabled="orderDisabled"
                         v-on:click="order"
@@ -66,7 +69,10 @@
                     </div>
                     <hr>
                     <div class="mt-3">
-                        {{all_itmes}}点{{all_price}}円({{$t('message.tax')}})
+                        <span class="h1">
+                            {{all_itmes}}点{{all_price}}円
+                        </span>
+                        ({{$t('message.tax')}})
                         <button 
                             v-bind:disabled="payDisabled"
                             v-on:click="pay"
@@ -109,6 +115,9 @@
             }
         },
         methods: {
+            pay() {
+
+            },
             item_number(item) {
                 let json_item = JSON.stringify(item)
                 return this.cart[json_item]
