@@ -148,6 +148,7 @@ return [
     'attributes' => [
         'lang' => '言語',
         'item_name' => '商品名',
+        'item_order' => '表示順(数値が大きいほど前に表示)',
         'item_key' => '商品キー',
         'item_desc' => '説明',
         'image_path' => '画像',
@@ -156,10 +157,10 @@ return [
 
         'genre_name' => 'ジャンル',
         'genre_key' => 'ジャンルキー',
-        'genre_order' => '表示順(昇順)',
+        'genre_order' => '表示順(数値が大きいほど前に表示)',
         'parent_id' => '親',
         'genre_id' => 'ジャンル',
-        
+
         'seat_name' => '座席名',
         'seat_state' => '座席の状態',
         'seat_hash' => '座席のハッシュ',

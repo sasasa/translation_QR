@@ -15,6 +15,7 @@ class Item extends Model
         'item_key' => 'required|max:60',
         'item_desc' => 'required|min:10',
         'item_price' => 'required|integer',
+        'item_order' => 'integer',
         'genre_id' => 'required',
             // アップロードしたファイルのバリデーション設定
         'upfile' => [
@@ -32,6 +33,7 @@ class Item extends Model
         'item_key' => 'required|max:60',
         'item_desc' => 'required|min:10',
         'item_price' => 'required|integer',
+        'item_order' => 'integer',
         'genre_id' => 'required',
     ];
 
@@ -40,11 +42,11 @@ class Item extends Model
         'item_name',
         'item_key',
         'item_desc',
+        'item_order',
         'item_price',
         'genre_id',
     ];
-    
-    
+
     public function genre()
     {
         return $this->belongsTo('App\Genre');
@@ -62,6 +64,6 @@ class Item extends Model
         $item_query->whereHas('genre', function($q) use($genre){
             $q->where('genre_key', $genre);
         });
-        return $item_query->orderBy('id', 'DESC');
+        return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC');
     }
 }

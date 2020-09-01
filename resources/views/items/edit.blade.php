@@ -48,6 +48,16 @@
   </div>
 
   <div class="form-group">
+    <label for="item_order">{{__('validation.attributes.item_order')}}:</label>
+    <input value="{{old('item_order', $item->item_order)}}" type="text" id="item_order" class="form-control @error('item_order') is-invalid @enderror" name="item_order">
+    @error('item_order')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+  </div>
+
+  <div class="form-group">
     <label for="item_desc">{{__('validation.attributes.item_desc')}}:</label>
     <textarea rows="10" id="item_desc" class="form-control @error('item_desc') is-invalid @enderror" name="item_desc">{{old('item_desc', $item->item_desc)}}</textarea>
     @error('item_desc')

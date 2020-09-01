@@ -12,6 +12,7 @@ class Genre extends Model
     public static $rules = [
         'genre_key' => 'required|alpha_dash|max:60',
         'genre_name' => 'required|max:60',
+        'genre_order' => 'integer',
         'lang' => 'required',
     ];
 
@@ -33,13 +34,13 @@ class Genre extends Model
     }
     public function children()
     {
-        return $this->hasMany('App\Genre', 'parent_id')->orderBy('genre_order', 'ASC');
+        return $this->hasMany('App\Genre', 'parent_id')->orderBy('genre_order', 'DESC');
     }
 
     public static function optionsForSelectByLang($lang)
     {
         $ret = [];
-        self::where('lang', $lang)->orderBy('genre_order', 'ASC')->each(function($genre) use(&$ret){
+        self::where('lang', $lang)->orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
@@ -49,7 +50,7 @@ class Genre extends Model
     {
         $ret = [] ;
         $ret[''] = '階層構造にする場合は選択してください';
-        self::whereNull('parent_id')->orderBy('genre_order', 'ASC')->each(function($genre) use(&$ret){
+        self::whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
@@ -58,7 +59,7 @@ class Genre extends Model
     public static function optionsForSelectParentsByLang($lang)
     {
         $ret = [] ;
-        self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'ASC')->each(function($genre) use(&$ret){
+        self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
