@@ -9,7 +9,16 @@ class OrdersController extends Controller
 
     public function index()
     {
-        //
+        return view('orders.index', [
+        ]);
+    }
+
+    public function json_orders()
+    {
+        return response()->json([
+            'order_states' => \App\Order::$order_states,
+            'orders' => \App\Order::orderBy('id', 'DESC')->with(['item', 'seatSession.seat'])->get(),
+        ]);
     }
 
     public function create()
@@ -31,16 +40,21 @@ class OrdersController extends Controller
         }
 
         $ret = [];
-        collect($req->cart)->each(function ($val, $idx) use($seatSession, $req, &$ret){
-            foreach ($val as $id => $number) {
-                $item = \App\Item::findOrFail($id);
-                for($i=1; $i<=$number; $i++){
-                    $order = \App\Order::createByItem($item, $seatSession, $req);
-                    
-                    $ret[$order->item->item_name. '(ID'. $order->id. ')'] = $order->tax_included_price;
+        \DB::beginTransaction();
+        try {
+            collect($req->cart)->each(function ($val, $idx) use($seatSession, $req, &$ret){
+                foreach ($val as $id => $number) {
+                    $item = \App\Item::findOrFail($id);
+                    for($i=1; $i<=$number; $i++){
+                        $order = \App\Order::createByItem($item, $seatSession, $req);
+                        $ret[$order->item->item_name. '(ID'. $order->id. ')'] = $order->tax_included_price;
+                    }
                 }
-            }
-        });
+            });
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollback();
+        }
 
         return [
             'messages' => $ret,

@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    // ステータス（=リスト登録中（注文前）, preparation=準備中, delivery=お届け後, cancel=キャンセル）
+    // 席の状態
+    public static $order_states = [
+        'preparation' => '準備中',
+        'delivery' => 'お届け済み',
+        'cancel' => 'キャンセル',
+    ];
+
     public function item()
     {
         return $this->belongsTo('App\Item');

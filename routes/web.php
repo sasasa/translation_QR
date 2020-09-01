@@ -19,6 +19,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('json/genres/{lang}', 'GenresController@json_genres');
 
     Route::resource('orders', 'OrdersController', ['except'=>['store']]);
+    Route::post('json_orders', 'OrdersController@json_orders');
+
     Route::resource('seats', 'SeatsController');
     Route::patch('seats/{seat}/rehash', 'SeatsController@rehash');
     Route::get('qr_code/{seat}', 'SeatsController@qr_code');

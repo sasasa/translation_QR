@@ -11,25 +11,25 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        $item = \App\Item::find(1);
-        $seat_session_ID = \App\SeatSession::max('id');
+        // $item = \App\Item::find(1);
+        // $seat_session_ID = \App\SeatSession::max('id');
 
-        DB::table('orders')->insert([
-            'seat_session_id' => $seat_session_ID,
-            'item_id' => 1,
-            'order_state' => 'preparation',
-            'order_price' => $item->item_price,
-            // テイクアウトかどうか
-            'is_take_out' => true,
-            // 消費税率
-            'tax_rate' => 0.08,
-            // 消費税額
-            'sales_tax' => ceil(bcmul($item->item_price, 0.08, 1)),
-            // 税込み金額
-            'tax_included_price' => ceil(bcmul($item->item_price, 1.08, 1)),
+        // DB::table('orders')->insert([
+        //     'seat_session_id' => $seat_session_ID,
+        //     'item_id' => 1,
+        //     'order_state' => 'preparation',
+        //     'order_price' => $item->item_price,
+        //     // テイクアウトかどうか
+        //     'is_take_out' => true,
+        //     // 消費税率
+        //     'tax_rate' => 0.08,
+        //     // 消費税額
+        //     'sales_tax' => ceil(bcmul($item->item_price, 0.08, 1)),
+        //     // 税込み金額
+        //     'tax_included_price' => ceil(bcmul($item->item_price, 1.08, 1)),
 
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
     }
 }
