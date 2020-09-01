@@ -36,10 +36,10 @@ class ItemsController extends Controller
         {
             return false;
         }
-        
+
         return response()->json([
             'items' => \App\Item::allForlangAndGenre($lang, $genre)->get(),
-            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->with('children')->get(),
+            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'DESC')->with('children')->get(),
 
             'ordered_orders' => $seatSession->orders,
         ]);
@@ -48,7 +48,7 @@ class ItemsController extends Controller
     public function index()
     {
         return view('items.index', [
-            'items' => \App\Item::orderBy('id', 'DESC')->paginate(12),
+            'items' => \App\Item::orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->paginate(12),
         ]);
     }
 

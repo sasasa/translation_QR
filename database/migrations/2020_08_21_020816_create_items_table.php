@@ -21,6 +21,8 @@ class CreateItemsTable extends Migration
             $table->string('item_name');
             // 同一なものと確かめるためのキー
             $table->string('item_key');
+            // 表示順(降順)
+            $table->integer('item_order')->default(1);
             // 説明
             $table->text('item_desc')->nullable();
             // 画像

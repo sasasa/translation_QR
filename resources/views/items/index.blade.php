@@ -23,6 +23,10 @@
     <td>{{$item->item_price}}</td>
   </tr>
   <tr>
+    <th>{{__('validation.attributes.item_order')}}</th>
+    <td>{{$item->item_order}}</td>
+  </tr>
+  <tr>
     <th>{{__('validation.attributes.item_desc')}}</th>
     <td>{{$item->item_desc}}</td>
   </tr>
