@@ -2,6 +2,7 @@
 @section('title', 'メニューアイテム編集')
 
 @section('content')
+<h1>メニューアイテム編集</h1>
 <form action="/items/{{$item->id}}" method="post" class="mt-5" enctype='multipart/form-data'>
   @csrf
   @method('PATCH')

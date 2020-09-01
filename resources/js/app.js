@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import router from './router'
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -19,7 +19,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('menu-component', require('./components/MenuComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +28,103 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+import VueI18n from 'vue-i18n'
+Vue.use(VueI18n)
+const messages = {
+    en: {
+        message: {
+            image_path: 'image',
+            item_name: 'name',
+            item_price: 'price',
+            item_desc: 'description',
+            add_to_cart: 'Add to cart',
+            order_amount: 'Order amount',
+            view_cart: 'View cart',
+
+            order_confirmation: 'Order confirmation',
+            return_to_menu: 'Return to menu',
+            order_completed: 'Order completed',
+
+            may_i_remove_it_from_your_cart: 'May I remove it from your cart?',
+            error: "Error, please call a representative.",
+            no_tax: 'Taxes not included.',
+            tax: 'including tax',
+            pay: 'Pay',
+        },
+    },
+    ja: {
+        message: {
+            image_path: '画像',
+            item_name: '商品名',
+            item_price: '価格',
+            item_desc: '説明',
+            add_to_cart: 'カートに入れる',
+            order_amount: 'ご注文金額',
+            view_cart: 'カートを見る',
+
+            order_confirmation: '注文を確定する',
+            return_to_menu: 'メニューに戻る',
+            order_completed: '注文が完了しました',
+
+            may_i_remove_it_from_your_cart: 'カートから削除してもよろしいですか？',
+            error: "エラー、恐れ入りますが係員を呼んでください。",
+            no_tax: '税を含まない',
+            tax: '税を含む',
+            pay: 'お会計',
+        },
+    },
+    ko: {
+        message: {
+            image_path: '이미지',
+            item_name: '상품명',
+            item_price: '가격',
+            item_desc: '설명',
+            add_to_cart: '장바구니에 담기',
+            order_amount: '주문 금액',
+            view_cart: '장바구니',
+
+            order_confirmation: '주문을 확정하는',
+            return_to_menu: '메뉴로 돌아 가기',
+            order_completed: '주문이 완료되었습니다',
+
+            may_i_remove_it_from_your_cart: '장바구니에서 삭제 하시겠습니까?',
+            error: "오류입니다. 담당자에게 문의하십시오.",
+            no_tax: '세금을 포함하지 않는',
+            tax: '세금을 포함',
+            pay: '결제하기',
+        },
+    },
+    zh: {
+        message: {
+            image_path: '图片',
+            item_name: '产品名称',
+            item_price: '价钱',
+            item_desc: '说明',
+            add_to_cart: '添加到购物车',
+            order_amount: '订单金额',
+            view_cart: '查看购物车',
+
+            order_confirmation: '确认订单',
+            return_to_menu: '返回菜单',
+            order_completed: '订单完成',
+
+            may_i_remove_it_from_your_cart: '您确定要从购物车中删除它吗？',
+            error: "错误，请致电代表。",
+            no_tax: '不含税',
+            tax: '所含税款',
+            pay: '支付',
+        },
+    },
+}
+
+const i18n = new VueI18n({
+    locale: 'ja',
+    messages,
+})
+
 const app = new Vue({
     el: '#app',
+    router,
+    i18n,
 });

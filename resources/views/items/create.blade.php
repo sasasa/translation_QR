@@ -2,6 +2,7 @@
 @section('title', 'メニューアイテム新規作成')
 
 @section('content')
+<h1>メニューアイテム新規作成</h1>
 <form action="/items" method="post" class="mt-5" enctype='multipart/form-data'>
   @csrf
   <div class="form-group">

@@ -8,19 +8,40 @@ use Illuminate\Support\Facades\Storage;
 class ItemsController extends Controller
 {
 
-    public function genre($lang, $genre)
+    public function genre($seat_hash, $lang, $genre)
     {
-        $item_query = \App\Item::query();
-        $item_query->where('lang', 'like', $lang. '%');
-        $item_query->whereHas('genre', function($q) use($genre){
-            $q->where('genre_key', $genre);
-        });
+        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
+        if (!$seat)
+        {
+            return false;
+        }
 
         return view('items.items', [
-            'items' => $item_query->orderBy('id', 'DESC')->get(),
-            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->get(),
             'lang' => $lang,
             'current_genre' => $genre,
+            'seat_hash' => $seat_hash,
+            'session_key' => $seat->createSession(),
+        ]);
+    }
+
+    public function json_items(Request $req, $seat_hash, $lang, $genre)
+    {
+        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
+        if (!$seat)
+        {
+            return false;
+        }
+        $seatSession = $seat->seatSession;
+        if ($seatSession->session_key != $req->session_key)
+        {
+            return false;
+        }
+        
+        return response()->json([
+            'items' => \App\Item::allForlangAndGenre($lang, $genre)->get(),
+            'genres' => \App\Genre::whereNull('parent_id')->where('lang', 'like', $lang. '%')->orderBy('genre_order', 'ASC')->with('children')->get(),
+
+            'ordered_orders' => $seatSession->orders,
         ]);
     }
 
