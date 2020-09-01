@@ -46,6 +46,16 @@ class Genre extends Model
         return $ret;
     }
 
+    public static function optionsForSelect()
+    {
+        $ret = [];
+        $ret[''] = 'ジャンル選択前に言語を選択してください';
+        self::orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
+            $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
+        });
+        return $ret;
+    }
+
     public static function optionsForSelectParents()
     {
         $ret = [] ;

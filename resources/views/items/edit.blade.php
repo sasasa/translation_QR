@@ -93,7 +93,7 @@
         <strong>{{ $message }}</strong>
     </span>
     @enderror
-  </div>  
+  </div>
 
   <button type="submit" class="btn btn-primary">登録</button>
 </form>
