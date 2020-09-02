@@ -23,7 +23,7 @@ class SeatSession extends Model
     }
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Order')->whereIn('order_state', ['preparation','delivered']);
     }
 
     public function getstateJpAttribute()

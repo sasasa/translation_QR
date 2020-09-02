@@ -17,7 +17,7 @@ class OrdersController extends Controller
     {
         return response()->json([
             'order_states' => \App\Order::$order_states,
-            'orders' => \App\Order::orderBy('id', 'DESC')->with(['item', 'seatSession.seat'])->get(),
+            'orders' => \App\Order::orderBy('id', 'DESC')->with(['item_jp', 'seatSession.seat'])->get(),
         ]);
     }
 
@@ -72,9 +72,13 @@ class OrdersController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $req, \App\Order $order)
     {
-        //
+        $order->order_state = $req->order_state;
+        $order->save();
+        return [
+            'message' => $order->item_jp->item_name. '(ID'.$order->id.')を'. $order->state_jp. 'に更新しました',
+        ];
     }
 
     public function destroy($id)

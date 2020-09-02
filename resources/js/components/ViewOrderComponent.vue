@@ -1,44 +1,112 @@
 <template>
     <div>
         <h1>注文確認</h1>
+        <p>{{message}}</p>
         <table class="table">
-        <tr v-for="order in orders" v-bind:key="order.id">
-            <th>{{order.item.item_name}}(ID:{{order.id}})</th>
+        <tr v-for="order in orders" v-bind:class="classDisplay(order)" v-bind:key="order.id" v-show="isDisplay(order)">
+            <th>{{order.seat_session.seat.seat_name}}</th>
+            <td>{{order.item_jp.item_name}}(ID:{{order.id}})</td>
             <td>
-                <select>
-                    <option v-for="state in order_states" v-bind:key="state">
-                        {{state}}
+                <select class="form-control" v-on:change="stateChange(order, $event)">
+                    <option v-for="(val, idx) in order_states" v-bind:key="idx" v-bind:value="idx" v-bind:selected="order.order_state == idx">
+                        {{val}}
                     </option>
                 </select>
             </td>
-            <td>{{order.seat_session.seat.seat_name}}</td>
         </tr>
         </table>
     </div>
 </template>
 
 <script>
+    import moment from "moment";
+
     export default {
         name: 'view-order-component',
         props: {
         },
         data() {
             return {
-                messages: {},
+                message: '',
                 orders: [],
                 order_states: [],
             }
         },
         methods: {
-        },
-        computed: {
-        },
-        mounted() {
-            setInterval(() => {
+            classDisplay(order) {
+                if(order.order_state == "cancel") {
+                    return 'cancel'
+                } else if(order.order_state == "delivered") {
+                    return 'delivered'
+                }
+            },
+            objectEquals(a, b) {
+                let aJSON = JSON.stringify(this.objectSort(a));
+                let bJSON = JSON.stringify(this.objectSort(b));
+
+                return aJSON === bJSON
+            },
+            objectSort(obj) {
+                // まずキーのみをソートする
+                let keys = Object.keys(obj).sort();
+                // 返却する空のオブジェクトを作る
+                let map = {};
+                // ソート済みのキー順に返却用のオブジェクトに値を格納する
+                keys.forEach((key) => {
+                    let val = obj[key];
+                    // 中身がオブジェクトの場合は再帰呼び出しを行う
+                    if(typeof val === "object"){
+                        val = this.objectSort(val);
+                    }
+                    map[key] = val;
+                });
+                return map;
+            },
+            isDisplay(order) {
+                let cancel_time = moment(order.updated_at)
+                let delivered_time = moment(order.updated_at)
+                let now = moment()
+                
+                if (now > cancel_time.add(2, 'm') && order.order_state == "cancel") {
+                    // キャンセルの際は2分表示する
+                    return false
+                } else if (now > delivered_time.add(30, 's') && order.order_state == "delivered") {
+                    // お届け済みの際は30秒表示する
+                    return false
+                } else {
+                    return true
+                }
+            },
+            stateChange(order, event) {
+                // alert(id)
+                // alert(event.target.value)
+                axios
+                    .patch(`/orders/${order.id}/`, {
+                        order_state: event.target.value
+                    })
+                    .then((response) => {
+                        this.message = response.data.message
+                        order.order_state = event.target.value
+                        this.classDisplay(order)
+                    })
+                    .catch((error) => {
+                        // handle error
+                        console.log(error);
+                    })                
+            },
+            getData() {
                 axios
                     .post(`/json_orders`)
                     .then((response) => {
-                        // alert(JSON.stringify(response.data.orders))
+                        // this.orders.length !== response.data.orders.length
+                        if( !this.objectEquals(this.orders, response.data.orders) ){
+                            // 注文、ステータスも変化あり
+                            let audio = new Audio('water-drop3.mp3');
+                            audio.addEventListener('canplaythrough', () => {
+                                audio.play()
+                            }, false);
+                            
+                        }
                         this.orders = response.data.orders
                         this.order_states = response.data.order_states
                     })
@@ -46,6 +114,14 @@
                         // handle error
                         console.log(error);
                     })
+            }
+        },
+        computed: {
+        },
+        mounted() {
+            this.getData()
+            setInterval(() => {
+                this.getData()
             }, 5000)
 
         },
@@ -53,5 +129,10 @@
 </script>
 
 <style scoped>
-
+.cancel {
+    background: red;
+}
+.delivered {
+    background: skyblue;
+}
 </style>
