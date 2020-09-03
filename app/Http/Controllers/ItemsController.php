@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ItemsController extends Controller
 {
@@ -62,7 +63,13 @@ class ItemsController extends Controller
 
     public function store(Request $req)
     {
-        $this->validate($req, \App\Item::$rules);
+        $validator = $this->validate_original($req, \App\Item::$rules);
+        if ($validator->fails()) {
+            return redirect('/items/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $file = $req->upfile;
         $file_name = basename($file->store('public'));
         $item = new \App\Item();
@@ -84,18 +91,58 @@ class ItemsController extends Controller
             'item' => $item
         ]);
     }
+    private function validate_original($req, $rules)
+    {
+        $validator = Validator::make($req->all(), $rules);
 
+        $validator->after(function ($validator) use($req) {
+            if( $req->lang !== 'ja_JP' ) {
+                $orizinal = \App\Item::where('lang', 'ja_JP')->
+                                where('item_key', $req->item_key)->first();
+                if (!$orizinal) {
+                    $validator->errors()->add('lang', 'まずは日本語で作成して下さい');
+                } else {
+                    $orizinal_genre = $orizinal->genre;
+                    $this_case_genre = \App\Genre::find($req->genre_id);
+                    if ($this_case_genre && $orizinal_genre->genre_key !== $this_case_genre->genre_key) {
+                        $validator->errors()->add('genre_id', '日本語メニューのジャンルと異なります'.$orizinal_genre->genre_key. 'にしてください');
+                    }
+                    if ($this_case_genre && $this_case_genre->lang !== $req->lang) {
+                        $validator->errors()->add('genre_id', 'ジャンルの言語が異なります'.$req->lang. 'にしてください');
+                    }
+                }
+            } else {
+                $this_case_genre = \App\Genre::find($req->genre_id);
+                if ($this_case_genre && $this_case_genre->lang !== 'ja_JP') {
+                    $validator->errors()->add('genre_id', 'ジャンルの言語が異なりますja_JPにしてください');
+                }
+            }
+        });
+        return $validator;
+    }
     public function update(Request $req, \App\Item $item)
     {
         if( $req->delete_image ) {
-            $this->validate($req, \App\Item::$rules);
+            $validator = $this->validate_original($req, 
+                                            \App\Item::$rules);
+            if ($validator->fails()) {
+                return redirect('/items/'. $item->id. '/edit')
+                            ->withErrors($validator)
+                            ->withInput();
+            }
 
             $file = $req->upfile;
             $file_name = basename($file->store('public'));
             Storage::disk('public')->delete($item->image_path);
             $item->image_path = $file_name;
         } else {
-            $this->validate($req, \App\Item::$update_rules);
+            $validator = $this->validate_original($req,
+                                            \App\Item::$update_rules);
+            if ($validator->fails()) {
+                return redirect('/items/'. $item->id. '/edit')
+                            ->withErrors($validator)
+                            ->withInput();
+            }
         }
         $item->fill($req->all());
         $item->save();
