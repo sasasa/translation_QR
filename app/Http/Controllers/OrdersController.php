@@ -3,21 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrdersController extends Controller
 {
 
     public function index()
     {
+        // dd(Carbon::today());
         return view('orders.index', [
         ]);
     }
 
     public function json_orders()
     {
+        $two_hour_ago = Carbon::now()->subHours(2)->toTimeString();
+        // 2時間前からの注文のみ取得
         return response()->json([
             'order_states' => \App\Order::$order_states,
-            'orders' => \App\Order::orderBy('id', 'DESC')->with(['item_jp', 'seatSession.seat'])->get(),
+            'orders' => \App\Order::orderBy('id', 'DESC')->
+                whereDate('created_at', '>=', Carbon::today())->
+                whereTime('created_at', '>=', $two_hour_ago)->
+                with(['item_jp', 'seatSession.seat'])->get(),
         ]);
     }
 
@@ -77,7 +84,9 @@ class OrdersController extends Controller
         $order->order_state = $req->order_state;
         $order->save();
         return [
-            'message' => $order->item_jp->item_name. '(ID'.$order->id.')を'. $order->state_jp. 'に更新しました',
+            'updated_at' => $order->updated_at,
+            'message' => $order->item_jp->item_name.
+                '(ID'.$order->id.')を'. $order->state_jp. 'に更新しました',
         ];
     }
 

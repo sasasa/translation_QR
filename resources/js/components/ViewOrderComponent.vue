@@ -2,7 +2,7 @@
     <div>
         <h1>注文確認</h1>
         <p>{{message}}</p>
-        <table class="table">
+        <transition-group tag="table" class="table">
         <tr v-for="order in orders" v-bind:class="classDisplay(order)" v-bind:key="order.id" v-show="isDisplay(order)">
             <th>{{order.seat_session.seat.seat_name}}</th>
             <td>{{order.item_jp.item_name}}(ID:{{order.id}})</td>
@@ -14,7 +14,7 @@
                 </select>
             </td>
         </tr>
-        </table>
+        </transition-group>
     </div>
 </template>
 
@@ -30,6 +30,18 @@
                 message: '',
                 orders: [],
                 order_states: [],
+            }
+        },
+        watch:  {
+            orders: {
+                handler: function(after, before) {
+                    let audio = new Audio('water-drop3.mp3');
+                    audio.addEventListener('canplaythrough', () => {
+                        audio.play()
+                    }, false);
+                },
+                deep: true,
+                immediate: false,
             }
         },
         methods: {
@@ -78,8 +90,6 @@
                 }
             },
             stateChange(order, event) {
-                // alert(id)
-                // alert(event.target.value)
                 axios
                     .patch(`/orders/${order.id}/`, {
                         order_state: event.target.value
@@ -87,6 +97,7 @@
                     .then((response) => {
                         this.message = response.data.message
                         order.order_state = event.target.value
+                        order.updated_at = response.data.updated_at
                         this.classDisplay(order)
                     })
                     .catch((error) => {
@@ -98,16 +109,17 @@
                 axios
                     .post(`/json_orders`)
                     .then((response) => {
-                        // this.orders.length !== response.data.orders.length
-                        if( !this.objectEquals(this.orders, response.data.orders) ){
-                            // 注文、ステータスも変化あり
-                            let audio = new Audio('water-drop3.mp3');
+                        if(this.orders.length < response.data.orders.length) {
+                            // 注文あり
+                            let audio = new Audio('splash-big1.mp3');
                             audio.addEventListener('canplaythrough', () => {
                                 audio.play()
                             }, false);
-                            
                         }
-                        this.orders = response.data.orders
+                        if( !this.objectEquals(this.orders, response.data.orders) ) {
+                            // 変化があったとき
+                            this.orders = response.data.orders
+                        }
                         this.order_states = response.data.order_states
                     })
                     .catch((error) => {
@@ -134,5 +146,21 @@
 }
 .delivered {
     background: skyblue;
+}
+
+/* 表示・非表示アニメーション中 */
+.v-enter-active, .v-leave-active {
+    transition: all 15000ms;
+}
+.v-leave-active {
+    transition: all 5000ms;
+}
+/* 表示アニメーション開始時 ・ 非表示アニメーション後 */
+.v-enter {
+    opacity: 0.5;
+    background: pink;
+}
+.v-leave-to {
+    opacity: 0;
 }
 </style>

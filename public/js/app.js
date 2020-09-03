@@ -2399,6 +2399,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       order_states: []
     };
   },
+  watch: {
+    orders: {
+      handler: function handler(after, before) {
+        var audio = new Audio('water-drop3.mp3');
+        audio.addEventListener('canplaythrough', function () {
+          audio.play();
+        }, false);
+      },
+      deep: true,
+      immediate: false
+    }
+  },
   methods: {
     classDisplay: function classDisplay(order) {
       if (order.order_state == "cancel") {
@@ -2449,13 +2461,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     stateChange: function stateChange(order, event) {
       var _this2 = this;
 
-      // alert(id)
-      // alert(event.target.value)
       axios.patch("/orders/".concat(order.id, "/"), {
         order_state: event.target.value
       }).then(function (response) {
         _this2.message = response.data.message;
         order.order_state = event.target.value;
+        order.updated_at = response.data.updated_at;
 
         _this2.classDisplay(order);
       })["catch"](function (error) {
@@ -2467,16 +2478,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var _this3 = this;
 
       axios.post("/json_orders").then(function (response) {
-        // this.orders.length !== response.data.orders.length
-        if (!_this3.objectEquals(_this3.orders, response.data.orders)) {
-          // 注文、ステータスも変化あり
-          var audio = new Audio('water-drop3.mp3');
+        if (_this3.orders.length < response.data.orders.length) {
+          // 注文あり
+          var audio = new Audio('splash-big1.mp3');
           audio.addEventListener('canplaythrough', function () {
             audio.play();
           }, false);
         }
 
-        _this3.orders = response.data.orders;
+        if (!_this3.objectEquals(_this3.orders, response.data.orders)) {
+          // 変化があったとき
+          _this3.orders = response.data.orders;
+        }
+
         _this3.order_states = response.data.order_states;
       })["catch"](function (error) {
         // handle error
@@ -6967,7 +6981,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.cancel[data-v-07d82eff] {\n    background: red;\n}\n.delivered[data-v-07d82eff] {\n    background: skyblue;\n}\n", ""]);
+exports.push([module.i, "\n.cancel[data-v-07d82eff] {\n    background: red;\n}\n.delivered[data-v-07d82eff] {\n    background: skyblue;\n}\n\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\n    transition: all 5000ms;\n}\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\n    opacity: 0.5;\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -62654,80 +62668,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v("注文確認")]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.message))]),
-    _vm._v(" "),
-    _c(
-      "table",
-      { staticClass: "table" },
-      _vm._l(_vm.orders, function(order) {
-        return _c(
-          "tr",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.isDisplay(order),
-                expression: "isDisplay(order)"
-              }
-            ],
-            key: order.id,
-            class: _vm.classDisplay(order)
-          },
-          [
-            _c("th", [_vm._v(_vm._s(order.seat_session.seat.seat_name))]),
-            _vm._v(" "),
-            _c("td", [
-              _vm._v(
-                _vm._s(order.item_jp.item_name) +
-                  "(ID:" +
-                  _vm._s(order.id) +
-                  ")"
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "select",
+  return _c(
+    "div",
+    [
+      _c("h1", [_vm._v("注文確認")]),
+      _vm._v(" "),
+      _c("p", [_vm._v(_vm._s(_vm.message))]),
+      _vm._v(" "),
+      _c(
+        "transition-group",
+        { staticClass: "table", attrs: { tag: "table" } },
+        _vm._l(_vm.orders, function(order) {
+          return _c(
+            "tr",
+            {
+              directives: [
                 {
-                  staticClass: "form-control",
-                  on: {
-                    change: function($event) {
-                      return _vm.stateChange(order, $event)
-                    }
-                  }
-                },
-                _vm._l(_vm.order_states, function(val, idx) {
-                  return _c(
-                    "option",
-                    {
-                      key: idx,
-                      domProps: {
-                        value: idx,
-                        selected: order.order_state == idx
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isDisplay(order),
+                  expression: "isDisplay(order)"
+                }
+              ],
+              key: order.id,
+              class: _vm.classDisplay(order)
+            },
+            [
+              _c("th", [_vm._v(_vm._s(order.seat_session.seat.seat_name))]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(
+                  _vm._s(order.item_jp.item_name) +
+                    "(ID:" +
+                    _vm._s(order.id) +
+                    ")"
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        return _vm.stateChange(order, $event)
                       }
-                    },
-                    [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(val) +
-                          "\n                "
-                      )
-                    ]
-                  )
-                }),
-                0
-              )
-            ])
-          ]
-        )
-      }),
-      0
-    )
-  ])
+                    }
+                  },
+                  _vm._l(_vm.order_states, function(val, idx) {
+                    return _c(
+                      "option",
+                      {
+                        key: idx,
+                        domProps: {
+                          value: idx,
+                          selected: order.order_state == idx
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(val) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ])
+            ]
+          )
+        }),
+        0
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
