@@ -14,7 +14,7 @@ class Seat extends Model
     public static $update_rules = [
         'seat_name' => 'required|max:20',
     ];
-    
+
     protected $fillable = [
         'seat_name',
         'how_many',
@@ -58,11 +58,21 @@ class Seat extends Model
             // セッションはすでに開始されている
             return $this->seatSession->session_key;
         } else {
-            $session = new \App\SeatSession();
-            $session->session_state = "in_use";
-            $session->seat_id = $this->id;
-            $session->set_hash();
-            $session->save();
+            \DB::beginTransaction();
+            try {
+                $session = new \App\SeatSession();
+                $session->session_state = "in_use";
+                $session->seat_id = $this->id;
+                $session->set_hash();
+                $session->save();
+
+                $this->seat_state = 'presence';
+                $this->save();
+
+                \DB::commit();
+            } catch (\Exception $e) {
+                \DB::rollback();
+            }
             return $session->session_key;
         }
     }

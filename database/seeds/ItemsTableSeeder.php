@@ -120,10 +120,10 @@ class ItemsTableSeeder extends Seeder
             ]);
             DB::table('items')->insert([
                 'lang' => 'ko_KR',
-                'item_name' => '【'. $i. '】',
-                'item_key' => '까르보나라'. $i,
-                'item_desc' => '【'. $i. '】설명',
-                'image_path' => '까르보나라'. $i. '.jpg',
+                'item_name' => '까르보나라【'. $i. '】',
+                'item_key' => 'carbonara'. $i,
+                'item_desc' => '까르보나라【'. $i. '】설명',
+                'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 20,
                 'created_at' => now(),

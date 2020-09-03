@@ -20,9 +20,12 @@ class CreateOrdersTable extends Migration
 
             // メニューアイテム
             $table->biginteger('item_id')->index();
-            // ステータス（=リスト登録中（注文前）, preparation=準備中, delivery=お届け後, cancel=キャンセル）
+            // メニューアイテム日本語
+            $table->biginteger('item_jp_id')->nullable()->index();
+
+            // ステータス（=リスト登録中（注文前）, preparation=準備中, delivered=お届け後, cancel=キャンセル）
             // $table->string('order_state')->default('preparation');
-            $table->enum('order_state', ['preparation', 'delivery', 'cancel'])->default('preparation');
+            $table->enum('order_state', ['preparation', 'delivered', 'cancel'])->default('preparation');
 
             // 価格 （メニュー定義テーブルから転記）
             $table->integer('order_price');

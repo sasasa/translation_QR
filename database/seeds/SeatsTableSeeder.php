@@ -17,6 +17,7 @@ class SeatsTableSeeder extends Seeder
             $seat->fill([
                 'seat_name' => 'S'. $i,
                 'seat_state' => 'empty',
+                'how_many' => 4,
             ])->save();
         }
     }
