@@ -2,6 +2,10 @@
 @section('title', 'ジャンル新規作成')
 
 @section('content')
+<h1>ジャンル新規作成</h1>
+
+@include('components.errorAll')
+
 <form action="/genres" method="post" class="mt-5" enctype='multipart/form-data'>
   @csrf
   <div class="form-group">

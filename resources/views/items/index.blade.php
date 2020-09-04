@@ -7,6 +7,12 @@
 <table class="table">
   @foreach ($items as $item)
   <tr>
+    <th>{{__('validation.attributes.image_path')}}</th>
+    <td>
+      <img src="/storage/{{$item->image_path}}">
+    </td>
+  </tr>
+  <tr>
     <th>{{__('validation.attributes.item_key')}}</th>
     <td>{{$item->item_key}}</td>
   </tr>
@@ -16,7 +22,7 @@
   </tr>
   <tr>
     <th>{{__('validation.attributes.item_name')}}</th>
-    <td><a href="/items/{{$item->id}}/edit">{{$item->item_name}}</a></td>
+    <td>{{$item->item_name}}</td>
   </tr>
   <tr>
     <th>{{__('validation.attributes.item_price')}}</th>
@@ -31,19 +37,27 @@
     <td>{{$item->item_desc}}</td>
   </tr>
   <tr>
-    <th>{{__('validation.attributes.image_path')}}</th>
-    <td>
-      {{$item->image_path}}
-      <img src="/storage/{{$item->image_path}}">
-    </td>
-  </tr>
-  <tr>
     <th>{{__('validation.attributes.genre_id')}}</th>
     <td>{{$item->genre->genre_name}}({{$item->genre->genre_key}})</td>
   </tr>
   <tr>
+    <th>{{__('validation.attributes.allergen_name')}}</th>
+    <td>
+      @foreach ($item->allergens as $allergen)
+        <span>
+          {{$allergen->allergen_name}}
+          @if ($allergen->lang !== "ja_JP")
+            ({{$allergen->name_jp}})
+          @endif
+          <img src="/img/allergens/{{$allergen->allergen_key}}.png">
+        </span>
+      @endforeach
+    </td>
+  </tr>
+  <tr>
     <th></th>
     <td>
+      <a href="/items/{{$item->id}}/edit" class="btn btn-sm btn-primary mb-2">編集する</a>
       <form action="/items/{{$item->id}}" method="post">
         @csrf
         @method('delete')

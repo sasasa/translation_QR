@@ -2,6 +2,10 @@
 @section('title', 'ジャンル編集')
 
 @section('content')
+<h1>ジャンル編集</h1>
+
+@include('components.errorAll')
+
 <form action="/genres/{{$genre->id}}" method="post" class="mt-5" enctype='multipart/form-data'>
   @csrf
   @method('PATCH')

@@ -16,12 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             // シートセッション
-            $table->biginteger('seat_session_id')->index();
+            $table->biginteger('seat_session_id')->unsigned()->index();
 
             // メニューアイテム
-            $table->biginteger('item_id')->index();
+            $table->biginteger('item_id')->unsigned()->index();
             // メニューアイテム日本語
-            $table->biginteger('item_jp_id')->nullable()->index();
+            $table->biginteger('item_jp_id')->unsigned()->nullable()->index();
 
             // ステータス（=リスト登録中（注文前）, preparation=準備中, delivered=お届け後, cancel=キャンセル）
             // $table->string('order_state')->default('preparation');

@@ -3,6 +3,9 @@
 
 @section('content')
 <h1>座席新規作成</h1>
+
+@include('components.errorAll')
+
 <form action="/seats" method="post" class="mt-5">
   @csrf
   <div class="form-group">

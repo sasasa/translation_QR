@@ -35,7 +35,7 @@
         watch:  {
             orders: {
                 handler: function(after, before) {
-                    let audio = new Audio('water-drop3.mp3');
+                    let audio = new Audio('sound/water-drop3.mp3');
                     audio.addEventListener('canplaythrough', () => {
                         audio.play()
                     }, false);
@@ -111,7 +111,7 @@
                     .then((response) => {
                         if(this.orders.length < response.data.orders.length) {
                             // 注文あり
-                            let audio = new Audio('splash-big1.mp3');
+                            let audio = new Audio('sound/splash-big1.mp3');
                             audio.addEventListener('canplaythrough', () => {
                                 audio.play()
                             }, false);

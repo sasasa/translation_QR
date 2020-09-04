@@ -3,6 +3,9 @@
 
 @section('content')
 <h1>メニューアイテム編集</h1>
+
+@include('components.errorAll')
+
 <form action="/items/{{$item->id}}" method="post" class="mt-5" enctype='multipart/form-data'>
   @csrf
   @method('PATCH')
@@ -95,7 +98,23 @@
     @enderror
   </div>
 
-  <button type="submit" class="btn btn-primary">登録</button>
+  @foreach ($allergensGroupByLang as $lang => $allergensGroup)
+  <div class="form-check {{$lang}}">
+  <legend class="small">{{__('validation.attributes.allergen_name')}}:{{\App\Allergen::$selectKeys[$lang]. '('. $lang. ')'}}</legend>
+  @foreach ($allergensGroup as $allergen)
+    <label class="mr-5 mb-3 form-check-label" for="allergen_{{$allergen->id}}">
+      <input name="allergens[]" class="form-check-input" type="checkbox" value="{{$allergen->id}}" id="allergen_{{$allergen->id}}" {{in_array($allergen->id, $allergenIds) ? "checked" : null}}>
+      {{$allergen->allergen_name}}
+      @if ($allergen->lang !== "ja_JP")
+        ({{$allergen->name_jp}})
+      @endif
+      <img src="/img/allergens/{{$allergen->allergen_key}}.png">
+    </label>
+  @endforeach
+  </div>
+  @endforeach
+
+  <button type="submit" class="btn btn-primary">編集</button>
 </form>
 @endsection
 

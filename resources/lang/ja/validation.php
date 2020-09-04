@@ -167,7 +167,10 @@ return [
         'how_many' => '座席数',
         'qr_code' => 'QRコード',
 
-        'upfile' => '画像'
+        'upfile' => '画像',
+
+        'allergen_name' => 'アレルギー品目',
+        'allergen_key' => 'アレルギー品目のキー',
     ],
 
 ];
