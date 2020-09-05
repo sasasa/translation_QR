@@ -37,6 +37,11 @@ class Genre extends Model
         return $this->hasMany('App\Genre', 'parent_id')->orderBy('genre_order', 'DESC');
     }
 
+    public function getHashAttribute()
+    {
+        return crc32($this->genre_key);
+    }
+
     public static function optionsForSelectByLang($lang)
     {
         $ret = [];
