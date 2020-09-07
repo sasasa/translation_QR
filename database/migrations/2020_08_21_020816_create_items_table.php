@@ -30,7 +30,7 @@ class CreateItemsTable extends Migration
             // 価格
             $table->integer('item_price');
             // ジャンル
-            $table->biginteger('genre_id')->index();
+            $table->biginteger('genre_id')->unsigned()->index();
 
             $table->timestamps();
         });

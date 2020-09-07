@@ -70,4 +70,12 @@ php artisan make:model Order -m
 php artisan make:seeder OrdersTableSeeder
 php artisan db:seed --class=OrdersTableSeeder
 php artisan make:controller OrdersController --resource
+
+
+php artisan make:model Allergen -m
+php artisan make:seeder AllergensTableSeeder
+php artisan db:seed --class=AllergensTableSeeder
+php artisan make:controller AllergensController --resource
+
+php artisan make:migration create_allergen_item_table
 `

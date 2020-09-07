@@ -39,6 +39,8 @@ const messages = {
             item_name: 'name',
             item_price: 'price',
             item_desc: 'description',
+            allergens: 'allergens',
+
             add_to_cart: 'Add to cart',
             order_amount: 'Order amount',
             view_cart: 'View cart',
@@ -60,6 +62,8 @@ const messages = {
             item_name: '商品名',
             item_price: '価格',
             item_desc: '説明',
+            allergens: 'アレルギー品目',
+
             add_to_cart: 'カートに入れる',
             order_amount: 'ご注文金額',
             view_cart: 'カートを見る',
@@ -81,6 +85,8 @@ const messages = {
             item_name: '상품명',
             item_price: '가격',
             item_desc: '설명',
+            allergens: '알레르기 물질',
+
             add_to_cart: '장바구니에 담기',
             order_amount: '주문 금액',
             view_cart: '장바구니',
@@ -102,6 +108,8 @@ const messages = {
             item_name: '产品名称',
             item_price: '价钱',
             item_desc: '说明',
+            allergens: '过敏物质',
+
             add_to_cart: '添加到购物车',
             order_amount: '订单金额',
             view_cart: '查看购物车',

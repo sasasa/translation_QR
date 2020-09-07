@@ -16,7 +16,7 @@ class CreateSeatSessionsTable extends Migration
         Schema::create('seat_sessions', function (Blueprint $table) {
             $table->id();
             // 座席ID
-            $table->biginteger('seat_id')->index();
+            $table->biginteger('seat_id')->unsigned()->index();
             // セッションキー
             $table->string('session_key');
             // ステータス（in_use 利用中, end_of_use 利用終了）

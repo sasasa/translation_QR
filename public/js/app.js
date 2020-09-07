@@ -1987,6 +1987,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu-component',
   props: {
@@ -2120,6 +2129,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2402,7 +2420,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   watch: {
     orders: {
       handler: function handler(after, before) {
-        var audio = new Audio('water-drop3.mp3');
+        var audio = new Audio('sound/water-drop3.mp3');
         audio.addEventListener('canplaythrough', function () {
           audio.play();
         }, false);
@@ -2480,7 +2498,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       axios.post("/json_orders").then(function (response) {
         if (_this3.orders.length < response.data.orders.length) {
           // 注文あり
-          var audio = new Audio('splash-big1.mp3');
+          var audio = new Audio('sound/splash-big1.mp3');
           audio.addEventListener('canplaythrough', function () {
             audio.play();
           }, false);
@@ -62313,6 +62331,29 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("tr", [
+              _c("th", [_vm._v(_vm._s(_vm.$t("message.allergens")))]),
+              _vm._v(" "),
+              _c(
+                "td",
+                _vm._l(item.allergens, function(allergen) {
+                  return _c("span", { key: allergen.allergen_name }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(allergen.allergen_name) +
+                        "\n                        "
+                    ),
+                    _c("img", {
+                      attrs: {
+                        src: "/img/allergens/" + allergen.allergen_key + ".png"
+                      }
+                    })
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("tr", [
               _c("th", [_vm._v(_vm._s(_vm.$t("message.add_to_cart")))]),
               _vm._v(" "),
               _c("td", [
@@ -62475,6 +62516,30 @@ var render = function() {
                   _c("th", [_vm._v(_vm._s(_vm.$t("message.item_desc")))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(item.item_desc))])
+                ]),
+                _vm._v(" "),
+                _c("tr", [
+                  _c("th", [_vm._v(_vm._s(_vm.$t("message.allergens")))]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    _vm._l(item.allergens, function(allergen) {
+                      return _c("span", { key: allergen.allergen_name }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(allergen.allergen_name) +
+                            "\n                            "
+                        ),
+                        _c("img", {
+                          attrs: {
+                            src:
+                              "/img/allergens/" + allergen.allergen_key + ".png"
+                          }
+                        })
+                      ])
+                    }),
+                    0
+                  )
                 ]),
                 _vm._v(" "),
                 _c("tr", [
@@ -78029,6 +78094,7 @@ var messages = {
       item_name: 'name',
       item_price: 'price',
       item_desc: 'description',
+      allergens: 'allergens',
       add_to_cart: 'Add to cart',
       order_amount: 'Order amount',
       view_cart: 'View cart',
@@ -78048,6 +78114,7 @@ var messages = {
       item_name: '商品名',
       item_price: '価格',
       item_desc: '説明',
+      allergens: 'アレルギー品目',
       add_to_cart: 'カートに入れる',
       order_amount: 'ご注文金額',
       view_cart: 'カートを見る',
@@ -78067,6 +78134,7 @@ var messages = {
       item_name: '상품명',
       item_price: '가격',
       item_desc: '설명',
+      allergens: '알레르기 물질',
       add_to_cart: '장바구니에 담기',
       order_amount: '주문 금액',
       view_cart: '장바구니',
@@ -78086,6 +78154,7 @@ var messages = {
       item_name: '产品名称',
       item_price: '价钱',
       item_desc: '说明',
+      allergens: '过敏物质',
       add_to_cart: '添加到购物车',
       order_amount: '订单金额',
       view_cart: '查看购物车',

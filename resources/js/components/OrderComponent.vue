@@ -20,6 +20,15 @@
                         <td>{{item.item_desc}}</td>
                     </tr>
                     <tr>
+                        <th>{{$t("message.allergens")}}</th>
+                        <td>
+                            <span v-for="allergen in item.allergens" v-bind:key="allergen.allergen_name">
+                                {{allergen.allergen_name}}
+                                <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`">
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>{{$t("message.add_to_cart")}}</th>
                         <td>
                             <span v-on:click="plus(item)" class="h1 pointer">＋</span>
