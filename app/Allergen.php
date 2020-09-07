@@ -25,7 +25,10 @@ class Allergen extends Model
     {
         return $this->belongsToMany('App\Item', 'allergen_item');
     }
-
+    public function getHashAttribute()
+    {
+        return crc32($this->allergen_key);
+    }
     public function getNameJpAttribute()
     {
         if ($this->lang == "ja_JP") {
