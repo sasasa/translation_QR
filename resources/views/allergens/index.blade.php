@@ -13,7 +13,7 @@
     <th></th>
   </tr>
   @foreach ($allergens as $allergen)
-    <tr>
+    <tr class="colored" data-hash="{{$allergen->hash}}">
       <td>
         {{ $allergen->allergen_key }}
       </td>
@@ -42,6 +42,8 @@
 @section('script')
 <script type="module">
 $(function(){
+    colorize()
+
     $(".btn-del").click(function() {
         if(confirm("本当に削除してもよろしいですか？")) {
         } else {

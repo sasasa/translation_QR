@@ -6,6 +6,7 @@
 <a href="/items/create" class="btn btn-primary mb-3">メニューアイテム新規登録</a>
 <table class="table">
   @foreach ($items as $item)
+  <tbody class="colored" data-hash="{{$item->hash}}">
   <tr>
     <th>{{__('validation.attributes.image_path')}}</th>
     <td>
@@ -65,6 +66,7 @@
       </form>
     </td>
   </tr>
+  </tbody>
   @endforeach
 </table>
 {{ $items->appends(request()->input())->links() }}
@@ -73,6 +75,8 @@
 @section('script')
 <script type="module">
 $(function(){
+    colorize()
+
     $(".btn-del").click(function() {
         if(confirm("本当に削除してもよろしいですか？")) {
         } else {

@@ -8,6 +8,32 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import router from './router'
+import { hashBytes, toColorCode, brightness } from './lib/colorize'
+window.colorize = function() {
+    $(".colored").each((idx, element)=>{
+        let crc32 = $(element).data('hash')
+          // 文字列をハッシュ化
+        let bg = hashBytes(Number(crc32));
+        // 反転色
+        let fc = [
+            ~bg[0] & 0xff,
+            ~bg[1] & 0xff,
+            ~bg[2] & 0xff,
+        ];
+        // 背景とフォントの明るさ計算
+        let bgL = brightness(bg[0], bg[1], bg[2]);
+        let fcL = brightness(fc[0], fc[1], fc[2]);
+        // 背景とフォントの明度差が125未満なら、フォント色は白または黒にする。
+        // (明度差が大きい方を採用)
+        if (Math.abs(bgL - fcL) < 125) {
+            fc[0] = fc[1] = fc[2] = ((0xff - bgL) > bgL) ? 0xff : 0x00;
+        }
+        // スタイル用の色コード文字列に成形。
+        let bgCode = toColorCode(bg);
+        let fcCode = toColorCode(fc);
+        $(element).css('background-color', bgCode).css('color', fcCode)
+    })
+}
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

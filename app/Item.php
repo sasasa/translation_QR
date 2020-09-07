@@ -59,6 +59,10 @@ class Item extends Model
     {
         return $this->belongsToMany('App\Allergen', 'allergen_item');
     }
+    public function getHashAttribute()
+    {
+        return crc32($this->item_key);
+    }
 
     public static function allForlangAndGenre($lang, $genre)
     {

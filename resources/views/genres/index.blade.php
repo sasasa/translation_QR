@@ -15,7 +15,7 @@
     <th></th>
   </tr>
   @foreach ($genres as $genre)
-    <tr>
+    <tr class="colored" data-hash="{{$genre->hash}}">
       <td>
         {{ $genre->genre_key }}
       </td>
@@ -49,7 +49,10 @@
 
 @section('script')
 <script type="module">
+
 $(function(){
+    colorize()
+
     $(".btn-del").click(function() {
         if(confirm("本当に削除してもよろしいですか？")) {
         } else {
