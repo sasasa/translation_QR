@@ -77992,7 +77992,8 @@ module.exports = function(module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
+/* harmony import */ var _lib_colorize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/colorize */ "./resources/js/lib/colorize.js");
+/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -78002,6 +78003,30 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
+
+
+window.colorize = function () {
+  $(".colored").each(function (idx, element) {
+    var crc32 = $(element).data('hash'); // 文字列をハッシュ化
+
+    var bg = Object(_lib_colorize__WEBPACK_IMPORTED_MODULE_1__["hashBytes"])(Number(crc32)); // 反転色
+
+    var fc = [~bg[0] & 0xff, ~bg[1] & 0xff, ~bg[2] & 0xff]; // 背景とフォントの明るさ計算
+
+    var bgL = Object(_lib_colorize__WEBPACK_IMPORTED_MODULE_1__["brightness"])(bg[0], bg[1], bg[2]);
+    var fcL = Object(_lib_colorize__WEBPACK_IMPORTED_MODULE_1__["brightness"])(fc[0], fc[1], fc[2]); // 背景とフォントの明度差が125未満なら、フォント色は白または黒にする。
+    // (明度差が大きい方を採用)
+
+    if (Math.abs(bgL - fcL) < 125) {
+      fc[0] = fc[1] = fc[2] = 0xff - bgL > bgL ? 0xff : 0x00;
+    } // スタイル用の色コード文字列に成形。
+
+
+    var bgCode = Object(_lib_colorize__WEBPACK_IMPORTED_MODULE_1__["toColorCode"])(bg);
+    var fcCode = Object(_lib_colorize__WEBPACK_IMPORTED_MODULE_1__["toColorCode"])(fc);
+    $(element).css('background-color', bgCode).css('color', fcCode);
+  });
+};
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -78012,6 +78037,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+
 Vue.component('menu-component', __webpack_require__(/*! ./components/MenuComponent.vue */ "./resources/js/components/MenuComponent.vue")["default"]);
 Vue.component('view-order-component', __webpack_require__(/*! ./components/ViewOrderComponent.vue */ "./resources/js/components/ViewOrderComponent.vue")["default"]);
 /**
@@ -78021,7 +78047,7 @@ Vue.component('view-order-component', __webpack_require__(/*! ./components/ViewO
  */
 
 
-Vue.use(vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]);
+Vue.use(vue_i18n__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var messages = {
   en: {
     message: {
@@ -78100,7 +78126,7 @@ var messages = {
     }
   }
 };
-var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]({
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_2__["default"]({
   locale: 'ja',
   messages: messages
 });
@@ -78415,6 +78441,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewOrderComponent_vue_vue_type_template_id_07d82eff_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/lib/colorize.js":
+/*!**************************************!*\
+  !*** ./resources/js/lib/colorize.js ***!
+  \**************************************/
+/*! exports provided: hashBytes, toColorCode, brightness */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hashBytes", function() { return hashBytes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toColorCode", function() { return toColorCode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "brightness", function() { return brightness; });
+function hashBytes(i32) {
+  return [(i32 & 0xFF000000) >>> 24, (i32 & 0x00FF0000) >>> 16, (i32 & 0x0000FF00) >>> 8, (i32 & 0x000000FF) >>> 0];
+}
+
+function toHex(b) {
+  var str = b.toString(16);
+
+  if (2 <= str.length) {
+    return str;
+  }
+
+  return "0" + str;
+}
+
+function toColorCode(bytes) {
+  return "#" + toHex(bytes[0]) + toHex(bytes[1]) + toHex(bytes[2]);
+}
+function brightness(r, g, b) {
+  return Math.floor((r * 299 + g * 587 + b * 114) / 1000);
+}
 
 /***/ }),
 
