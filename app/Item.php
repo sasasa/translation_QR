@@ -55,6 +55,10 @@ class Item extends Model
     {
         return $this->hasMany('App\Order');
     }
+    public function allergens()
+    {
+        return $this->belongsToMany('App\Allergen', 'allergen_item');
+    }
 
     public static function allForlangAndGenre($lang, $genre)
     {
@@ -64,6 +68,33 @@ class Item extends Model
         $item_query->whereHas('genre', function($q) use($genre){
             $q->where('genre_key', $genre);
         });
-        return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC');
+        return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->with('allergens:allergen_name,allergen_key');
+    }
+
+
+    public function allergenIds()
+    {
+        return $this->allergens()->get()->modelKeys();
+    }
+
+    public function allergenSet($allergens)
+    {
+        if (is_array($allergens)) {
+
+            $add = collect($allergens)->diff($this->allergenIds());
+            $delete = collect($this->allergenIds())->diff($allergens);
+
+            // dump($add);
+            // dump($delete);
+
+            // ひとつでも送られた時
+            $this->allergens()->detach($delete);
+            $this->allergens()->attach($add);
+            return true;
+        } else {
+            // 送られないとき
+            $this->allergens()->detach(); //ユーザの登録済みのスキルを全て削除
+            return false;
+        }
     }
 }

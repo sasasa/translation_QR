@@ -56,9 +56,12 @@ class ItemsController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $req)
     {
-        return view('items.create');
+        return view('items.create', [
+            'allergensGroupByLang' => \App\Allergen::all()->groupBy('lang'),
+            'allergenIds' => old('allergens') ? old('allergens') : [],
+        ]);
     }
 
     public function store(Request $req)
@@ -76,6 +79,7 @@ class ItemsController extends Controller
         $item->fill($req->all());
         $item->image_path = $file_name;
         $item->save();
+        $item->allergenSet($req->allergens);
 
         return redirect('/items');
     }
@@ -88,7 +92,9 @@ class ItemsController extends Controller
     public function edit(\App\Item $item)
     {
         return view('items.edit', [
-            'item' => $item
+            'item' => $item,
+            'allergensGroupByLang' => \App\Allergen::all()->groupBy('lang'),
+            'allergenIds' => old('allergens') ? old('allergens') : $item->allergenIds(),
         ]);
     }
     private function validate_original($req, $rules)
@@ -145,6 +151,7 @@ class ItemsController extends Controller
             }
         }
         $item->fill($req->all());
+        $item->allergenSet($req->allergens);
         $item->save();
 
         return redirect('/items');

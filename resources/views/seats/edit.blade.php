@@ -3,6 +3,9 @@
 
 @section('content')
 <h1>座席編集</h1>
+
+@include('components.errorAll')
+
 <form action="/seats/{{$seat->id}}" method="post" class="mt-5">
   @csrf
   @method('PATCH')

@@ -15,6 +15,7 @@
                     @endif
 
                     <a href="/genres" class="btn btn-danger">ジャンル管理</a>
+                    <a href="/allergens" class="btn btn-danger">アレルギー品目管理</a>
                     <a href="/items" class="btn btn-danger">メニューアイテム管理</a>
                     <a href="/seats" class="btn btn-danger">座席管理</a>
                     <a href="/orders" class="btn btn-primary">注文確認</a>

@@ -34,14 +34,6 @@ class Order extends Model
     {
         return self::$order_states[$this->order_state]. '('. $this->order_state. ')';
     }
-    // public function getCreatedAtAttribute($date)
-    // {
-    //     return Carbon::parse($date)->format('Y-m-d H:i:s');
-    // }
-    // public function getUpdatedAtAttribute($date)
-    // {
-    //     return Carbon::parse($date)->format('Y-m-d H:i:s');
-    // }
 
     public static function createByItem($item, $seatSession, $req)
     {
