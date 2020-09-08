@@ -1,16 +1,16 @@
 @extends('layouts.app')
-@section('title', 'メニューアイテム管理')
+@section('title', 'メニュー管理')
 
 @section('content')
-<h1>メニューアイテム管理</h1>
-<a href="/items/create" class="btn btn-primary mb-3">メニューアイテム新規登録</a>
+<h1>メニュー管理</h1>
+<a href="/items/create" class="btn btn-primary mb-3">メニュー新規作成</a>
 <table class="table">
   @foreach ($items as $item)
   <tbody class="colored" data-hash="{{$item->hash}}">
   <tr>
     <th>{{__('validation.attributes.image_path')}}</th>
     <td>
-      <img src="/storage/{{$item->image_path}}">
+      <img src="/storage/{{$item->image_path}}?{{ str_random(8) }}">
     </td>
   </tr>
   <tr>
@@ -58,6 +58,10 @@
   <tr>
     <th></th>
     <td>
+      @if ($item->lang == 'ja_JP')
+      <a href="/items/create_by_key/{{$item->id}}" class="btn btn-sm btn-primary mb-2">他言語メニュー作成</a>
+      @endif
+
       <a href="/items/{{$item->id}}/edit" class="btn btn-sm btn-primary mb-2">編集する</a>
       <form action="/items/{{$item->id}}" method="post">
         @csrf
