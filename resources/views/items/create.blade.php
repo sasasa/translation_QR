@@ -89,7 +89,7 @@
   </div>
 
   @foreach ($allergensGroupByLang as $lang => $allergensGroup)
-  <div class="form-check {{$lang}}">
+  <div class="form-check allergen {{$lang}}">
   <legend class="small">{{__('validation.attributes.allergen_name')}}:{{\App\Allergen::$selectKeys[$lang]. '('. $lang. ')'}}</legend>
   @foreach ($allergensGroup as $allergen)
     <label class="mr-5 mb-3 form-check-label" for="allergen_{{$allergen->id}}">
@@ -112,18 +112,21 @@
 @section('script')
 <script type="module">
   $(function(){
-      // alert($('#parent_id').val())
-
-      // createOptions();
 
       $("#lang").change(function() {
-        // alert($("#lang").val());
-        createOptions();
+        createOptions()
+        $('.allergen').hide()
+        $('.allergen input').prop('checked', false)
+        $('.' + $("#lang").val()).show()
       });
+      $('.allergen').hide()
+      if ($("#lang").val() != '') {
+        $('.' + $("#lang").val()).show()
+      }
 
       function createOptions()
       {
-        $('#genre_id > option').remove();
+        $('#genre_id > option').remove()
         var json1 = {
           "lang": $("#lang").val(),
         };

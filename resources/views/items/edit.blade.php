@@ -12,7 +12,7 @@
 
   <div class="form-group">
     <label for="item_key">{{__('validation.attributes.item_key')}}:</label>
-    <input value="{{old('item_key', $item->item_key)}}" type="text" id="item_key" class="form-control @error('item_key') is-invalid @enderror" name="item_key">
+    <input readonly value="{{old('item_key', $item->item_key)}}" type="text" id="item_key" class="form-control @error('item_key') is-invalid @enderror" name="item_key">
     @error('item_key')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -22,7 +22,8 @@
 
   <div class="form-group">
     <label for="lang">{{__('validation.attributes.lang')}}:</label>
-    {{ Form::select('lang', \App\Item::$selectKeys, old('lang', $item->lang), empty($errors->first('lang')) ? ['class'=>"form-control", 'id'=>'lang'] : ['class'=>"form-control is-invalid", 'id'=>'lang']) }}
+    <input readonly value="{{old('lang', $item->lang_jp)}}" type="text" id="lang_jp" class="form-control" name="lang_jp">
+    <input value="{{old('lang', $item->lang)}}" type="hidden" id="lang" name="lang">
     @error('lang')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -99,7 +100,7 @@
   </div>
 
   @foreach ($allergensGroupByLang as $lang => $allergensGroup)
-  <div class="form-check {{$lang}}">
+  <div class="form-check allergen {{$lang}}">
   <legend class="small">{{__('validation.attributes.allergen_name')}}:{{\App\Allergen::$selectKeys[$lang]. '('. $lang. ')'}}</legend>
   @foreach ($allergensGroup as $allergen)
     <label class="mr-5 mb-3 form-check-label" for="allergen_{{$allergen->id}}">
@@ -124,17 +125,28 @@
 function uploaderShowHide()
 {
     if( $("#delete_image").prop('checked') ) {
-        $("#uploader").show();
+        $("#uploader").show()
     } else {
-        $("#uploader").hide();
+        $("#uploader").hide()
     }
 }
 $(function(){
-    uploaderShowHide();
+    uploaderShowHide()
 
     $("#delete_image").click(function() {
       uploaderShowHide()
     });
+
+    $("#lang").change(function() {
+      $('.allergen').hide()
+      $('.allergen input').prop('checked', false)
+      $('.' + $("#lang").val()).show()
+    })
+    $('.allergen').hide()
+    if ($("#lang").val() != '') {
+      $('.' + $("#lang").val()).show()
+    }
+
 });
 </script>
 @endsection
