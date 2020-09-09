@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title', 'メニューアイテム新規作成')
+@section('title', 'メニュー新規作成')
 
 @section('content')
-<h1>メニューアイテム新規作成</h1>
+<h1>メニュー新規作成</h1>
 
 @include('components.errorAll')
 

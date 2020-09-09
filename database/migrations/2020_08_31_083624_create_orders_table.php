@@ -18,9 +18,9 @@ class CreateOrdersTable extends Migration
             // シートセッション
             $table->biginteger('seat_session_id')->unsigned()->index();
 
-            // メニューアイテム
+            // メニュー
             $table->biginteger('item_id')->unsigned()->index();
-            // メニューアイテム日本語
+            // メニュー日本語
             $table->biginteger('item_jp_id')->unsigned()->nullable()->index();
 
             // ステータス（=リスト登録中（注文前）, preparation=準備中, delivered=お届け後, cancel=キャンセル）

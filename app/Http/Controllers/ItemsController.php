@@ -56,6 +56,37 @@ class ItemsController extends Controller
         ]);
     }
 
+    public function create_by_key(\App\Item $item)
+    {
+        $item->item_name = '【'. $item->item_name. '】の翻訳を入力してください';
+        $item->item_desc = '【'. $item->item_desc. '】の翻訳を入力してください';
+        return view('items.create_by_key', [
+            'item' => $item
+        ]);
+    }
+    public function store_by_key(Request $req, \App\Item $item)
+    {
+        $this->validate($req, \App\Item::$copy_rules);
+
+        $new_item = new \App\Item();
+        $new_item->fill($req->all());
+        $new_item->item_price = $item->item_price;
+        $new_item->item_order = $item->item_order;
+
+        $new_item->image_path = str_random(40);
+        Storage::disk('public')->copy($item->image_path, $new_item->image_path);
+
+        $genre_jp = \App\Genre::find($item->genre_id);
+        $genre = \App\Genre::where('genre_key', $genre_jp->genre_key)->where('lang', $req->lang)->first();
+        $new_item->genre_id = $genre->id;
+
+        $new_item->save();
+        // dd($item->allergenIds());
+        $new_item->allergenCopy($item->allergenIds(), $req->lang);
+
+        return redirect('/items');
+    }
+
     public function create(Request $req)
     {
         return view('items.create', [

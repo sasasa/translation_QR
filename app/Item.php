@@ -8,7 +8,7 @@ use App\Traits\Translatable;
 class Item extends Model
 {
     use Translatable;
-  
+
     public static $rules = [
         'lang' => 'required',
         'item_name' => 'required|max:60',
@@ -35,6 +35,13 @@ class Item extends Model
         'item_price' => 'required|integer',
         'item_order' => 'integer',
         'genre_id' => 'required',
+    ];
+
+    public static $copy_rules = [
+        'lang' => 'required',
+        'item_name' => 'required|max:60',
+        'item_key' => 'required|max:60',
+        'item_desc' => 'required|min:10',
     ];
 
     protected $fillable = [
@@ -79,6 +86,16 @@ class Item extends Model
     public function allergenIds()
     {
         return $this->allergens()->get()->modelKeys();
+    }
+
+    public function allergenCopy($ids, $lang)
+    {
+        $allergens = collect($ids)->map(function ($item, $key) use($lang) {
+            $allergen = \App\Allergen::find($item);
+            $allergen_lang = \App\Allergen::where('allergen_key', $allergen->allergen_key)->where('lang', $lang)->first();
+            return $allergen_lang->id;
+        });
+        $this->allergenSet($allergens->toArray());
     }
 
     public function allergenSet($allergens)

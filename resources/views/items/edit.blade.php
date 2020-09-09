@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title', 'メニューアイテム編集')
+@section('title', 'メニュー編集')
 
 @section('content')
-<h1>メニューアイテム編集</h1>
+<h1>メニュー編集</h1>
 
 @include('components.errorAll')
 
@@ -72,7 +72,7 @@
   </div>
 
   <div class="form-group">
-    <img src="/storage/{{$item->image_path}}">
+    <img src="/storage/{{$item->image_path}}?{{ str_random(8) }}">
     <label>
       <input type="checkbox" id="delete_image" name="delete_image" value="1" {{old('delete_image') ? 'checked' : ''}}>
       削除する
