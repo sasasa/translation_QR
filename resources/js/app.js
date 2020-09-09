@@ -80,6 +80,7 @@ const messages = {
             no_tax: 'Taxes not included.',
             tax: 'including tax',
             pay: 'Pay',
+            takeout: 'Take out',
         },
     },
     ja: {
@@ -103,6 +104,7 @@ const messages = {
             no_tax: '税を含まない',
             tax: '税を含む',
             pay: 'お会計',
+            takeout: 'テイクアウト',
         },
     },
     ko: {
@@ -126,6 +128,7 @@ const messages = {
             no_tax: '세금을 포함하지 않는',
             tax: '세금을 포함',
             pay: '결제하기',
+            takeout: '테이크 아웃',
         },
     },
     zh: {
@@ -149,6 +152,7 @@ const messages = {
             no_tax: '不含税',
             tax: '所含税款',
             pay: '支付',
+            takeout: '取出',
         },
     },
 }

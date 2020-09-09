@@ -2225,6 +2225,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'order-component',
   props: {
@@ -2250,7 +2255,8 @@ __webpack_require__.r(__webpack_exports__);
       cart: {},
       before_order: true,
       messages: {},
-      ordered_orders: []
+      ordered_orders: [],
+      is_take_out: false
     };
   },
   methods: {
@@ -2297,7 +2303,7 @@ __webpack_require__.r(__webpack_exports__);
         lang: this.lang,
         session_key: this.session_key,
         seat_hash: this.seat_hash,
-        is_take_out: false
+        is_take_out: this.is_take_out
       };
       axios.post("/orders", data).then(function (response) {
         _this.before_order = false;
@@ -2406,6 +2412,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'view-order-component',
@@ -2414,7 +2427,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return {
       message: '',
       orders: [],
-      order_states: []
+      order_states: [],
+      takeouts: ['店内飲食', 'テイクアウト']
     };
   },
   watch: {
@@ -2475,6 +2489,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       } else {
         return true;
       }
+    },
+    takeoutChange: function takeoutChange(order, event) {
+      alert(event.target.value);
     },
     stateChange: function stateChange(order, event) {
       var _this2 = this;
@@ -62588,6 +62605,51 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body text-right" }, [
+              _c("label", { attrs: { for: "takeout" } }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.is_take_out,
+                      expression: "is_take_out"
+                    }
+                  ],
+                  attrs: { id: "takeout", type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.is_take_out)
+                      ? _vm._i(_vm.is_take_out, null) > -1
+                      : _vm.is_take_out
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.is_take_out,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.is_take_out = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.is_take_out = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.is_take_out = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.$t("message.takeout")) +
+                    "   \n                "
+                )
+              ]),
+              _vm._v(" "),
               _c("span", { staticClass: "h1" }, [
                 _vm._v(
                   "\n                    " +
@@ -62767,6 +62829,40 @@ var render = function() {
                     "(ID:" +
                     _vm._s(order.id) +
                     ")"
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "select",
+                  {
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        return _vm.takeoutChange(order, $event)
+                      }
+                    }
+                  },
+                  _vm._l(_vm.takeouts, function(val, idx) {
+                    return _c(
+                      "option",
+                      {
+                        key: idx,
+                        domProps: {
+                          value: idx,
+                          selected: order.is_take_out == idx
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(val) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  }),
+                  0
                 )
               ]),
               _vm._v(" "),
@@ -78131,7 +78227,8 @@ var messages = {
       error: "Error, please call a representative.",
       no_tax: 'Taxes not included.',
       tax: 'including tax',
-      pay: 'Pay'
+      pay: 'Pay',
+      takeout: 'Take out'
     }
   },
   ja: {
@@ -78151,7 +78248,8 @@ var messages = {
       error: "エラー、恐れ入りますが係員を呼んでください。",
       no_tax: '税を含まない',
       tax: '税を含む',
-      pay: 'お会計'
+      pay: 'お会計',
+      takeout: 'テイクアウト'
     }
   },
   ko: {
@@ -78171,7 +78269,8 @@ var messages = {
       error: "오류입니다. 담당자에게 문의하십시오.",
       no_tax: '세금을 포함하지 않는',
       tax: '세금을 포함',
-      pay: '결제하기'
+      pay: '결제하기',
+      takeout: '테이크 아웃'
     }
   },
   zh: {
@@ -78191,7 +78290,8 @@ var messages = {
       error: "错误，请致电代表。",
       no_tax: '不含税',
       tax: '所含税款',
-      pay: '支付'
+      pay: '支付',
+      takeout: '取出'
     }
   }
 };
