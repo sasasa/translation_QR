@@ -26,6 +26,9 @@ class CreateGenresTable extends Migration
             // 親
             $table->biginteger('parent_id')->unsigned()->nullable()->index();
 
+            // 複合インデックス
+            $table->unique(['lang', 'genre_key']);
+
             $table->timestamps();
         });
     }

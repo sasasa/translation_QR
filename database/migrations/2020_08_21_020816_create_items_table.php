@@ -31,6 +31,8 @@ class CreateItemsTable extends Migration
             $table->integer('item_price');
             // ジャンル
             $table->biginteger('genre_id')->unsigned()->index();
+            // 複合インデックス
+            $table->unique(['lang', 'item_key']);
 
             $table->timestamps();
         });
