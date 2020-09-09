@@ -58,8 +58,8 @@ class ItemsController extends Controller
 
     public function create_by_key(\App\Item $item)
     {
-        $item->item_name = $item->item_name. 'の翻訳を入力してください';
-        $item->item_desc = $item->item_desc. 'の翻訳を入力してください';
+        $item->item_name = '【'. $item->item_name. '】の翻訳を入力してください';
+        $item->item_desc = '【'. $item->item_desc. '】の翻訳を入力してください';
         return view('items.create_by_key', [
             'item' => $item
         ]);
@@ -72,7 +72,9 @@ class ItemsController extends Controller
         $new_item->fill($req->all());
         $new_item->item_price = $item->item_price;
         $new_item->item_order = $item->item_order;
-        $new_item->image_path = $item->image_path;
+
+        $new_item->image_path = str_random(40);
+        Storage::disk('public')->copy($item->image_path, $new_item->image_path);
 
         $genre_jp = \App\Genre::find($item->genre_id);
         $genre = \App\Genre::where('genre_key', $genre_jp->genre_key)->where('lang', $req->lang)->first();
