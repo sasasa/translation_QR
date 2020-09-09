@@ -22,6 +22,9 @@ class CreateAllergensTable extends Migration
             // 同一なものと確かめるためのキー
             $table->string('allergen_key');
             
+            // 複合インデックス
+            $table->unique(['lang', 'allergen_key']);
+
             $table->timestamps();
         });
     }
