@@ -54,7 +54,13 @@ class OrdersController extends Controller
                     $item = \App\Item::findOrFail($id);
                     for($i=1; $i<=$number; $i++){
                         $order = \App\Order::createByItem($item, $seatSession, $req);
-                        $ret[$order->item->item_name. '(ID'. $order->id. ')'] = $order->tax_included_price;
+                        if($order->is_take_out) {
+                            $key = $order->item->item_name. '(ID'. $order->id. ')'. \Lang::get('message.takeout', [], $req->lang);
+                        } else {
+                            $key = $order->item->item_name. '(ID'. $order->id. ')';
+                        }
+
+                        $ret[$key] = $order->tax_included_price;
                     }
                 }
             });

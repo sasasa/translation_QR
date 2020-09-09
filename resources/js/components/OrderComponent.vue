@@ -41,6 +41,11 @@
             <div class="card">
                 <div class="card-header">{{$t("message.order_amount")}}</div>
                 <div class="card-body text-right">
+                    <label for="takeout">
+                        <input id="takeout" type="checkbox" v-model="is_take_out">
+                        {{$t('message.takeout')}}   
+                    </label>
+
                     <span class="h1">
                         {{total_items}}点 {{this.total_price}}円
                     </span>
@@ -121,6 +126,7 @@
                 before_order: true,
                 messages: {},
                 ordered_orders: [],
+                is_take_out: false,
             }
         },
         methods: {
@@ -164,7 +170,7 @@
                     lang: this.lang,
                     session_key: this.session_key,
                     seat_hash: this.seat_hash,
-                    is_take_out: false,
+                    is_take_out: this.is_take_out,
                 }
                 axios
                     .post(`/orders`, data)
