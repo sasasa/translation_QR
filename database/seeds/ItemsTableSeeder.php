@@ -38,7 +38,8 @@ class ItemsTableSeeder extends Seeder
             }
 
             // 単品
-            DB::table('items')->insert([
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ja_JP',
                 'item_name' => 'チーズバーガー【'. $i. '】',
                 'item_key' => 'hamburger'. $i,
@@ -46,10 +47,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 13,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenSet([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ]);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'en_US',
                 'item_name' => 'cheeseburger【'. $i. '】',
                 'item_key' => 'hamburger'. $i,
@@ -57,10 +88,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 14,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'zh_CN',
                 'item_name' => '芝士汉堡包【'. $i. '】',
                 'item_key' => 'hamburger'. $i,
@@ -68,10 +129,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 15,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ko_KR',
                 'item_name' => '치즈 버거【'. $i. '】',
                 'item_key' => 'hamburger'. $i,
@@ -79,13 +170,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 16,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
 
-
-
-            DB::table('items')->insert([
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ja_JP',
                 'item_name' => 'カルボナーラ【'. $i. '】',
                 'item_key' => 'carbonara'. $i,
@@ -93,10 +211,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 17,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenSet([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ]);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'en_US',
                 'item_name' => 'carbonara【'. $i. '】',
                 'item_key' => 'carbonara'. $i,
@@ -104,10 +252,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 18,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'zh_CN',
                 'item_name' => '卡博纳拉【'. $i. '】',
                 'item_key' => 'carbonara'. $i,
@@ -115,10 +293,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 19,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ko_KR',
                 'item_name' => '까르보나라【'. $i. '】',
                 'item_key' => 'carbonara'. $i,
@@ -126,15 +334,41 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 20,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-
-
-
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
 
             // ドリンク
-            DB::table('items')->insert([
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ja_JP',
                 'item_name' => 'コーラ【'. $i. '】',
                 'item_key' => 'cola'. $i,
@@ -142,10 +376,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenSet([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ]);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'en_US',
                 'item_name' => 'cola【'. $i. '】',
                 'item_key' => 'cola'. $i,
@@ -153,10 +417,41 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 6,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+            
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'zh_CN',
                 'item_name' => '可乐【'. $i. '】',
                 'item_key' => 'cola'. $i,
@@ -164,10 +459,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 7,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ko_KR',
                 'item_name' => '콜라【'. $i. '】',
                 'item_key' => 'cola'. $i,
@@ -175,12 +500,42 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 8,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
 
             // セット
-            DB::table('items')->insert([
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ja_JP',
                 'item_name' => '定食【'. $i. '】',
                 'item_key' => 'set meal'. $i,
@@ -188,10 +543,40 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 9,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenSet([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ]);
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'en_US',
                 'item_name' => 'set meal【'. $i. '】',
                 'item_key' => 'set meal'. $i,
@@ -199,10 +584,41 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 10,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'zh_CN',
                 'item_name' => '套餐【'. $i. '】',
                 'item_key' => 'set meal'. $i,
@@ -210,10 +626,41 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 11,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
-            DB::table('items')->insert([
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
+            
+
+            $item = new \App\Item();
+            $item->fill([
                 'lang' => 'ko_KR',
                 'item_name' => '정식【'. $i. '】',
                 'item_key' => 'set meal'. $i,
@@ -221,9 +668,37 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 12,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
+            $item->save();
+            $item->allergenCopy([
+                0 => "1",
+                1 => "5",
+                2 => "9",
+                3 => "13",
+                4 => "17",
+                5 => "21",
+                6 => "25",
+                7 => "29",
+                8 => "33",
+                9 => "37",
+                10 => "41",
+                11 => "45",
+                12 => "49",
+                13 => "53",
+                14 => "57",
+                15 => "61",
+                16 => "65",
+                17 => "69",
+                18 => "73",
+                19 => "77",
+                20 => "81",
+                21 => "85",
+                22 => "89",
+                23 => "93",
+                24 => "97",
+                25 => "101",
+                26 => "105",
+            ], $item->lang);
         }
     }
 }

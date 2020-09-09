@@ -52,6 +52,7 @@ class Item extends Model
         'item_order',
         'item_price',
         'genre_id',
+        'image_path',
     ];
 
     public function genre()
@@ -105,7 +106,7 @@ class Item extends Model
             $add = collect($allergens)->diff($this->allergenIds());
             $delete = collect($this->allergenIds())->diff($allergens);
 
-            // dump($add);
+            // dd($add);
             // dump($delete);
 
             // ひとつでも送られた時
