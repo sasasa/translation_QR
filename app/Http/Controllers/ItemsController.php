@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 class ItemsController extends Controller
 {
 
@@ -66,7 +66,12 @@ class ItemsController extends Controller
     }
     public function store_by_key(Request $req, \App\Item $item)
     {
-        $this->validate($req, \App\Item::$copy_rules);
+        $validator = $this->validate_original($req, \App\Item::$copy_rules, null);
+        if ($validator->fails()) {
+            return redirect('/items/create_by_key/'. $item->id)
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $new_item = new \App\Item();
         $new_item->fill($req->all());
@@ -97,7 +102,7 @@ class ItemsController extends Controller
 
     public function store(Request $req)
     {
-        $validator = $this->validate_original($req, \App\Item::$rules);
+        $validator = $this->validate_original($req, \App\Item::$rules, null);
         if ($validator->fails()) {
             return redirect('/items/create')
                         ->withErrors($validator)
@@ -128,9 +133,17 @@ class ItemsController extends Controller
             'allergenIds' => old('allergens') ? old('allergens') : $item->allergenIds(),
         ]);
     }
-    private function validate_original($req, $rules)
+    private function validate_original($req, $rules, $itemId)
     {
-        $validator = Validator::make($req->all(), $rules);
+        $validator = Validator::make($req->all(), array_merge($rules, [
+            'item_key' => [
+                'required',
+                Rule::unique('items')->ignore($itemId)->where(function($query) use($req){
+                    $query->where('lang', $req->lang);
+                }),
+            ],
+        ]));
+        
 
         $validator->after(function ($validator) use($req) {
             if( $req->lang !== 'ja_JP' ) {
@@ -160,8 +173,7 @@ class ItemsController extends Controller
     public function update(Request $req, \App\Item $item)
     {
         if( $req->delete_image ) {
-            $validator = $this->validate_original($req, 
-                                            \App\Item::$rules);
+            $validator = $this->validate_original($req, \App\Item::$rules, $item->id);
             if ($validator->fails()) {
                 return redirect('/items/'. $item->id. '/edit')
                             ->withErrors($validator)
@@ -173,8 +185,7 @@ class ItemsController extends Controller
             Storage::disk('public')->delete($item->image_path);
             $item->image_path = $file_name;
         } else {
-            $validator = $this->validate_original($req,
-                                            \App\Item::$update_rules);
+            $validator = $this->validate_original($req, \App\Item::$update_rules, $item->id);
             if ($validator->fails()) {
                 return redirect('/items/'. $item->id. '/edit')
                             ->withErrors($validator)
