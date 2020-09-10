@@ -7,6 +7,13 @@
             <th>{{order.seat_session.seat.seat_name}}</th>
             <td>{{order.item_jp.item_name}}(ID:{{order.id}})</td>
             <td>
+                <select class="form-control" v-on:change="takeoutChange(order, $event)">
+                    <option v-for="(val, idx) in takeouts" v-bind:key="idx" v-bind:value="idx" v-bind:selected="order.is_take_out == idx">
+                        {{val}}
+                    </option>
+                </select>
+            </td>
+            <td>
                 <select class="form-control" v-on:change="stateChange(order, $event)">
                     <option v-for="(val, idx) in order_states" v-bind:key="idx" v-bind:value="idx" v-bind:selected="order.order_state == idx">
                         {{val}}
@@ -30,6 +37,10 @@
                 message: '',
                 orders: [],
                 order_states: [],
+                takeouts: [
+                    '店内飲食',
+                    'テイクアウト',
+                ]
             }
         },
         watch:  {
@@ -89,6 +100,22 @@
                     return true
                 }
             },
+            takeoutChange(order, event) {
+                // alert(event.target.value)
+                axios
+                    .patch(`/orders/${order.id}/takeout`, {
+                        is_take_out: event.target.value
+                    })
+                    .then((response) => {
+                        this.message = response.data.message
+                        order.is_take_out = event.target.value
+                        order.updated_at = response.data.updated_at
+                        this.classDisplay(order)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            },
             stateChange(order, event) {
                 axios
                     .patch(`/orders/${order.id}/`, {
@@ -103,7 +130,7 @@
                     .catch((error) => {
                         // handle error
                         console.log(error);
-                    })                
+                    })
             },
             getData() {
                 axios

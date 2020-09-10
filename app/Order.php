@@ -49,17 +49,22 @@ class Order extends Model
         }
 
         $order->order_price = $item->item_price;
-        $order->is_take_out = $req->is_take_out;
-        if( $req->is_take_out ) {
-            // 消費税率
-            $order->tax_rate = 0.08;
-        } else {
-            // 消費税率
-            $order->tax_rate = 0.10;
-        }
-        $order->sales_tax = ceil(bcmul($item->item_price, $order->tax_rate, 1));
-        $order->tax_included_price = ceil(bcmul($item->item_price, 1 + $order->tax_rate, 1));
+        $order->takeout($req);
         $order->save();
         return $order;
+    }
+
+    public function takeout($req)
+    {
+        $this->is_take_out = $req->is_take_out;
+        if( $req->is_take_out ) {
+            // 消費税率
+            $this->tax_rate = 0.08;
+        } else {
+            // 消費税率
+            $this->tax_rate = 0.10;
+        }
+        $this->sales_tax = ceil(bcmul($this->item->item_price, $this->tax_rate, 1));
+        $this->tax_included_price = ceil(bcmul($this->item->item_price, 1 + $this->tax_rate, 1));
     }
 }

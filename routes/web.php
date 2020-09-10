@@ -24,7 +24,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::resource('orders', 'OrdersController', ['except'=>['store']]);
     Route::post('json_orders', 'OrdersController@json_orders');
+    Route::patch('orders/{order}/takeout', 'OrdersController@takeout');
 
+    
     Route::resource('seats', 'SeatsController');
     Route::patch('seats/{seat}/rehash', 'SeatsController@rehash');
     Route::get('qr_code/{seat}', 'SeatsController@qr_code');
