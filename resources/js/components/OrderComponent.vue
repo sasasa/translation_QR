@@ -84,7 +84,7 @@
                     <hr>
                     <div class="mt-3">
                         <span class="h1">
-                            {{all_itmes}}点{{all_price}}円
+                            {{all_items}}点{{all_price}}円
                         </span>
                         ({{$t('message.tax')}})
                         <button 
@@ -190,9 +190,9 @@
         },
         computed: {
             payDisabled() {
-                return this.all_itmes == 0
+                return this.all_items == 0
             },
-            all_itmes() {
+            all_items() {
                 return this.ordered_orders.length
             },
             all_price() {

@@ -72,7 +72,7 @@
                 <hr>
                 <div class="mt-3">
                     <span class="h1">
-                        {{all_itmes}}点{{all_price}}円
+                        {{all_items}}点{{all_price}}円
                     </span>
                     ({{$t('message.tax')}})
                     <button 
@@ -120,9 +120,9 @@
                 return this.total_price == 0
             },
             payDisabled() {
-                return this.all_itmes == 0
+                return this.all_items == 0
             },
-            all_itmes() {
+            all_items() {
                 return this.ordered_orders.length
             },
             all_price() {
@@ -144,7 +144,20 @@
         },
         methods: {
             pay() {
-
+                axios
+                    .post(`/pay`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
+                        lang: this.lang,
+                    })
+                    .then((response) => {
+                        if (response.data.ok) {
+                            this.$router.push({ name: 'thanks-component' })
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             },
             item_number(item) {
                 let json_item = JSON.stringify(item)

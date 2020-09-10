@@ -46,7 +46,7 @@ window.colorize = function() {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
-Vue.component('menu-component', require('./components/MenuComponent.vue').default);
+// Vue.component('menu-component', require('./components/MenuComponent.vue').default);
 Vue.component('view-order-component', require('./components/ViewOrderComponent.vue').default);
 
 /**

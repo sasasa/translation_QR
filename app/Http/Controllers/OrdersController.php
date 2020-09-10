@@ -33,6 +33,72 @@ class OrdersController extends Controller
         //
     }
 
+    public function print($seat_hash, $session_key)
+    {
+        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
+        if (!$seat)
+        {
+            return false;
+        }
+        $seatSession = $seat->seatSession;
+        if ($seatSession->session_key != $session_key)
+        {
+            return false;
+        }
+
+        view('orders.print', [
+        ]);
+    }
+
+    public function pay(Request $req)
+    {
+        $seat = \App\Seat::where('seat_hash', $req->seat_hash)->first();
+        if (!$seat)
+        {
+            return false;
+        }
+        $seatSession = $seat->seatSession;
+        if ($seatSession->session_key != $req->session_key)
+        {
+            return false;
+        }
+
+        
+        return [
+            'ok' => true,
+        ];
+    }
+
+    
+    public function json_ordered_orders(Request $req, $seat_hash, $lang)
+    {
+        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
+        if (!$seat)
+        {
+            return false;
+        }
+        $seatSession = $seat->seatSession;
+        if ($seatSession->session_key != $req->session_key)
+        {
+            return false;
+        }
+
+        \DB::beginTransaction();
+        try {
+            $seat->seat_state = 'empty';
+            $seat->save();
+            $seatSession->session_state = 'end_of_use';
+            $seatSession->save();
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollback();
+        }
+        
+        return response()->json([
+            'ordered_orders' => \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get(),
+        ]);
+    }
+
     public function store(Request $req)
     {
         $seat = \App\Seat::where('seat_hash', $req->seat_hash)->first();
@@ -89,17 +155,11 @@ class OrdersController extends Controller
     {
         $order->takeout($req);
         $order->save();
-        if( $req->is_take_out ) {
-            // 消費税率
-            $takeout = 'テイクアウト';
-        } else {
-            // 消費税率
-            $takeout = '店内飲食';
-        }        
+
         return [
             'updated_at' => $order->updated_at,
             'message' => $order->item_jp->item_name.
-                '(ID'.$order->id.')を'. $takeout. 'に更新しました',
+                '(ID'.$order->id.')を'. $order->take_out_jp. 'に更新しました',
         ];
     }
 

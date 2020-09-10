@@ -35,6 +35,16 @@ class Order extends Model
         return self::$order_states[$this->order_state]. '('. $this->order_state. ')';
     }
 
+    public function getTakeOutJpAttribute()
+    {
+        if ($this->is_take_out)
+        {
+            return "テイクアウト";
+        } else {
+            return "店内飲食";
+        }
+    }
+
     public static function createByItem($item, $seatSession, $req)
     {
         $order = new \App\Order();

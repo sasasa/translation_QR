@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('orders', 'OrdersController', ['except'=>['store']]);
     Route::post('json_orders', 'OrdersController@json_orders');
     Route::patch('orders/{order}/takeout', 'OrdersController@takeout');
+    Route::get('print', 'OrdersController@print');
 
     
     Route::resource('seats', 'SeatsController');
@@ -36,7 +37,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 Route::post('{seat_hash}/{lang}/{genre}/json_items', 'ItemsController@json_items');
 Route::get('{seat_hash}/{lang}/{genre}/items', 'ItemsController@genre');
 
+Route::post('{seat_hash}/{lang}/json_ordered_orders', 'OrdersController@json_ordered_orders');
 Route::post('orders', 'OrdersController@store');
+Route::post('pay', 'OrdersController@pay');
 
 
 Route::get('/', function () {
