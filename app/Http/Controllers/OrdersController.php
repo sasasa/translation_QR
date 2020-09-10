@@ -85,6 +85,24 @@ class OrdersController extends Controller
         //
     }
 
+    public function takeout(Request $req, \App\Order $order)
+    {
+        $order->takeout($req);
+        $order->save();
+        if( $req->is_take_out ) {
+            // 消費税率
+            $takeout = 'テイクアウト';
+        } else {
+            // 消費税率
+            $takeout = '店内飲食';
+        }        
+        return [
+            'updated_at' => $order->updated_at,
+            'message' => $order->item_jp->item_name.
+                '(ID'.$order->id.')を'. $takeout. 'に更新しました',
+        ];
+    }
+
     public function update(Request $req, \App\Order $order)
     {
         $order->order_state = $req->order_state;

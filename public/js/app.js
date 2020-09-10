@@ -2491,29 +2491,42 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     },
     takeoutChange: function takeoutChange(order, event) {
-      alert(event.target.value);
+      var _this2 = this;
+
+      // alert(event.target.value)
+      axios.patch("/orders/".concat(order.id, "/takeout"), {
+        is_take_out: event.target.value
+      }).then(function (response) {
+        _this2.message = response.data.message;
+        order.is_take_out = event.target.value;
+        order.updated_at = response.data.updated_at;
+
+        _this2.classDisplay(order);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     stateChange: function stateChange(order, event) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.patch("/orders/".concat(order.id, "/"), {
         order_state: event.target.value
       }).then(function (response) {
-        _this2.message = response.data.message;
+        _this3.message = response.data.message;
         order.order_state = event.target.value;
         order.updated_at = response.data.updated_at;
 
-        _this2.classDisplay(order);
+        _this3.classDisplay(order);
       })["catch"](function (error) {
         // handle error
         console.log(error);
       });
     },
     getData: function getData() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post("/json_orders").then(function (response) {
-        if (_this3.orders.length < response.data.orders.length) {
+        if (_this4.orders.length < response.data.orders.length) {
           // 注文あり
           var audio = new Audio('sound/splash-big1.mp3');
           audio.addEventListener('canplaythrough', function () {
@@ -2521,12 +2534,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           }, false);
         }
 
-        if (!_this3.objectEquals(_this3.orders, response.data.orders)) {
+        if (!_this4.objectEquals(_this4.orders, response.data.orders)) {
           // 変化があったとき
-          _this3.orders = response.data.orders;
+          _this4.orders = response.data.orders;
         }
 
-        _this3.order_states = response.data.order_states;
+        _this4.order_states = response.data.order_states;
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -2535,11 +2548,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
   computed: {},
   mounted: function mounted() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.getData();
     setInterval(function () {
-      _this4.getData();
+      _this5.getData();
     }, 5000);
   }
 });
