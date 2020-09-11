@@ -77,6 +77,10 @@ php artisan make:model Allergen -m
 php artisan make:seeder AllergensTableSeeder
 php artisan db:seed --class=AllergensTableSeeder
 php artisan make:controller AllergensController --resource
-
 php artisan make:migration create_allergen_item_table
+
+php artisan make:model Payment -m
+php artisan make:seeder PaymentsTableSeeder
+php artisan db:seed --class=PaymentsTableSeeder
+php artisan make:controller PaymentsController --resource
 `

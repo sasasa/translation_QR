@@ -48,6 +48,7 @@ window.colorize = function() {
 
 // Vue.component('menu-component', require('./components/MenuComponent.vue').default);
 Vue.component('view-order-component', require('./components/ViewOrderComponent.vue').default);
+Vue.component('print-component', require('./components/PrintComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

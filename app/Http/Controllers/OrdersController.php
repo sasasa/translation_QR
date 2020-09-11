@@ -17,14 +17,22 @@ class OrdersController extends Controller
 
     public function json_orders()
     {
+        // 2時間 前からの注文のみ取得
         $two_hour_ago = Carbon::now()->subHours(2)->toTimeString();
-        // 2時間前からの注文のみ取得
+        // 30分 前のお会計のみ取得
+        $thirty_minute_ago = Carbon::now()->subMinutes(30)->toTimeString();
         return response()->json([
             'order_states' => \App\Order::$order_states,
+            'payment_states' => \App\Payment::$payment_states,
             'orders' => \App\Order::orderBy('id', 'DESC')->
                 whereDate('created_at', '>=', Carbon::today())->
                 whereTime('created_at', '>=', $two_hour_ago)->
                 with(['item_jp', 'seatSession.seat'])->get(),
+
+            'payments' => \App\Payment::orderBy('id', 'DESC')->
+                whereDate('created_at', '>=', Carbon::today())->
+                whereTime('created_at', '>=', $thirty_minute_ago)->
+                with(['seatSession.seat'])->get()
         ]);
     }
 
@@ -33,20 +41,16 @@ class OrdersController extends Controller
         //
     }
 
-    public function print($seat_hash, $session_key)
+    public function print(\App\SeatSession $seatSession)
     {
-        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
-        if (!$seat)
-        {
-            return false;
-        }
-        $seatSession = $seat->seatSession;
-        if ($seatSession->session_key != $session_key)
-        {
-            return false;
-        }
-
-        view('orders.print', [
+        return view('orders.print', [
+            'seatSessionID' => $seatSession->id,
+        ]);
+    }
+    public function printData(\App\SeatSession $seatSession)
+    {
+        return response()->json([
+            'ordered_orders' => \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get(),
         ]);
     }
 
@@ -63,13 +67,12 @@ class OrdersController extends Controller
             return false;
         }
 
-        
         return [
             'ok' => true,
         ];
     }
 
-    
+
     public function json_ordered_orders(Request $req, $seat_hash, $lang)
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
@@ -89,13 +92,22 @@ class OrdersController extends Controller
             $seat->save();
             $seatSession->session_state = 'end_of_use';
             $seatSession->save();
+
+            $ordered_orders = \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get();
+            $sum_tax_included_price = $ordered_orders->map(function ($order, $key) {
+                return $order->tax_included_price;
+            })->sum();
+            $payment = new \App\Payment();
+            $payment->tax_included_price = $sum_tax_included_price;
+            $payment->seat_session_id = $seatSession->id;
+            $payment->save();
             \DB::commit();
         } catch (\Exception $e) {
             \DB::rollback();
         }
-        
+
         return response()->json([
-            'ordered_orders' => \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get(),
+            'ordered_orders' => $ordered_orders,
         ]);
     }
 

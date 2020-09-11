@@ -25,6 +25,10 @@ class SeatSession extends Model
     {
         return $this->hasMany('App\Order')->whereIn('order_state', ['preparation','delivered']);
     }
+    public function payment()
+    {
+        return $this->hasOne('App\Payment');
+    }
 
     public function getstateJpAttribute()
     {

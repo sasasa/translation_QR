@@ -1,6 +1,22 @@
 <template>
     <div>
-        <h1>注文確認</h1>
+        <h1>注文・お会計確認</h1>
+
+        <p>{{payment_message}}</p>
+        <transition-group tag="table" class="table">
+            <tr v-for="payment in payments" v-bind:class="classPaymentDisplay(payment)" v-bind:key="payment.id" v-show="isPaymentDisplay(payment)">
+                <th>{{payment.seat_session.seat.seat_name}}</th>
+                <td>お会計(ID:{{payment.id}})：{{payment.tax_included_price}}円</td>
+                <td>
+                    <select class="form-control" v-on:change="paymentStateChange(payment, $event)">
+                        <option v-for="(val, idx) in payment_states" v-bind:key="idx" v-bind:value="idx" v-bind:selected="payment.payment_state == idx">
+                            {{val}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </transition-group>
+
         <p>{{message}}</p>
         <transition-group tag="table" class="table">
         <tr v-for="order in orders" v-bind:class="classDisplay(order)" v-bind:key="order.id" v-show="isDisplay(order)">
@@ -35,8 +51,11 @@
         data() {
             return {
                 message: '',
+                payment_message: '',
                 orders: [],
+                payments: [],
                 order_states: [],
+                payment_states: [],
                 takeouts: [
                     '店内飲食',
                     'テイクアウト',
@@ -56,11 +75,21 @@
             }
         },
         methods: {
+            print() {
+
+            },
             classDisplay(order) {
                 if(order.order_state == "cancel") {
                     return 'cancel'
                 } else if(order.order_state == "delivered") {
                     return 'delivered'
+                }
+            },
+            classPaymentDisplay(payment) {
+                if(payment.payment_state == "printing") {
+                    return 'printing'
+                } else if(payment.payment_state == "afterpaying") {
+                    return 'afterpaying'
                 }
             },
             objectEquals(a, b) {
@@ -85,11 +114,20 @@
                 });
                 return map;
             },
+            isPaymentDisplay(payment) {
+                let afterpaying_time = moment(payment.updated_at)
+                let now = moment()
+                if (now > afterpaying_time.add(30, 's') && payment.payment_state == "afterpaying") {
+                    // 支払い済の際は30秒表示する
+                    return false
+                } else {
+                    return true
+                }
+            },
             isDisplay(order) {
                 let cancel_time = moment(order.updated_at)
                 let delivered_time = moment(order.updated_at)
                 let now = moment()
-                
                 if (now > cancel_time.add(2, 'm') && order.order_state == "cancel") {
                     // キャンセルの際は2分表示する
                     return false
@@ -116,6 +154,26 @@
                         console.log(error);
                     })
             },
+            paymentStateChange(payment, event) {
+                axios
+                    .patch(`/payments/${payment.id}/`, {
+                        payment_state: event.target.value
+                    })
+                    .then((response) => {
+                        this.payment_message = response.data.message
+                        payment.payment_state = event.target.value
+                        payment.updated_at = response.data.updated_at
+                        this.classPaymentDisplay(payment)
+
+                        if(payment.payment_state == "printing") {
+                            window.open(`/print/${payment.seat_session.id}`)
+                        }
+                    })
+                    .catch((error) => {
+                        // handle error
+                        console.log(error);
+                    })
+            },
             stateChange(order, event) {
                 axios
                     .patch(`/orders/${order.id}/`, {
@@ -137,17 +195,25 @@
                     .post(`/json_orders`)
                     .then((response) => {
                         if(this.orders.length < response.data.orders.length) {
-                            // 注文あり
                             let audio = new Audio('sound/splash-big1.mp3');
                             audio.addEventListener('canplaythrough', () => {
                                 audio.play()
                             }, false);
                         }
+                        if(this.payments.length < response.data.payments.length) {
+                            let audio = new Audio('sound/clearing1.mp3');
+                            audio.addEventListener('canplaythrough', () => {
+                                audio.play()
+                            }, false);
+                        }
                         if( !this.objectEquals(this.orders, response.data.orders) ) {
-                            // 変化があったとき
                             this.orders = response.data.orders
                         }
+                        if( !this.objectEquals(this.payments, response.data.payments) ) {
+                            this.payments = response.data.payments
+                        }
                         this.order_states = response.data.order_states
+                        this.payment_states = response.data.payment_states
                     })
                     .catch((error) => {
                         // handle error
@@ -168,10 +234,12 @@
 </script>
 
 <style scoped>
-.cancel {
+.cancel,
+.printing {
     background: red;
 }
-.delivered {
+.delivered,
+.afterpaying {
     background: skyblue;
 }
 

@@ -43,19 +43,19 @@
                 <div class="card-body text-right">
                     <label for="takeout">
                         <input id="takeout" type="checkbox" v-model="is_take_out">
-                        {{$t('message.takeout')}}   
+                        {{$t('message.takeout')}}
                     </label>
 
                     <span class="h1">
                         {{total_items}}点 {{this.total_price}}円
                     </span>
                     ({{$t('message.no_tax')}})
-                    <button 
+                    <button
                         v-bind:disabled="orderDisabled"
                         v-on:click="order"
                         class="btn btn-danger">{{$t("message.order_confirmation")}}
                     </button>
-                    <button 
+                    <button
                         v-on:click="back"
                         class="btn btn-primary">{{$t("message.return_to_menu")}}
                     </button>
@@ -63,7 +63,6 @@
             </div>
         </div>
         <div class="after_order" v-else>
-            
             <div class="card">
                 <div class="card-header">{{$t("message.order_completed")}}</div>
                 <div class="card-body text-right">
@@ -76,7 +75,7 @@
                                 {{key}}------------{{value}}円
                             </li>
                         </ul>
-                        <button 
+                        <button
                             v-on:click="back"
                             class="btn btn-primary">{{$t("message.return_to_menu")}}
                         </button>
@@ -87,7 +86,7 @@
                             {{all_items}}点{{all_price}}円
                         </span>
                         ({{$t('message.tax')}})
-                        <button 
+                        <button
                             v-bind:disabled="payDisabled"
                             v-on:click="pay"
                             class="btn btn-primary">{{$t("message.pay")}}
@@ -106,7 +105,7 @@
             session_key: {
                 type: String,
                 required: true,
-            }, 
+            },
             seat_hash: {
                 type: String,
                 required: true,
@@ -131,7 +130,20 @@
         },
         methods: {
             pay() {
-
+                axios
+                    .post(`/pay`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
+                        lang: this.lang,
+                    })
+                    .then((response) => {
+                        if (response.data.ok) {
+                            this.$router.push({ name: 'thanks-component' })
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             },
             item_number(item) {
                 let json_item = JSON.stringify(item)

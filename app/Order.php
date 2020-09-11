@@ -21,7 +21,6 @@ class Order extends Model
     }
     public function item_jp()
     {
-        
         return $this->belongsTo('App\Item', 'item_jp_id');
     }
 
@@ -30,7 +29,7 @@ class Order extends Model
         return $this->belongsTo('App\SeatSession');
     }
 
-    public function getstateJpAttribute()
+    public function getStateJpAttribute()
     {
         return self::$order_states[$this->order_state]. '('. $this->order_state. ')';
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>ありがとうございました。しばらくお待ちください。</h1>
+        <h1>レシート</h1>
         <div class="h1">{{all_items}}点{{all_price}}円</div>
         <div>
             ({{$t('message.tax')}})
@@ -15,21 +15,9 @@
 
 <script>
     export default {
-        name: 'thanks-component',
+        name: 'print-component',
         props: {
-            session_key: {
-                type: String,
-                required: true,
-            },
-            seat_hash: {
-                type: String,
-                required: true,
-            },
-            current_genre: {
-                type: String,
-                required: true,
-            },
-            lang: {
+            seatsessionid: {
                 type: String,
                 required: true,
             },
@@ -52,19 +40,19 @@
         methods: {
         },
         mounted() {
+            alert(this.seatsessionid)
             axios
-                .post(`/${this.seat_hash}/${this.lang}/json_ordered_orders`, {
-                    session_key: this.session_key
-                })
+                .post(`/print/${this.seatsessionid}`)
                 .then((response) => {
                     this.ordered_orders = response.data.ordered_orders
-                    // alert(JSON.stringify(response))
+                    setTimeout(function(){
+                        window.print()
+                        window.close()
+                    }, 100)
                 })
                 .catch((error) => {
-                    // handle error
                     console.log(error);
                 })
-            this.$i18n.locale = this.lang
         }
     }
 </script>

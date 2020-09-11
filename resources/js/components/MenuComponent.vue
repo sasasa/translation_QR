@@ -63,7 +63,7 @@
                         {{total_items}}点 {{total_price}}円
                     </span>
                     ({{$t('message.no_tax')}})
-                    <button 
+                    <button
                         v-bind:disabled="orderDisabled"
                         v-on:click="order"
                         class="btn btn-primary">{{$t("message.view_cart")}}
@@ -75,7 +75,7 @@
                         {{all_items}}点{{all_price}}円
                     </span>
                     ({{$t('message.tax')}})
-                    <button 
+                    <button
                         v-bind:disabled="payDisabled"
                         v-on:click="pay"
                         class="btn btn-primary">{{$t("message.pay")}}
@@ -93,7 +93,7 @@
             session_key: {
                 type: String,
                 required: true,
-            }, 
+            },
             seat_hash: {
                 type: String,
                 required: true,
