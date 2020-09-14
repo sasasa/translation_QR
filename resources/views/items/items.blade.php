@@ -1,6 +1,6 @@
-@extends('layouts.app')
-@section('title', "タイトル")
-@section('description', "デスクリプション")
+@extends('layouts.base')
+@section('title', $current_genre)
+@section('description', $current_genre)
 
 @section('content')
 
