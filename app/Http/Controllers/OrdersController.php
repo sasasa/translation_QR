@@ -43,14 +43,17 @@ class OrdersController extends Controller
 
     public function print(\App\SeatSession $seatSession)
     {
+        $ordered_orders = \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get();
+        $all_price = $ordered_orders->map(function($order) {
+            return $order->tax_included_price;
+        })->sum();
         return view('orders.print', [
-            'seatSessionID' => $seatSession->id,
-        ]);
-    }
-    public function printData(\App\SeatSession $seatSession)
-    {
-        return response()->json([
-            'ordered_orders' => \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get(),
+            'seatSession' => $seatSession,
+            'ordered_orders' => $ordered_orders,
+            'all_items' => $ordered_orders->count(),
+            'all_price' => $all_price,
+            'time' => $seatSession->payment->created_at,
+            'now' => now(),
         ]);
     }
 

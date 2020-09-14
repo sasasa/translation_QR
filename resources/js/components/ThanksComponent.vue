@@ -1,13 +1,13 @@
 <template>
     <div>
-        <h1>ありがとうございました。しばらくお待ちください。</h1>
+        <h1>{{$t('message.thanks_wait')}}</h1>
         <div class="h1">{{all_items}}点{{all_price}}円</div>
         <div>
             ({{$t('message.tax')}})
         </div>
         <ul>
             <li v-for="order in ordered_orders" v-bind:key="order.id">
-                {{order.item.item_name}}(ID{{order.id}}){{order.is_take_out ? "テイクアウト" : ""}}------------{{order.tax_included_price}}円
+                {{order.item.item_name}}(ID{{order.id}}){{order.is_take_out ? $t('message.takeout') : ""}}------------{{order.tax_included_price}}円
             </li>
         </ul>
     </div>

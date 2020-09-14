@@ -48,7 +48,6 @@ window.colorize = function() {
 
 // Vue.component('menu-component', require('./components/MenuComponent.vue').default);
 Vue.component('view-order-component', require('./components/ViewOrderComponent.vue').default);
-Vue.component('print-component', require('./components/PrintComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -82,6 +81,7 @@ const messages = {
             tax: 'including tax',
             pay: 'Pay',
             takeout: 'Take out',
+            thanks_wait: 'Thank you very much. Please wait a moment.'
         },
     },
     ja: {
@@ -106,6 +106,7 @@ const messages = {
             tax: '税を含む',
             pay: 'お会計',
             takeout: 'テイクアウト',
+            thanks_wait: 'ありがとうございました。しばらくお待ちください。'
         },
     },
     ko: {
@@ -130,6 +131,7 @@ const messages = {
             tax: '세금을 포함',
             pay: '결제하기',
             takeout: '테이크 아웃',
+            thanks_wait: '감사합니다. 잠시 기다려주십시오.'
         },
     },
     zh: {
@@ -154,6 +156,7 @@ const messages = {
             tax: '所含税款',
             pay: '支付',
             takeout: '取出',
+            thanks_wait: '非常感谢你。请稍候。'
         },
     },
 }

@@ -26,7 +26,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('json_orders', 'OrdersController@json_orders');
     Route::patch('orders/{order}/takeout', 'OrdersController@takeout');
     Route::get('print/{seatSession}', 'OrdersController@print');
-    Route::post('print/{seatSession}', 'OrdersController@printData');
 
     Route::resource('payments', 'PaymentsController');
 
