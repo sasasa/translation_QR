@@ -1,0 +1,35 @@
+body {
+  margin: 5mm;
+}
+.print_page {
+  width: 58mm;
+  height: 210mm;
+  page-break-after: always;
+  font-size: 6pt;
+}
+.print_page:last-child {
+  page-break-after: auto; /* 最後のページの改ページを防ぐ */
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+@page {
+  size: 58mm 210mm;
+  margin: 5mm;
+}
+@media print {
+  body {
+    width: 48mm; /* needed for Chrome */
+  }
+}
+@media screen {
+  body {
+    background: #eee;
+  }
+  .print_page {
+    background: white; /* 背景を白く */
+    box-shadow: 0 .5mm 2mm rgba(0,0,0,.3); /* ドロップシャドウ */
+    margin: 0mm;
+  }
+}

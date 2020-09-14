@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 // コンポーネントをインポート
 import MenuComponent from './components/MenuComponent.vue';
 import OrderComponent from './components/OrderComponent.vue';
+import ThanksComponent from './components/ThanksComponent.vue';
 
 export default new VueRouter({
     // モードの設定
@@ -23,6 +24,11 @@ export default new VueRouter({
             path: '/order',
             name: 'order-component',
             component: OrderComponent
-        }
+        },
+        {
+            path: '/thanks',
+            name: 'thanks-component',
+            component: ThanksComponent
+        },
     ]
 });

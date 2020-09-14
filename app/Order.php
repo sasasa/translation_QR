@@ -21,7 +21,6 @@ class Order extends Model
     }
     public function item_jp()
     {
-        
         return $this->belongsTo('App\Item', 'item_jp_id');
     }
 
@@ -30,9 +29,19 @@ class Order extends Model
         return $this->belongsTo('App\SeatSession');
     }
 
-    public function getstateJpAttribute()
+    public function getStateJpAttribute()
     {
         return self::$order_states[$this->order_state]. '('. $this->order_state. ')';
+    }
+
+    public function getTakeOutJpAttribute()
+    {
+        if ($this->is_take_out)
+        {
+            return "テイクアウト";
+        } else {
+            return "店内飲食";
+        }
     }
 
     public static function createByItem($item, $seatSession, $req)
