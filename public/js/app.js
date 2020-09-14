@@ -2551,8 +2551,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   props: {},
   data: function data() {
     return {
-      message: '',
-      payment_message: '',
+      message: 'ここに注文メッセージが表示されます',
+      payment_message: 'ここにお会計メッセージが表示されます',
       orders: [],
       payments: [],
       order_states: [],
@@ -63009,7 +63009,7 @@ var render = function() {
               _vm._s(order.id) +
               ")" +
               _vm._s(order.is_take_out ? _vm.$t("message.takeout") : "") +
-              "------------" +
+              "---" +
               _vm._s(order.tax_included_price) +
               "円\n        "
           )

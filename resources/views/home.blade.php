@@ -20,16 +20,25 @@
                     <a href="/seats" class="btn btn-danger  my-1">座席管理</a>
                     <a href="/orders" class="btn btn-primary  my-1">注文・お会計確認</a>
 
-                    <a href="/{{\App\Seat::find(1)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S0メニュー確認</a>
-                    <a href="/{{\App\Seat::find(2)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S1メニュー確認</a>
-                    <a href="/{{\App\Seat::find(3)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S2メニュー確認</a>
-                    <a href="/{{\App\Seat::find(4)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S3メニュー確認</a>
-                    <a href="/{{\App\Seat::find(5)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S4メニュー確認</a>
-                    <a href="/{{\App\Seat::find(6)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S5メニュー確認</a>
-                    <a href="/{{\App\Seat::find(7)->seat_hash}}/ja/drink/items" class="btn btn-primary  my-1">S6メニュー確認</a>
+                    <div class="form-group col-auto">
+                        <label for="seat">席を選択してメニュー表示</label>
+                        {{ Form::select('seat', \App\Seat::forSelect(), old('seat'), empty($errors->first('seat')) ? ['class'=>"form-control", 'id'=>'seat'] : ['class'=>"form-control is-invalid", 'id'=>'seat']) }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="module">
+
+$(function(){
+    $("#seat").change(function() {
+        let hash = $(this).val()
+        open("/" + hash + "/ja/drink/items")
+    });
+});
+</script>
 @endsection

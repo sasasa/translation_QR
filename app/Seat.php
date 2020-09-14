@@ -76,4 +76,14 @@ class Seat extends Model
             return $session->session_key;
         }
     }
+
+    public static function forSelect()
+    {
+        $ret = [];
+        self::all()->each(function($seat) use(&$ret) {
+            $ret[$seat->seat_hash] = $seat->seat_name;
+        });
+
+        return $ret;
+    }
 }

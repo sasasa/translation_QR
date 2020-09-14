@@ -50,8 +50,8 @@
         },
         data() {
             return {
-                message: '',
-                payment_message: '',
+                message: 'ここに注文メッセージが表示されます',
+                payment_message: 'ここにお会計メッセージが表示されます',
                 orders: [],
                 payments: [],
                 order_states: [],

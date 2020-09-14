@@ -7,7 +7,7 @@
         </div>
         <ul>
             <li v-for="order in ordered_orders" v-bind:key="order.id">
-                {{order.item.item_name}}(ID{{order.id}}){{order.is_take_out ? $t('message.takeout') : ""}}------------{{order.tax_included_price}}円
+                {{order.item.item_name}}(ID{{order.id}}){{order.is_take_out ? $t('message.takeout') : ""}}---{{order.tax_included_price}}円
             </li>
         </ul>
     </div>
