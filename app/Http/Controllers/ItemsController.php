@@ -25,6 +25,13 @@ class ItemsController extends Controller
         ]);
     }
 
+    public function item_ids(Request $req)
+    {
+        return response()->json([
+            'items' => \App\Item::mySelect()->whereIn('id', $req->itemIDs)->withAllergens()->get(),
+        ]);
+    }
+
     public function json_items(Request $req, $seat_hash, $lang, $genre)
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
@@ -205,5 +212,20 @@ class ItemsController extends Controller
         $item->delete();
 
         return redirect('/items');
+    }
+
+    public function out_of_stock(\App\Item $item)
+    {
+        \DB::beginTransaction();
+        try {
+            \App\Item::where('item_key', $item->item_key)->get()->each(function($i) {
+                $i->is_out_of_stock = !$i->is_out_of_stock;
+                $i->save();
+            });
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollback();
+        }
+        return redirect()->back();
     }
 }

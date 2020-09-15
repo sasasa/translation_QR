@@ -29,6 +29,10 @@ class CreateItemsTable extends Migration
             $table->string('image_path');
             // 価格
             $table->integer('item_price');
+
+            // 品切れ
+            $table->boolean('is_out_of_stock')->default(false);
+
             // ジャンル
             $table->biginteger('genre_id')->unsigned()->index();
             // 複合インデックス

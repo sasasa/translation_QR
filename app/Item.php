@@ -75,12 +75,22 @@ class Item extends Model
     public static function allForlangAndGenre($lang, $genre)
     {
         $item_query = self::query();
-        $item_query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc']);
+        $item_query->mySelect();
         $item_query->where('lang', 'like', $lang. '%');
         $item_query->whereHas('genre', function($q) use($genre){
             $q->where('genre_key', $genre);
         });
-        return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->with('allergens:allergen_name,allergen_key');
+        return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->withAllergens();
+    }
+
+    public function scopeMySelect($query)
+    {
+        return $query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc', 'is_out_of_stock']);
+    }
+
+    public function scopeWithAllergens($query)
+    {
+        return $query->with('allergens:allergen_name,allergen_key');
     }
 
 
