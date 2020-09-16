@@ -12,30 +12,47 @@ class User extends Authenticatable implements MustVerifyEmailContract
 {
     use MustVerifyEmail, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
+    const NONE = 0;
+    const BROWSING = 5;
+    const EDITING = 9;
+
+    public static $permissions = [
+        self::NONE => '権限無し',
+        self::BROWSING => '閲覧権限',
+        self::EDITING => '編集権限',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    public static $rules = [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ];
+    public static $update_rules = [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+    ];
+    public static $update_pass_rules = [
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ];
+
+    
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'permission',
+    ];
+
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getPermissionJpAttribute()
+    {
+        return self::$permissions[$this->permission];
+    }
 }

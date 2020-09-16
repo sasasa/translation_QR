@@ -80,6 +80,7 @@ class Seat extends Model
     public static function forSelect()
     {
         $ret = [];
+        $ret[''] = '座席を選択してください';
         self::all()->each(function($seat) use(&$ret) {
             $ret[$seat->seat_hash] = $seat->seat_name;
         });
