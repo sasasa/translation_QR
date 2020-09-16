@@ -46,6 +46,11 @@ class Order extends Model
 
     public static function createByItem($item, $seatSession, $req)
     {
+        if ($item->is_out_of_stock) {
+            // 時間差で在庫切れなら注文を受けない
+            return null;
+        }
+
         $order = new \App\Order();
         $order->seat_session_id = $seatSession->id;
         $order->item_id = $item->id;

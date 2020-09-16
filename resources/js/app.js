@@ -81,7 +81,9 @@ const messages = {
             tax: 'including tax',
             pay: 'Pay',
             takeout: 'Take out',
-            thanks_wait: 'Thank you very much. Please wait a moment.'
+            thanks_wait: 'Thank you very much. Please wait a moment.',
+
+            sorry_out_of_stock: 'Sorry, Out of stock.',
         },
     },
     ja: {
@@ -106,7 +108,9 @@ const messages = {
             tax: '税を含む',
             pay: 'お会計',
             takeout: 'テイクアウト',
-            thanks_wait: 'ありがとうございました。しばらくお待ちください。'
+            thanks_wait: 'ありがとうございました。しばらくお待ちください。',
+
+            sorry_out_of_stock: '申し訳ありません、在庫切れです。',
         },
     },
     ko: {
@@ -131,7 +135,8 @@ const messages = {
             tax: '세금을 포함',
             pay: '결제하기',
             takeout: '테이크 아웃',
-            thanks_wait: '감사합니다. 잠시 기다려주십시오.'
+            thanks_wait: '감사합니다. 잠시 기다려주십시오.',
+            sorry_out_of_stock: '죄송 품절입니다.',
         },
     },
     zh: {
@@ -156,7 +161,8 @@ const messages = {
             tax: '所含税款',
             pay: '支付',
             takeout: '取出',
-            thanks_wait: '非常感谢你。请稍候。'
+            thanks_wait: '非常感谢你。请稍候。',
+            sorry_out_of_stock: '抱歉，没货了。',
         },
     },
 }

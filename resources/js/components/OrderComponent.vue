@@ -9,7 +9,9 @@
                     </tr>
                     <tr>
                         <th>{{$t("message.item_name")}}</th>
-                        <td>{{item.item_name}}</td>
+                        <td>
+                        {{item.item_name}}
+                        </td>
                     </tr>
                     <tr>
                         <th>{{$t("message.item_price")}}</th>
@@ -126,6 +128,7 @@
                 messages: {},
                 ordered_orders: [],
                 is_take_out: false,
+                recent_items: [],
             }
         },
         methods: {
@@ -214,6 +217,7 @@
             },
             orderCart() {
                 return Object.keys(this.cart).map((key) => {
+                    // IDと個数の組を作る
                     let obj = {}
                     let objKey = JSON.parse(key)
                     obj[objKey.id] = this.cart[key]
@@ -223,6 +227,11 @@
             items() {
                 return Object.keys(this.cart).map((key) => {
                     return JSON.parse(key);
+                })
+            },
+            itemIDs() {
+                return Object.keys(this.cart).map((key) => {
+                    return JSON.parse(key).id;
                 })
             },
             orderDisabled() {
@@ -246,6 +255,27 @@
                 this.cart = JSON.parse(c);
             }
             this.$i18n.locale = this.lang
+
+            axios
+                .post(`/item_ids`, {
+                    itemIDs: this.itemIDs
+                })
+                .then((response) => {
+                    this.recent_items = response.data.items
+                    this.recent_items.forEach((item) => {
+                        if (item.is_out_of_stock) {
+                            // 時間差でcartに追加されてしまったitemを削除
+                            item.is_out_of_stock = 0
+                            let json_item = JSON.stringify(item)
+                            Vue.delete(this.cart, json_item)
+                            sessionStorage.setItem('cart', JSON.stringify(this.cart))
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.message = this.$t('message.error')
+                })
         }
     }
 </script>

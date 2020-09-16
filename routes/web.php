@@ -16,6 +16,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('items', 'ItemsController');
     Route::get('items/create_by_key/{item}', 'ItemsController@create_by_key');
     Route::post('items/create_by_key/{item}', 'ItemsController@store_by_key');
+    Route::patch('items/out_of_stock/{item}', 'ItemsController@out_of_stock');
 
     Route::resource('genres', 'GenresController');
     Route::resource('allergens', 'AllergensController');
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 Route::post('{seat_hash}/{lang}/{genre}/json_items', 'ItemsController@json_items');
+Route::post('item_ids', 'ItemsController@item_ids');
 Route::get('{seat_hash}/{lang}/{genre}/items', 'ItemsController@genre');
 
 Route::post('{seat_hash}/{lang}/json_ordered_orders', 'OrdersController@json_ordered_orders');

@@ -1996,6 +1996,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu-component',
   props: {
@@ -2082,6 +2084,12 @@ __webpack_require__.r(__webpack_exports__);
     plus: function plus(item) {
       var json_item = JSON.stringify(item);
 
+      if (item.is_out_of_stock) {
+        Vue["delete"](this.cart, json_item);
+        sessionStorage.setItem('cart', JSON.stringify(this.cart));
+        return alert(this.$t("message.sorry_out_of_stock"));
+      }
+
       if (this.cart[json_item]) {
         Vue.set(this.cart, json_item, this.cart[json_item] + 1);
       } else {
@@ -2093,6 +2101,12 @@ __webpack_require__.r(__webpack_exports__);
     minus: function minus(item) {
       this.cart = JSON.parse(sessionStorage.getItem('cart'));
       var json_item = JSON.stringify(item);
+
+      if (item.is_out_of_stock) {
+        Vue["delete"](this.cart, json_item);
+        sessionStorage.setItem('cart', JSON.stringify(this.cart));
+        return alert(this.$t("message.sorry_out_of_stock"));
+      }
 
       if (this.cart[json_item] && this.cart[json_item] > 0) {
         Vue.set(this.cart, json_item, this.cart[json_item] - 1);
@@ -2245,6 +2259,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'order-component',
   props: {
@@ -2271,7 +2287,8 @@ __webpack_require__.r(__webpack_exports__);
       before_order: true,
       messages: {},
       ordered_orders: [],
-      is_take_out: false
+      is_take_out: false,
+      recent_items: []
     };
   },
   methods: {
@@ -2367,6 +2384,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       return Object.keys(this.cart).map(function (key) {
+        // IDと個数の組を作る
         var obj = {};
         var objKey = JSON.parse(key);
         obj[objKey.id] = _this4.cart[key];
@@ -2376,6 +2394,11 @@ __webpack_require__.r(__webpack_exports__);
     items: function items() {
       return Object.keys(this.cart).map(function (key) {
         return JSON.parse(key);
+      });
+    },
+    itemIDs: function itemIDs() {
+      return Object.keys(this.cart).map(function (key) {
+        return JSON.parse(key).id;
       });
     },
     orderDisabled: function orderDisabled() {
@@ -2398,6 +2421,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this7 = this;
+
     var c = sessionStorage.getItem('cart');
 
     if (c) {
@@ -2405,6 +2430,24 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     this.$i18n.locale = this.lang;
+    axios.post("/item_ids", {
+      itemIDs: this.itemIDs
+    }).then(function (response) {
+      _this7.recent_items = response.data.items;
+
+      _this7.recent_items.forEach(function (item) {
+        if (item.is_out_of_stock) {
+          // 時間差でcartに追加されてしまったitemを削除
+          item.is_out_of_stock = 0;
+          var json_item = JSON.stringify(item);
+          Vue["delete"](_this7.cart, json_item);
+          sessionStorage.setItem('cart', JSON.stringify(_this7.cart));
+        }
+      });
+    })["catch"](function (error) {
+      console.log(error);
+      _this7.message = _this7.$t('message.error');
+    });
   }
 });
 
@@ -7170,7 +7213,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-98f701fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-98f701fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -7189,7 +7232,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-082b38fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-082b38fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -7208,7 +7251,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.cancel[data-v-07d82eff],\n.printing[data-v-07d82eff] {\n    background: red;\n}\n.delivered[data-v-07d82eff],\n.afterpaying[data-v-07d82eff] {\n    background: skyblue;\n}\n\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\n    transition: all 5000ms;\n}\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\n    opacity: 0.5;\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.cancel[data-v-07d82eff],\r\n.printing[data-v-07d82eff] {\r\n    background: red;\n}\n.delivered[data-v-07d82eff],\r\n.afterpaying[data-v-07d82eff] {\r\n    background: skyblue;\n}\r\n\r\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\r\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\r\n    transition: all 5000ms;\n}\r\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\r\n    opacity: 0.5;\r\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -62524,7 +62567,18 @@ var render = function() {
             _c("tr", [
               _c("th", [_vm._v(_vm._s(_vm.$t("message.item_name")))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(item.item_name))])
+              _c("td", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(item.item_name) +
+                    _vm._s(
+                      item.is_out_of_stock
+                        ? "【" + _vm.$t("message.sorry_out_of_stock") + "】"
+                        : ""
+                    ) +
+                    "\n                "
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("tr", [
@@ -62712,7 +62766,13 @@ var render = function() {
                 _c("tr", [
                   _c("th", [_vm._v(_vm._s(_vm.$t("message.item_name")))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(item.item_name))])
+                  _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(item.item_name) +
+                        "\n                    "
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("tr", [
@@ -78547,7 +78607,8 @@ var messages = {
       tax: 'including tax',
       pay: 'Pay',
       takeout: 'Take out',
-      thanks_wait: 'Thank you very much. Please wait a moment.'
+      thanks_wait: 'Thank you very much. Please wait a moment.',
+      sorry_out_of_stock: 'Sorry, Out of stock.'
     }
   },
   ja: {
@@ -78569,7 +78630,8 @@ var messages = {
       tax: '税を含む',
       pay: 'お会計',
       takeout: 'テイクアウト',
-      thanks_wait: 'ありがとうございました。しばらくお待ちください。'
+      thanks_wait: 'ありがとうございました。しばらくお待ちください。',
+      sorry_out_of_stock: '申し訳ありません、在庫切れです。'
     }
   },
   ko: {
@@ -78591,7 +78653,8 @@ var messages = {
       tax: '세금을 포함',
       pay: '결제하기',
       takeout: '테이크 아웃',
-      thanks_wait: '감사합니다. 잠시 기다려주십시오.'
+      thanks_wait: '감사합니다. 잠시 기다려주십시오.',
+      sorry_out_of_stock: '죄송 품절입니다.'
     }
   },
   zh: {
@@ -78613,7 +78676,8 @@ var messages = {
       tax: '所含税款',
       pay: '支付',
       takeout: '取出',
-      thanks_wait: '非常感谢你。请稍候。'
+      thanks_wait: '非常感谢你。请稍候。',
+      sorry_out_of_stock: '抱歉，没货了。'
     }
   }
 };

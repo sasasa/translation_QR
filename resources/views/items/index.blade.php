@@ -60,6 +60,15 @@
     <td>
       @if ($item->lang == 'ja_JP')
       <a href="/items/create_by_key/{{$item->id}}" class="btn btn-sm btn-primary mb-2">他言語メニュー作成</a>
+      <form action="/items/out_of_stock/{{$item->id}}" method="post">
+        @csrf
+        @method('patch')
+        @if ($item->is_out_of_stock)
+          <input type="submit" value="販売開始する" class="btn btn-sm btn-danger mb-2">
+        @else
+          <input type="submit" value="品切れにする" class="btn btn-sm btn-danger mb-2">
+        @endif
+      </form>
       @endif
 
       <a href="/items/{{$item->id}}/edit" class="btn btn-sm btn-primary mb-2">編集する</a>
