@@ -86,12 +86,20 @@ class Genre extends Model
         return $ret;
     }
 
-    public static function optionsForSelectParentsByLang($lang)
+    public static function optionsForSelectParentsByLang($lang, $id)
     {
         $ret = [] ;
-        self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
-            $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
+        self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function($genre) use($id, &$ret){
+            if($id !== $genre->id) {
+                $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
+            }
         });
+        return $ret;
+    }
+    public function optionsForSelectParentsByLangForInstance()
+    {
+        $ret = self::optionsForSelectParentsByLang($this->lang, $this->id);
+        $ret[''] = '階層構造にする場合は選択してください';
         return $ret;
     }
 }

@@ -10,7 +10,7 @@ class GenresController extends Controller
     public function json_parents($lang)
     {
         return response()->json([
-            'genres' => \App\Genre::optionsForSelectParentsByLang($lang)
+            'genres' => \App\Genre::optionsForSelectParentsByLang($lang, null)
         ]);
     }
     public function json_genres($lang)
