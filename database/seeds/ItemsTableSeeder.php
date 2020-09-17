@@ -47,6 +47,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 13,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenSet([
@@ -88,6 +89,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 14,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -129,6 +131,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 15,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -170,6 +173,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'han'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 16,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -211,6 +215,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 17,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenSet([
@@ -252,6 +257,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 18,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -293,6 +299,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 19,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -334,6 +341,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'carbonara'. $i. '.jpg',
                 'item_price' => 300,
                 'genre_id' => 20,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -376,6 +384,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 5,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenSet([
@@ -417,6 +426,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 6,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -459,6 +469,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 7,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -500,6 +511,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'drink'. $i. '.jpg',
                 'item_price' => 100,
                 'genre_id' => 8,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -543,6 +555,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 9,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenSet([
@@ -584,6 +597,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 10,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -626,6 +640,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 11,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
@@ -668,6 +683,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'set'. $i. '.jpg',
                 'item_price' => 1000,
                 'genre_id' => 12,
+                'item_order' => $i,
             ]);
             $item->save();
             $item->allergenCopy([
