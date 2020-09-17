@@ -37,4 +37,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function loggedOut(\Illuminate\Http\Request $request)
+    {
+        return redirect('/home');
+    }
 }

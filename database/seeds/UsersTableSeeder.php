@@ -15,12 +15,27 @@ class UsersTableSeeder extends Seeder
         \App\User::truncate();
 
         //特定のデータを追加
-        \App\User::create([
-            'name' => 'root',
-            'email' => 'masaakisaeki@gmail.com',
-            'password' => bcrypt('hogehoge'),
-            'remember_token' => Str::random(10),
-            'email_verified_at' => now(),
-        ]);
+        for($i=0; $i<8; $i++)
+        {
+            \App\User::create([
+                'name' => '社員'. $i,
+                'email' => 'fulltime'.$i .'@gmail.com',
+                'password' => bcrypt('hogehoge'),
+                'remember_token' => Str::random(10),
+                'email_verified_at' => now(),
+                'permission' => \App\User::EDITING
+            ]);
+        }
+        for($i=0; $i<8; $i++)
+        {
+            \App\User::create([
+                'name' => 'バイト'. $i,
+                'email' => 'parttime'.$i .'@gmail.com',
+                'password' => bcrypt('hogehoge'),
+                'remember_token' => Str::random(10),
+                'email_verified_at' => now(),
+                'permission' => \App\User::BROWSING
+            ]);
+        }
     }
 }

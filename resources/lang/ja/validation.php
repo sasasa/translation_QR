@@ -146,6 +146,12 @@ return [
     */
 
     'attributes' => [
+        'name' => '氏名',
+        'email' => 'メールアドレス',
+        'permission' => '権限',
+        'password' => 'パスワード',
+        'password_confirmation' => 'パスワード(確認用)',
+
         'lang' => '言語',
         'item_name' => '商品名',
         'item_order' => '表示順(数値が大きいほど前に表示)',
