@@ -12,7 +12,7 @@
 
   <div class="form-group">
     <label for="genre_key">{{__('validation.attributes.genre_key')}}:</label>
-    <input value="{{old('genre_key', $genre->genre_key)}}" type="text" id="genre_key" class="form-control @error('genre_key') is-invalid @enderror" name="genre_key">
+    <input readonly value="{{old('genre_key', $genre->genre_key)}}" type="text" id="genre_key" class="form-control @error('genre_key') is-invalid @enderror" name="genre_key">
     @error('genre_key')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -21,8 +21,9 @@
   </div>
 
   <div class="form-group">
-    <label for="lang">{{__('validation.attributes.lang')}}:</label>
-    {{ Form::select('lang', \App\Genre::$selectKeys, old('lang', $genre->lang), empty($errors->first('lang')) ? ['class'=>"form-control", 'id'=>'lang'] : ['class'=>"form-control is-invalid", 'id'=>'lang']) }}
+    <label for="lang_jp">{{__('validation.attributes.lang')}}:</label>
+    <input readonly value="{{old('lang', $genre->lang_jp)}}" type="text" id="lang_jp" class="form-control @error('lang') is-invalid @enderror" name="lang_jp">
+    <input value="{{old('lang', $genre->lang)}}" type="hidden" id="lang" name="lang">
     @error('lang')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -53,7 +54,7 @@
 
   <div class="form-group">
     <label for="parent_id">{{__('validation.attributes.parent_id')}}:</label>
-    {{ Form::select('parent_id', \App\Genre::optionsForSelectParentsByLang($genre->lang), old('parent_id', $genre->parent_id), empty($errors->first('parent_id')) ? ['class'=>"form-control", 'id'=>'parent_id'] : ['class'=>"form-control is-invalid", 'id'=>'parent_id']) }}
+    {{ Form::select('parent_id', $genre->optionsForSelectParentsByLangForInstance(), old('parent_id', $genre->parent_id), empty($errors->first('parent_id')) ? ['class'=>"form-control", 'id'=>'parent_id'] : ['class'=>"form-control is-invalid", 'id'=>'parent_id']) }}
     @error('parent_id')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
