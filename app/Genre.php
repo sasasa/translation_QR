@@ -53,10 +53,25 @@ class Genre extends Model
 
     public static function optionsForSelect()
     {
-        $ret = [];
+        $ret = self::optionsForSelectWithOut();
         $ret[''] = 'ジャンル選択前に言語を選択してください';
+        return $ret;
+    }
+
+    public static function optionsForSelectWithOut()
+    {
+        $ret = [];
         self::orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
+        });
+        return $ret;
+    }
+    public static function optionsForGenreKey()
+    {
+        $ret = [];
+        $ret[''] = 'ジャンルキーを選択してください';
+        self::get()->groupBy('genre_key')->each(function($ary, $key) use(&$ret){
+            $ret[$key] = $key;
         });
         return $ret;
     }

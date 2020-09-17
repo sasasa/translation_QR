@@ -39,13 +39,12 @@ php artisan db:seed --class=GenresTableSeeder
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 
+
 php artisan migrate:refresh
 composer dump-autoload
 php artisan db:seed
 
-
 php artisan make:controller GenresController --resource
-
 
 composer require laravelcollective/html
 

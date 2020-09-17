@@ -3,6 +3,31 @@
 
 @section('content')
 <h1>メニュー管理</h1>
+<form action="/items" method="get" class="mb-5">
+  @csrf
+  <div class="form-group">
+    <label for="item_key">{{__('validation.attributes.item_key')}}:</label>
+    <input type="text" id="item_key" name="item_key" value="{{$item_key}}" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="item_name">{{__('validation.attributes.item_name')}}:</label>
+    <input type="text" id="item_name" name="item_name" value="{{$item_name}}" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="genre_key">{{__('validation.attributes.genre_key')}}:</label>
+    {{ Form::select('genre_key', \App\Genre::optionsForGenreKey(), $genre_key, ['class'=>"form-control", 'id'=>'genre_key']) }}
+  </div>
+
+  <div class="form-group">
+    <label for="lang">{{__('validation.attributes.lang')}}:</label>
+    {{ Form::select('lang', \App\Item::$selectKeys, $lang, ['class'=>"form-control", 'id'=>'lang']) }}
+  </div>
+
+  <input type="submit" value="検索" class="btn btn-primary">
+</form>
+
 <a href="/items/create" class="btn btn-primary mb-3">メニュー新規作成</a>
 <table class="table">
   @foreach ($items as $item)
@@ -64,9 +89,9 @@
         @csrf
         @method('patch')
         @if ($item->is_out_of_stock)
-          <input type="submit" value="販売開始する" class="btn btn-sm btn-danger mb-2">
+          <input type="submit" value="販売開始する(全ての言語)" class="btn btn-sm btn-danger mb-2">
         @else
-          <input type="submit" value="品切れにする" class="btn btn-sm btn-danger mb-2">
+          <input type="submit" value="品切れにする(全ての言語)" class="btn btn-sm btn-danger mb-2">
         @endif
       </form>
       @endif

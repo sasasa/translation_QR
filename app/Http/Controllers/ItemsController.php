@@ -55,10 +55,31 @@ class ItemsController extends Controller
         ]);
     }
 
-    public function index()
+    public function index(Request $req)
     {
+        $item_query = \App\Item::query();
+        if ($req->item_key) {
+            $item_query->where('item_key', 'LIKE', "%".$req->item_key."%");
+        }
+        if ($req->item_name) {
+            $item_query->where('item_name', 'LIKE', "%".$req->item_name."%");
+        }
+        if ($req->lang) {
+            $item_query->where('lang', $req->lang);
+        }
+        if ($req->genre_key) {
+            $item_query->whereHas('genre', function($q) use($req){
+                $q->where('genre_key', 'LIKE', "%".$req->genre_key."%");
+            });
+        }
+
         return view('items.index', [
-            'items' => \App\Item::orderBy('item_order', 'DESC')->
+            'item_key' => $req->item_key,
+            'item_name' => $req->item_name,
+            'genre_key' => $req->genre_key,
+            'lang' => $req->lang,
+
+            'items' => $item_query->orderBy('item_order', 'DESC')->
                 orderBy('id', 'DESC')->paginate(12),
         ]);
     }

@@ -23,7 +23,7 @@ class GenresController extends Controller
     public function index()
     {
         return view('genres.index', [
-            'genres' => \App\Genre::orderBy('id', 'DESC')->paginate(12)
+            'genres' => \App\Genre::orderBy('genre_order', 'DESC')->orderBy('id', 'DESC')->paginate(12)
         ]);
     }
 
