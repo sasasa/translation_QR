@@ -12,7 +12,7 @@
 
   <div class="form-group">
     <label for="allergen_key">{{__('validation.attributes.allergen_key')}}:</label>
-    <input value="{{old('allergen_key', $allergen->allergen_key)}}" type="text" id="allergen_key" class="form-control @error('allergen_key') is-invalid @enderror" name="allergen_key">
+    <input readonly value="{{old('allergen_key', $allergen->allergen_key)}}" type="text" id="allergen_key" class="form-control @error('allergen_key') is-invalid @enderror" name="allergen_key">
     @error('allergen_key')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
@@ -21,8 +21,9 @@
   </div>
 
   <div class="form-group">
-    <label for="lang">{{__('validation.attributes.lang')}}:</label>
-    {{ Form::select('lang', \App\Allergen::$selectKeys, old('lang', $allergen->lang), empty($errors->first('lang')) ? ['class'=>"form-control", 'id'=>'lang'] : ['class'=>"form-control is-invalid", 'id'=>'lang']) }}
+    <label for="lang_jp">{{__('validation.attributes.lang')}}:</label>
+    <input readonly value="{{old('lang', $allergen->lang_jp)}}" type="text" id="lang_jp" class="form-control @error('lang_jp') is-invalid @enderror" name="lang_jp">
+    <input value="{{old('lang', $allergen->lang)}}" type="hidden" id="lang" name="lang">
     @error('lang')
     <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>

@@ -7,6 +7,7 @@
 <table class="table">
   <tr>
     <th>{{__('validation.attributes.allergen_key')}}</th>
+    <th>画像は{キー名.png}で準備してください</th>
     <th>{{__('validation.attributes.lang')}}</th>
     <th>{{__('validation.attributes.allergen_name')}}</th>
     <th></th>
@@ -16,6 +17,9 @@
     <tr class="colored" data-hash="{{$allergen->hash}}">
       <td>
         {{ $allergen->allergen_key }}
+      </td>
+      <td>
+        <img src="/img/allergens/{{$allergen->allergen_key}}.png">
       </td>
       <td>
         {{ $allergen->lang_jp }}
