@@ -220,6 +220,7 @@
                     // handle error
                     console.log(error);
                 })
+            
             let c = sessionStorage.getItem('cart')
             if(c) {
                 this.cart = JSON.parse(c);
