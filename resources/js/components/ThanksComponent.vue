@@ -53,7 +53,7 @@
         },
         mounted() {
             axios
-                .post(`/${this.seat_hash}/${this.lang}/json_ordered_orders`, {
+                .post(`/${this.seat_hash}/${this.lang}/json_payment`, {
                     session_key: this.session_key
                 })
                 .then((response) => {

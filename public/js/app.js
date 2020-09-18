@@ -2518,7 +2518,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this2 = this;
 
-    axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/json_ordered_orders"), {
+    axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/json_payment"), {
       session_key: this.session_key
     }).then(function (response) {
       _this2.ordered_orders = response.data.ordered_orders; // alert(JSON.stringify(response))

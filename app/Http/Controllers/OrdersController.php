@@ -43,7 +43,8 @@ class OrdersController extends Controller
 
     public function print(\App\SeatSession $seatSession)
     {
-        $ordered_orders = \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get();
+        $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
+                                    where('seat_session_id', $seatSession->id)->with('item')->get();
         $all_price = $ordered_orders->map(function($order) {
             return $order->tax_included_price;
         })->sum();
@@ -76,7 +77,7 @@ class OrdersController extends Controller
     }
 
 
-    public function json_ordered_orders(Request $req, $seat_hash, $lang)
+    public function json_payment(Request $req, $seat_hash, $lang)
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
         if (!$seat)
@@ -96,7 +97,8 @@ class OrdersController extends Controller
             $seatSession->session_state = 'end_of_use';
             $seatSession->save();
 
-            $ordered_orders = \App\Order::where('seat_session_id', $seatSession->id)->with('item')->get();
+            $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
+                                        where('seat_session_id', $seatSession->id)->with('item')->get();
             $sum_tax_included_price = $ordered_orders->map(function ($order, $key) {
                 return $order->tax_included_price;
             })->sum();
