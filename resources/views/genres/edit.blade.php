@@ -66,6 +66,4 @@
 </form>
 @endsection
 
-@section('script')
-@include('components.createOptions');
-@endsection
+
