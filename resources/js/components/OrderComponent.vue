@@ -74,7 +74,7 @@
                         </div>
                         <ul class="text-left">
                             <li v-for="(value, key) in messages" v-bind:key="key">
-                                {{key}}------------{{value}}円
+                                {{key}}<br>{{value}}円
                             </li>
                         </ul>
                         <button

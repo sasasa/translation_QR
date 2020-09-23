@@ -5,11 +5,22 @@
         <div>
             ({{$t('message.tax')}})
         </div>
-        <ul>
-            <li v-for="order in ordered_orders" v-bind:key="order.id">
-                {{order.item.item_name}}(ID{{order.id}}){{order.is_take_out ? $t('message.takeout') : ""}}---{{order.tax_included_price}}円
-            </li>
-        </ul>
+
+        <div v-for="(take_out_orders, is_take_out) in ordered_orders" v-bind:key="is_take_out">
+            <span v-if="is_take_out">
+                <br>{{$t('message.takeout')}}
+            </span>
+            <span v-else>
+                <br>{{$t('message.food_and_drink_in_the_store')}}
+            </span>
+            <ul>
+                <li v-for="(orders, item_name) in take_out_orders" v-bind:key="orders[0].id">
+                    {{item_name}}---
+                    {{orders.length}}<br>
+                    {{orders.reduce((accumulator, order)=>{return order.tax_included_price + accumulator}, 0)}}円
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -37,17 +48,11 @@
         data() {
             return {
                 ordered_orders: [],
+                all_items: 0,
+                all_price: 0,
             }
         },
         computed: {
-            all_items() {
-                return this.ordered_orders.length
-            },
-            all_price() {
-                return Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
-                    return accumulator + this.ordered_orders[idx].tax_included_price
-                }, 0);
-            },
         },
         methods: {
         },
@@ -58,7 +63,9 @@
                 })
                 .then((response) => {
                     this.ordered_orders = response.data.ordered_orders
-                    // alert(JSON.stringify(response))
+                    this.all_items = response.data.all_items
+                    this.all_price = response.data.all_price
+                    // alert(JSON.stringify(response.data))
                 })
                 .catch((error) => {
                     // handle error

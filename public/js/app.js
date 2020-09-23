@@ -2477,6 +2477,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'thanks-component',
   props: {
@@ -2499,29 +2510,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      ordered_orders: []
+      ordered_orders: [],
+      all_items: 0,
+      all_price: 0
     };
   },
-  computed: {
-    all_items: function all_items() {
-      return this.ordered_orders.length;
-    },
-    all_price: function all_price() {
-      var _this = this;
-
-      return Object.keys(this.ordered_orders).reduce(function (accumulator, idx) {
-        return accumulator + _this.ordered_orders[idx].tax_included_price;
-      }, 0);
-    }
-  },
+  computed: {},
   methods: {},
   mounted: function mounted() {
-    var _this2 = this;
+    var _this = this;
 
     axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/json_payment"), {
       session_key: this.session_key
     }).then(function (response) {
-      _this2.ordered_orders = response.data.ordered_orders; // alert(JSON.stringify(response))
+      _this.ordered_orders = response.data.ordered_orders;
+      _this.all_items = response.data.all_items;
+      _this.all_price = response.data.all_price; // alert(JSON.stringify(response.data))
     })["catch"](function (error) {
       // handle error
       console.log(error);
@@ -7213,7 +7217,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-98f701fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.card[data-v-98f701fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -7232,7 +7236,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-082b38fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.card[data-v-082b38fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -7251,7 +7255,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.cancel[data-v-07d82eff],\r\n.printing[data-v-07d82eff] {\r\n    background: red;\n}\n.delivered[data-v-07d82eff],\r\n.afterpaying[data-v-07d82eff] {\r\n    background: skyblue;\n}\r\n\r\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\r\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\r\n    transition: all 5000ms;\n}\r\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\r\n    opacity: 0.5;\r\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.cancel[data-v-07d82eff],\n.printing[data-v-07d82eff] {\n    background: red;\n}\n.delivered[data-v-07d82eff],\n.afterpaying[data-v-07d82eff] {\n    background: skyblue;\n}\n\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\n    transition: all 5000ms;\n}\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\n    opacity: 0.5;\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -62965,13 +62969,9 @@ var render = function() {
                   { staticClass: "text-left" },
                   _vm._l(_vm.messages, function(value, key) {
                     return _c("li", { key: key }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(key) +
-                          "------------" +
-                          _vm._s(value) +
-                          "円\n                        "
-                      )
+                      _vm._v("\n                            " + _vm._s(key)),
+                      _c("br"),
+                      _vm._v(_vm._s(value) + "円\n                        ")
                     ])
                   }),
                   0
@@ -63047,37 +63047,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v(_vm._s(_vm.$t("message.thanks_wait")))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "h1" }, [
-      _vm._v(_vm._s(_vm.all_items) + "点" + _vm._s(_vm.all_price) + "円")
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v("\n        (" + _vm._s(_vm.$t("message.tax")) + ")\n    ")
-    ]),
-    _vm._v(" "),
-    _c(
-      "ul",
-      _vm._l(_vm.ordered_orders, function(order) {
-        return _c("li", { key: order.id }, [
-          _vm._v(
-            "\n            " +
-              _vm._s(order.item.item_name) +
-              "(ID" +
-              _vm._s(order.id) +
-              ")" +
-              _vm._s(order.is_take_out ? _vm.$t("message.takeout") : "") +
-              "---" +
-              _vm._s(order.tax_included_price) +
-              "円\n        "
+  return _c(
+    "div",
+    [
+      _c("h1", [_vm._v(_vm._s(_vm.$t("message.thanks_wait")))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "h1" }, [
+        _vm._v(_vm._s(_vm.all_items) + "点" + _vm._s(_vm.all_price) + "円")
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v("\n        (" + _vm._s(_vm.$t("message.tax")) + ")\n    ")
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.ordered_orders, function(take_out_orders, is_take_out) {
+        return _c("div", { key: is_take_out }, [
+          is_take_out
+            ? _c("span", [
+                _c("br"),
+                _vm._v(_vm._s(_vm.$t("message.takeout")) + "\n        ")
+              ])
+            : _c("span", [
+                _c("br"),
+                _vm._v(
+                  _vm._s(_vm.$t("message.food_and_drink_in_the_store")) +
+                    "\n        "
+                )
+              ]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(take_out_orders, function(orders, item_name) {
+              return _c("li", { key: orders[0].id }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(item_name) +
+                    "---\n                " +
+                    _vm._s(orders.length)
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n                " +
+                    _vm._s(
+                      orders.reduce(function(accumulator, order) {
+                        return order.tax_included_price + accumulator
+                      }, 0)
+                    ) +
+                    "円\n            "
+                )
+              ])
+            }),
+            0
           )
         ])
-      }),
-      0
-    )
-  ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -78607,6 +78633,7 @@ var messages = {
       tax: 'including tax',
       pay: 'Pay',
       takeout: 'Take out',
+      food_and_drink_in_the_store: 'Food and drink in the store',
       thanks_wait: 'Thank you very much. Please wait a moment.',
       sorry_out_of_stock: 'Sorry, Out of stock.'
     }
@@ -78630,6 +78657,7 @@ var messages = {
       tax: '税を含む',
       pay: 'お会計',
       takeout: 'テイクアウト',
+      food_and_drink_in_the_store: '店内飲食',
       thanks_wait: 'ありがとうございました。しばらくお待ちください。',
       sorry_out_of_stock: '申し訳ありません、在庫切れです。'
     }
@@ -78653,6 +78681,7 @@ var messages = {
       tax: '세금을 포함',
       pay: '결제하기',
       takeout: '테이크 아웃',
+      food_and_drink_in_the_store: '점내에서의 음식',
       thanks_wait: '감사합니다. 잠시 기다려주십시오.',
       sorry_out_of_stock: '죄송 품절입니다.'
     }
@@ -78676,6 +78705,7 @@ var messages = {
       tax: '所含税款',
       pay: '支付',
       takeout: '取出',
+      food_and_drink_in_the_store: '在商店吃喝',
       thanks_wait: '非常感谢你。请稍候。',
       sorry_out_of_stock: '抱歉，没货了。'
     }

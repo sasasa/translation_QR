@@ -81,6 +81,7 @@ const messages = {
             tax: 'including tax',
             pay: 'Pay',
             takeout: 'Take out',
+            food_and_drink_in_the_store: 'Food and drink in the store',
             thanks_wait: 'Thank you very much. Please wait a moment.',
 
             sorry_out_of_stock: 'Sorry, Out of stock.',
@@ -108,6 +109,7 @@ const messages = {
             tax: '税を含む',
             pay: 'お会計',
             takeout: 'テイクアウト',
+            food_and_drink_in_the_store: '店内飲食',
             thanks_wait: 'ありがとうございました。しばらくお待ちください。',
 
             sorry_out_of_stock: '申し訳ありません、在庫切れです。',
@@ -135,6 +137,7 @@ const messages = {
             tax: '세금을 포함',
             pay: '결제하기',
             takeout: '테이크 아웃',
+            food_and_drink_in_the_store: '점내에서의 음식',
             thanks_wait: '감사합니다. 잠시 기다려주십시오.',
             sorry_out_of_stock: '죄송 품절입니다.',
         },
@@ -161,6 +164,7 @@ const messages = {
             tax: '所含税款',
             pay: '支付',
             takeout: '取出',
+            food_and_drink_in_the_store: '在商店吃喝',
             thanks_wait: '非常感谢你。请稍候。',
             sorry_out_of_stock: '抱歉，没货了。',
         },
