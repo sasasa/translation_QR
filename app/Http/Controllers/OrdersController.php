@@ -48,9 +48,12 @@ class OrdersController extends Controller
         $all_price = $ordered_orders->map(function($order) {
             return $order->tax_included_price;
         })->sum();
+
         return view('orders.print', [
             'seatSession' => $seatSession,
-            'ordered_orders' => $ordered_orders,
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function($ary, $key){
+                return $ary->groupBy('item.item_name');
+            }),
             'all_items' => $ordered_orders->count(),
             'all_price' => $all_price,
             'time' => $seatSession->payment->created_at,
@@ -112,7 +115,11 @@ class OrdersController extends Controller
         }
 
         return response()->json([
-            'ordered_orders' => $ordered_orders,
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function($ary, $key){
+                return $ary->groupBy('item.item_name');
+            }),
+            'all_items' => $ordered_orders->count(),
+            'all_price' => $sum_tax_included_price,
         ]);
     }
 
