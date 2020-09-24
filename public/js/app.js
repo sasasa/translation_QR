@@ -2127,10 +2127,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this5 = this;
 
-    var data = {
+    axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/").concat(this.current_genre, "/json_items"), {
       session_key: this.session_key
-    };
-    axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/").concat(this.current_genre, "/json_items"), data).then(function (response) {
+    }).then(function (response) {
       _this5.items = response.data.items;
       _this5.genres = response.data.genres;
       _this5.ordered_orders = response.data.ordered_orders; // alert(JSON.stringify(response))
@@ -2138,6 +2137,15 @@ __webpack_require__.r(__webpack_exports__);
       // handle error
       console.log(error);
     });
+    setInterval(function () {
+      axios.post("/".concat(_this5.seat_hash, "/json_ordered_orders"), {
+        session_key: _this5.session_key
+      }).then(function (response) {
+        _this5.ordered_orders = response.data.ordered_orders;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }, 30000);
     var c = sessionStorage.getItem('cart');
 
     if (c) {
@@ -2448,6 +2456,15 @@ __webpack_require__.r(__webpack_exports__);
       console.log(error);
       _this7.message = _this7.$t('message.error');
     });
+    setInterval(function () {
+      axios.post("/".concat(_this7.seat_hash, "/json_ordered_orders"), {
+        session_key: _this7.session_key
+      }).then(function (response) {
+        _this7.ordered_orders = response.data.ordered_orders;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }, 30000);
   }
 });
 

@@ -4,14 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use App\Traits\SeatCheckable;
 class OrdersController extends Controller
 {
+    use SeatCheckable;
 
     public function index()
     {
         // dd(Carbon::today());
         return view('orders.index', [
+        ]);
+    }
+
+    public function json_ordered_orders(Request $req, $seat_hash)
+    {
+        [$seat, $seatSession] = $this->seatCheck($req, $seat_hash);
+        if(!$seatSession) {
+            return false;
+        }
+
+        return response()->json([
+            'ordered_orders' => $seatSession->orders,
         ]);
     }
 
@@ -63,14 +76,8 @@ class OrdersController extends Controller
 
     public function pay(Request $req)
     {
-        $seat = \App\Seat::where('seat_hash', $req->seat_hash)->first();
-        if (!$seat)
-        {
-            return false;
-        }
-        $seatSession = $seat->seatSession;
-        if ($seatSession->session_key != $req->session_key)
-        {
+        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        if(!$seatSession) {
             return false;
         }
 
@@ -82,14 +89,8 @@ class OrdersController extends Controller
 
     public function json_payment(Request $req, $seat_hash, $lang)
     {
-        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
-        if (!$seat)
-        {
-            return false;
-        }
-        $seatSession = $seat->seatSession;
-        if ($seatSession->session_key != $req->session_key)
-        {
+        [$seat, $seatSession] = $this->seatCheck($req, $seat_hash);
+        if(!$seatSession) {
             return false;
         }
 
@@ -125,17 +126,11 @@ class OrdersController extends Controller
 
     public function store(Request $req)
     {
-        $seat = \App\Seat::where('seat_hash', $req->seat_hash)->first();
-        if (!$seat)
-        {
+        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        if(!$seatSession) {
             return false;
         }
-        $seatSession = $seat->seatSession;
-        if ($seatSession->session_key != $req->session_key)
-        {
-            return false;
-        }
-
+        
         $ret = [];
         \DB::beginTransaction();
         try {
