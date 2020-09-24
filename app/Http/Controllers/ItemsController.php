@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Traits\SeatCheckable;
 class ItemsController extends Controller
 {
+    use SeatCheckable;
 
     public function genre($seat_hash, $lang, $genre)
     {
@@ -34,14 +36,8 @@ class ItemsController extends Controller
 
     public function json_items(Request $req, $seat_hash, $lang, $genre)
     {
-        $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
-        if (!$seat)
-        {
-            return false;
-        }
-        $seatSession = $seat->seatSession;
-        if ($seatSession->session_key != $req->session_key)
-        {
+        [$seat, $seatSession] = $this->seatCheck($req, $seat_hash);
+        if(!$seatSession) {
             return false;
         }
 

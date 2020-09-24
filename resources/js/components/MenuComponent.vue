@@ -205,11 +205,10 @@
             },
         },
         mounted() {
-            let data = {
-                session_key: this.session_key
-            }
             axios
-                .post(`/${this.seat_hash}/${this.lang}/${this.current_genre}/json_items`, data)
+                .post(`/${this.seat_hash}/${this.lang}/${this.current_genre}/json_items`, {
+                    session_key: this.session_key
+                })
                 .then((response) => {
                     this.items = response.data.items
                     this.genres = response.data.genres
@@ -220,7 +219,19 @@
                     // handle error
                     console.log(error);
                 })
-            
+            setInterval(() => {
+                axios
+                    .post(`/${this.seat_hash}/json_ordered_orders`, {
+                        session_key: this.session_key
+                    })
+                    .then((response) => {
+                        this.ordered_orders = response.data.ordered_orders
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }, 30000)
+
             let c = sessionStorage.getItem('cart')
             if(c) {
                 this.cart = JSON.parse(c);

@@ -2127,10 +2127,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this5 = this;
 
-    var data = {
+    axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/").concat(this.current_genre, "/json_items"), {
       session_key: this.session_key
-    };
-    axios.post("/".concat(this.seat_hash, "/").concat(this.lang, "/").concat(this.current_genre, "/json_items"), data).then(function (response) {
+    }).then(function (response) {
       _this5.items = response.data.items;
       _this5.genres = response.data.genres;
       _this5.ordered_orders = response.data.ordered_orders; // alert(JSON.stringify(response))
@@ -2138,6 +2137,15 @@ __webpack_require__.r(__webpack_exports__);
       // handle error
       console.log(error);
     });
+    setInterval(function () {
+      axios.post("/".concat(_this5.seat_hash, "/json_ordered_orders"), {
+        session_key: _this5.session_key
+      }).then(function (response) {
+        _this5.ordered_orders = response.data.ordered_orders;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }, 30000);
     var c = sessionStorage.getItem('cart');
 
     if (c) {
@@ -2448,6 +2456,15 @@ __webpack_require__.r(__webpack_exports__);
       console.log(error);
       _this7.message = _this7.$t('message.error');
     });
+    setInterval(function () {
+      axios.post("/".concat(_this7.seat_hash, "/json_ordered_orders"), {
+        session_key: _this7.session_key
+      }).then(function (response) {
+        _this7.ordered_orders = response.data.ordered_orders;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }, 30000);
   }
 });
 
@@ -7213,7 +7230,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-98f701fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.card[data-v-98f701fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -7232,7 +7249,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-082b38fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.card[data-v-082b38fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -7251,7 +7268,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.cancel[data-v-07d82eff],\r\n.printing[data-v-07d82eff] {\r\n    background: red;\n}\n.delivered[data-v-07d82eff],\r\n.afterpaying[data-v-07d82eff] {\r\n    background: skyblue;\n}\r\n\r\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\r\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\r\n    transition: all 5000ms;\n}\r\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\r\n    opacity: 0.5;\r\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.cancel[data-v-07d82eff],\n.printing[data-v-07d82eff] {\n    background: red;\n}\n.delivered[data-v-07d82eff],\n.afterpaying[data-v-07d82eff] {\n    background: skyblue;\n}\n\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\n    transition: all 5000ms;\n}\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\n    opacity: 0.5;\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 

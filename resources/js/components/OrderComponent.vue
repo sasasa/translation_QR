@@ -276,6 +276,18 @@
                     console.log(error);
                     this.message = this.$t('message.error')
                 })
+            setInterval(() => {
+                axios
+                    .post(`/${this.seat_hash}/json_ordered_orders`, {
+                        session_key: this.session_key
+                    })
+                    .then((response) => {
+                        this.ordered_orders = response.data.ordered_orders
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }, 30000)
         }
     }
 </script>

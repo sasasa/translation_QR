@@ -50,7 +50,7 @@ Route::post('item_ids', 'ItemsController@item_ids');
 Route::get('{seat_hash}/{lang}/{genre}/items', 'ItemsController@genre');
 
 Route::post('{seat_hash}/{lang}/json_payment', 'OrdersController@json_payment');
-Route::post('{seat_hash}/{lang}/json_ordered_orders', 'OrdersController@json_ordered_orderss');
+Route::post('{seat_hash}/json_ordered_orders', 'OrdersController@json_ordered_orders');
 Route::post('orders', 'OrdersController@store');
 Route::post('pay', 'OrdersController@pay');
 
