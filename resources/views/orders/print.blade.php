@@ -1,5 +1,5 @@
 @extends('layouts.print')
-@section('title', $seatSession->seat->seat_name. 'の明細')
+@section('title', $seatSession->seat->seat_name. '席明細')
 
 @section('content')
 <div class="print_page">
