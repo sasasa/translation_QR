@@ -2692,8 +2692,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var delivered_time = moment__WEBPACK_IMPORTED_MODULE_0___default()(order.updated_at);
       var now = moment__WEBPACK_IMPORTED_MODULE_0___default()();
 
-      if (now > cancel_time.add(2, 'm') && order.order_state == "cancel") {
-        // キャンセルの際は2分表示する
+      if (now > cancel_time.add(30, 's') && order.order_state == "cancel") {
+        // キャンセルの際は30秒表示する
         return false;
       } else if (now > delivered_time.add(30, 's') && order.order_state == "delivered") {
         // お届け済みの際は30秒表示する
@@ -7234,7 +7234,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-98f701fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-98f701fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-98f701fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -7253,7 +7253,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-082b38fa] {\n    position: -webkit-sticky;\n    position: sticky;\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-082b38fa] {\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n    bottom:0px;\n}\n.pointer[data-v-082b38fa] {\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -7272,7 +7272,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.cancel[data-v-07d82eff],\n.printing[data-v-07d82eff] {\n    background: red;\n}\n.delivered[data-v-07d82eff],\n.afterpaying[data-v-07d82eff] {\n    background: skyblue;\n}\n\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\n    transition: all 15000ms;\n}\n.v-leave-active[data-v-07d82eff] {\n    transition: all 5000ms;\n}\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\n    opacity: 0.5;\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.cancel[data-v-07d82eff],\r\n.printing[data-v-07d82eff] {\r\n    background: red;\n}\n.delivered[data-v-07d82eff],\r\n.afterpaying[data-v-07d82eff] {\r\n    background: skyblue;\n}\r\n\r\n/* 表示・非表示アニメーション中 */\n.v-enter-active[data-v-07d82eff], .v-leave-active[data-v-07d82eff] {\r\n    transition: all 12000ms;\n}\n.v-leave-active[data-v-07d82eff] {\r\n    transition: all 5000ms;\n}\r\n/* 表示アニメーション開始時 ・ 非表示アニメーション後 */\n.v-enter[data-v-07d82eff] {\r\n    opacity: 0.5;\r\n    background: pink;\n}\n.v-leave-to[data-v-07d82eff] {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 

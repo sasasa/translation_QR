@@ -128,8 +128,8 @@
                 let cancel_time = moment(order.updated_at)
                 let delivered_time = moment(order.updated_at)
                 let now = moment()
-                if (now > cancel_time.add(2, 'm') && order.order_state == "cancel") {
-                    // キャンセルの際は2分表示する
+                if (now > cancel_time.add(30, 's') && order.order_state == "cancel") {
+                    // キャンセルの際は30秒表示する
                     return false
                 } else if (now > delivered_time.add(30, 's') && order.order_state == "delivered") {
                     // お届け済みの際は30秒表示する
@@ -245,7 +245,7 @@
 
 /* 表示・非表示アニメーション中 */
 .v-enter-active, .v-leave-active {
-    transition: all 15000ms;
+    transition: all 12000ms;
 }
 .v-leave-active {
     transition: all 5000ms;
