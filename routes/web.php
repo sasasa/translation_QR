@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth', 'verified', 'can:browsing']], function ()
     Route::post('json_orders', 'OrdersController@json_orders');
     Route::patch('orders/{order}/takeout', 'OrdersController@takeout');
     Route::get('print/{seatSession}', 'OrdersController@print');
+
+    Route::get('sum_total', 'OrdersController@sum_total');
 });
 
 Route::post('{seat_hash}/{lang}/{genre}/json_items', 'ItemsController@json_items');

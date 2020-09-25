@@ -130,7 +130,7 @@ class OrdersController extends Controller
         if(!$seatSession) {
             return false;
         }
-        
+
         $ret = [];
         \DB::beginTransaction();
         try {
@@ -201,5 +201,36 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function sum_total(Request $req)
+    {
+        if( $req->search_start_at ) {
+            $start_time = new Carbon($req->search_start_at);
+        } else {
+            $start_time = Carbon::today();
+        }
+        if( $req->search_end_at ) {
+            $end_time = new Carbon($req->search_end_at);
+        } else {
+            $end_time = Carbon::tomorrow();
+        }
+
+        $payments = \App\Payment::whereDate('created_at', '>=', $start_time)->
+                                whereDate('created_at', '<', $end_time)->paginate(100);
+
+        $sum_sales = \App\Payment::whereDate('created_at', '>=', $start_time)->
+                                whereDate('created_at', '<', $end_time)->sum('tax_included_price');
+
+        $count = \App\Payment::whereDate('created_at', '>=', $start_time)->
+                                whereDate('created_at', '<', $end_time)->count('tax_included_price');
+
+        return view('orders.sum_total', [
+            'search_start_at' => str_replace(" ", "T", $start_time),
+            'search_end_at' => str_replace(" ", "T", $end_time),
+            'payments' => $payments,
+            'sum_sales' => $sum_sales,
+            'count' => $count,
+        ]);
     }
 }
