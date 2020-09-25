@@ -129,4 +129,13 @@ class Item extends Model
             return false;
         }
     }
+
+    public function jp()
+    {
+        if( $this->lang !== 'ja_JP' ) {
+            return self::where('item_key', $this->item_key)->where('lang', 'ja_JP')->first();
+        } else {
+            return $this;
+        }
+    }
 }
