@@ -57,7 +57,7 @@ class OrdersController extends Controller
     public function print(\App\SeatSession $seatSession)
     {
         $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
-                                    where('seat_session_id', $seatSession->id)->with('item')->get();
+                                    where('seat_session_id', $seatSession->id)->with('item_jp')->get();
         $all_price = $ordered_orders->map(function($order) {
             return $order->tax_included_price;
         })->sum();
@@ -65,7 +65,7 @@ class OrdersController extends Controller
         return view('orders.print', [
             'seatSession' => $seatSession,
             'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function($ary, $key){
-                return $ary->groupBy('item.item_name');
+                return $ary->groupBy('item_jp.item_name');
             }),
             'all_items' => $ordered_orders->count(),
             'all_price' => $all_price,
