@@ -195,7 +195,7 @@
                     .post(`/json_orders`)
                     .then((response) => {
                         if(this.orders.length < response.data.orders.length) {
-                            let audio = new Audio('sound/splash-big1.mp3');
+                            let audio = new Audio('sound/shop-chime1.mp3');
                             audio.addEventListener('canplaythrough', () => {
                                 audio.play()
                             }, false);

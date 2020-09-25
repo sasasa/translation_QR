@@ -2759,7 +2759,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       axios.post("/json_orders").then(function (response) {
         if (_this5.orders.length < response.data.orders.length) {
-          var audio = new Audio('sound/splash-big1.mp3');
+          var audio = new Audio('sound/shop-chime1.mp3');
           audio.addEventListener('canplaythrough', function () {
             audio.play();
           }, false);
