@@ -55,7 +55,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "postinstall": "npm run prod",
+        "postinstall": "npm run production",
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
