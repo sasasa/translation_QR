@@ -7,7 +7,7 @@ h1,.h1 {
 }
 .print_page {
   width: 58mm;
-  height: calc(auto + 30mm);
+  height: auto;
   margin-bottom: 30mm;
   page-break-after: always;
   font-size: 10pt;
@@ -20,7 +20,7 @@ ul {
   padding: 0;
 }
 @page {
-  size: 58mm calc(auto + 30mm);
+  size: 58mm auto;
   margin: 0;
   margin-bottom: 30mm;
 }
