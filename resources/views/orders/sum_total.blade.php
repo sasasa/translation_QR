@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>売上確認</h1>
-<form action="/sum_total" method="get" class="mb-5">
+<form action="/sum_total" method="get" class="mb-2">
   @csrf
   <div class="form-group">
     <label for="search_start_at">検索開始日時(&gt;=):</label>
@@ -15,26 +15,72 @@
   </div>
   <input type="submit" value="検索" class="btn btn-primary">
 </form>
+<form action="/sum_total" method="get" class="mb-2">
+  @csrf
+  <input type="hidden" name="search_start_at" value="{{$yesterday}}">
+  <input type="hidden" name="search_end_at" value="{{$today}}">
+  <input type="submit" value="昨日" class="btn btn-primary">
+</form>
+<form action="/sum_total" method="get" class="mb-2">
+  @csrf
+  <input type="hidden" name="search_start_at" value="{{$today}}">
+  <input type="hidden" name="search_end_at" value="{{$tomorrow}}">
+  <input type="submit" value="今日" class="btn btn-primary">
+</form>
+<form action="/sum_total" method="get" class="mb-2">
+  @csrf
+  <input type="hidden" name="search_start_at" value="{{$lastOfWeek}}">
+  <input type="hidden" name="search_end_at" value="{{$startOfWeek}}">
+  <input type="submit" value="先週" class="btn btn-primary">
+</form>
+<form action="/sum_total" method="get" class="mb-2">
+  @csrf
+  <input type="hidden" name="search_start_at" value="{{$startOfWeek}}">
+  <input type="hidden" name="search_end_at" value="{{$nextOfWeek}}">
+  <input type="submit" value="今週" class="btn btn-primary">
+</form>
+<form action="/sum_total" method="get" class="mb-2">
+  @csrf
+  <input type="hidden" name="search_start_at" value="{{$lastOfMonth}}">
+  <input type="hidden" name="search_end_at" value="{{$startOfMonth}}">
+  <input type="submit" value="先月" class="btn btn-primary">
+</form>
+<form action="/sum_total" method="get" class="mb-5">
+  @csrf
+  <input type="hidden" name="search_start_at" value="{{$startOfMonth}}">
+  <input type="hidden" name="search_end_at" value="{{$nextOfMonth}}">
+  <input type="submit" value="今月" class="btn btn-primary">
+</form>
 
 <h2>
-  売上げ:{{$sum_sales}}円
+  売上げ計(税込み):{{number_format($sum_sales)}}円
 </h2>
 <h2>
-  支払い数:{{$count}}回
+  支払い数:{{number_format($count)}}回
 </h2>
 <table class="table">
   <tr>
-    <th></th>
-    <th></th>
+    <th>
+      ID
+    </th>
+    <th>
+      売り上げ(税込み)
+    </th>
+    <th>
+      売り上げ日時
+    </th>
   </tr>
   @foreach ($payments as $payment)
     <tr>
-      <td>
-        {{ $payment->tax_included_price }}円
-      </td>
-      <td>
-        {{ $payment->updated_at }}
-      </td>
+        <td>
+          {{ $payment->id }}
+        </td>
+        <td>
+          {{ number_format($payment->tax_included_price) }}円
+        </td>
+        <td>
+          {{ $payment->created_at }}
+        </td>
     </tr>
   @endforeach
 </table>
