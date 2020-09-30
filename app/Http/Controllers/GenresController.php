@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 class GenresController extends Controller
 {
 
@@ -34,7 +34,15 @@ class GenresController extends Controller
 
     public function store(Request $req)
     {
-        $this->validate($req, \App\Genre::$rules);
+        $this->validate($req, array_merge(\App\Genre::$rules, [
+            'genre_key' => [
+                'required',
+                // genre_key,langの組み合わせでユニークである
+                Rule::unique('genres')->where(function($query) use($req){
+                    $query->where('lang', $req->lang);
+                }),
+            ],
+        ]));
         $genre = new \App\Genre();
         $genre->fill($req->all())->save();
 
