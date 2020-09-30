@@ -55,4 +55,10 @@ class AllergensController extends Controller
 
         return redirect('/allergens');
     }
+
+    public function store_by_key(Request $req, \App\Allergen $allergen)
+    {
+        $allergen->saveOtherLangByKey();
+        return redirect('/allergens');
+    }
 }

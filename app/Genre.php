@@ -104,15 +104,19 @@ class Genre extends Model
     }
     public function saveOtherLangByKey()
     {
-        collect(['en_US', 'zh_CN', 'ko_KR'])->each(function($langVal) {
-            $new_genre = new \App\Genre();
-            $new_genre->fill([
-                'lang' => $langVal,
-                'genre_name' => '【'. $this->genre_name. '】の翻訳を入れてください',
-                'genre_key' => $this->genre_key,
-                'genre_order' => $this->genre_order,
-                'parent_id' => $this->parent_id,
-            ])->save();
-        });
+        try {
+            collect(['en_US', 'zh_CN', 'ko_KR'])->each(function($langVal) {
+                $new_genre = new \App\Genre();
+                $new_genre->fill([
+                    'lang' => $langVal,
+                    'genre_name' => '【'. $this->genre_name. '】の翻訳を入れてください',
+                    'genre_key' => $this->genre_key,
+                    'genre_order' => $this->genre_order,
+                    'parent_id' => $this->parent_id,
+                ])->save();
+            });
+        } catch(\Illuminate\Database\QueryException $e) {
+            // SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry
+        }
     }
 }
