@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 class AllergensController extends Controller
 {
 
@@ -22,7 +22,16 @@ class AllergensController extends Controller
 
     public function store(Request $req)
     {
-        $this->validate($req, \App\Allergen::$rules);
+        $this->validate($req, array_merge(\App\Allergen::$rules, [
+            'allergen_key' => [
+                'required',
+                // allergen_key,langの組み合わせでユニークである
+                Rule::unique('allergens')->where(function($query) use($req){
+                    $query->where('lang', $req->lang);
+                }),
+            ],
+        ]));
+
         $allergen = new \App\Allergen();
         $allergen->fill($req->all())->save();
 
