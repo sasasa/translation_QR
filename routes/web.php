@@ -23,6 +23,8 @@ Route::group(['middleware' => ['auth', 'verified', 'can:editting']], function ()
     Route::resource('allergens', 'AllergensController');
 
     Route::resource('genres', 'GenresController');
+    Route::post('genres/{genre}/store_by_key', 'GenresController@store_by_key');
+
     Route::post('json/parents/{lang}', 'GenresController@json_parents');
     Route::post('json/genres/{lang}', 'GenresController@json_genres');
 

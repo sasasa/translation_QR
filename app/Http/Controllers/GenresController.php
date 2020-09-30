@@ -67,4 +67,10 @@ class GenresController extends Controller
 
         return redirect('/genres');
     }
+
+    public function store_by_key(Request $req, \App\Genre $genre)
+    {
+        $genre->saveOtherLangByKey();
+        return redirect('/genres');
+    }
 }

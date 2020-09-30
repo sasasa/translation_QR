@@ -13,6 +13,7 @@
     <th>{{__('validation.attributes.parent_id')}}</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   @foreach ($genres as $genre)
     <tr class="colored" data-hash="{{$genre->hash}}">
@@ -33,6 +34,14 @@
       </td>
       <td>
         <a href="/genres/{{$genre->id}}/edit" class="btn btn-sm btn-primary">編集する</a>
+      </td>
+      <td>
+        @if ($genre->lang == "ja_JP")
+          <form action="/genres/{{$genre->id}}/store_by_key" method="post">
+            @csrf
+            <input type="submit" value="他言語ジャンル作成" class="btn btn-sm btn-primary">
+          </form>
+        @endif
       </td>
       <td>
         <form action="/genres/{{$genre->id}}" method="post">
