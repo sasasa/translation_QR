@@ -12,6 +12,7 @@
     <th>{{__('validation.attributes.allergen_name')}}</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   @foreach ($allergens as $allergen)
     <tr class="colored" data-hash="{{$allergen->hash}}">
@@ -29,6 +30,14 @@
       </td>
       <td>
         <a href="/allergens/{{$allergen->id}}/edit" class="btn btn-sm btn-primary">編集する</a>
+      </td>
+      <td>
+        @if ($allergen->lang == "ja_JP")
+          <form action="/allergens/{{$allergen->id}}/store_by_key" method="post">
+            @csrf
+            <input type="submit" value="他言語アレルギー品目作成" class="btn btn-sm btn-primary">
+          </form>
+        @endif
       </td>
       <td>
         <form action="/allergens/{{$allergen->id}}" method="post">
