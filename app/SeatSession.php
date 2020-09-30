@@ -37,6 +37,6 @@ class SeatSession extends Model
 
     public function set_hash()
     {
-        $this->session_key = hash('sha256', Uuid::uuid4());
+        return $this->session_key = hash('sha256', Uuid::uuid4());
     }
 }

@@ -84,4 +84,6 @@ php artisan db:seed --class=PaymentsTableSeeder
 php artisan make:controller PaymentsController --resource
 
 php artisan make:controller UsersController --resource
+
+
 `

@@ -31,7 +31,6 @@ class Seat extends Model
     }
     public function seatSession()
     {
-        // return $this->seatSessions()->orderBy('id', 'DESC')->first();
         return $this->hasOne('App\SeatSession')->orderBy('id', 'DESC');
     }
 
