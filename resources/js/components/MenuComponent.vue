@@ -1,18 +1,25 @@
 <template>
     <div>
         <div>
-            <a v-bind:href="`/${seat_hash}/ja/${current_genre}/items`">日本語</a>
-            <a v-bind:href="`/${seat_hash}/en/${current_genre}/items`">English</a>
-            <a v-bind:href="`/${seat_hash}/zh/${current_genre}/items`">中文</a>
-            <a v-bind:href="`/${seat_hash}/ko/${current_genre}/items`">한글</a>
+            <router-link v-bind:to="`/ja/${current_genre}`" replace>日本語</router-link>
+            <router-link v-bind:to="`/en/${current_genre}`" replace>English</router-link>
+            <router-link v-bind:to="`/zh/${current_genre}`" replace>中文</router-link>
+            <router-link v-bind:to="`/ko/${current_genre}`" replace>한글</router-link>
         </div>
 
 
         <div v-for="genre in genres" v-bind:key="genre.id">
-            <a v-bind:href="`/${seat_hash}/${lang}/${genre.genre_key}/items`">{{genre.genre_name}}</a>
+            <div v-if="genre.children.length">
+                {{genre.genre_name}}
+            </div>
+            <div v-else>
+                <router-link v-bind:to="`/${lang}/${genre.genre_key}`" replace>{{genre.genre_name}}</router-link>
+            </div>
+            
+            
             <ul>
                 <li v-for="child_genre in genre.children" v-bind:key="child_genre.id">
-                    <a v-bind:href="`/${seat_hash}/${lang}/${child_genre.genre_key}/items`">{{child_genre.genre_name}}</a>
+                    <router-link v-bind:to="`/${lang}/${child_genre.genre_key}`" replace>{{child_genre.genre_name}}</router-link>
                 </li>
             </ul>
         </div>
@@ -147,14 +154,17 @@
         methods: {
             pay() {
                 axios
-                    .post(`/pay`, {
+                    .post(`/api/pay`, {
                         session_key: this.session_key,
                         seat_hash: this.seat_hash,
                         lang: this.lang,
                     })
                     .then((response) => {
                         if (response.data.ok) {
-                            this.$router.push({ name: 'thanks-component' })
+                            this.$router.replace({ 
+                                name: 'thanks-component',
+                                lang: this.lang,
+                            })
                         }
                     })
                     .catch((error) => {
@@ -201,28 +211,47 @@
                 sessionStorage.setItem('cart', JSON.stringify(this.cart))
             },
             order() {
-                this.$router.push({ name: 'order-component' })
+                this.$router.push({ 
+                    name: 'order-component',
+                    lang: this.lang,
+                })
+            },
+            getData() {
+                axios
+                    .post(`/api/json_items`, {
+                        session_key: this.session_key,
+                        lang: this.lang,
+                        genre: this.current_genre,
+                        seat_hash: this.seat_hash,
+                    })
+                    .then((response) => {
+                        this.items = response.data.items
+                        this.genres = response.data.genres
+                        this.ordered_orders = response.data.ordered_orders
+                        // alert(JSON.stringify(response))
+                    })
+                    .catch((error) => {
+                        // handle error
+                        console.log(error);
+                    })
             },
         },
+        watch: {
+            $route (to, from) {
+                // ルートの変更の検知
+                this.getData()
+                this.$i18n.locale = this.lang
+            }
+        },
+        updated() {
+        },
         mounted() {
-            axios
-                .post(`/${this.seat_hash}/${this.lang}/${this.current_genre}/json_items`, {
-                    session_key: this.session_key
-                })
-                .then((response) => {
-                    this.items = response.data.items
-                    this.genres = response.data.genres
-                    this.ordered_orders = response.data.ordered_orders
-                    // alert(JSON.stringify(response))
-                })
-                .catch((error) => {
-                    // handle error
-                    console.log(error);
-                })
+            this.getData()
             setInterval(() => {
                 axios
-                    .post(`/${this.seat_hash}/json_ordered_orders`, {
-                        session_key: this.session_key
+                    .post(`/api/json_ordered_orders`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
                     })
                     .then((response) => {
                         this.ordered_orders = response.data.ordered_orders

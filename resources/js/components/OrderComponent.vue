@@ -112,10 +112,6 @@
                 type: String,
                 required: true,
             },
-            current_genre: {
-                type: String,
-                required: true,
-            },
             lang: {
                 type: String,
                 required: true,
@@ -134,14 +130,17 @@
         methods: {
             pay() {
                 axios
-                    .post(`/pay`, {
+                    .post(`/api/pay`, {
                         session_key: this.session_key,
                         seat_hash: this.seat_hash,
                         lang: this.lang,
                     })
                     .then((response) => {
                         if (response.data.ok) {
-                            this.$router.push({ name: 'thanks-component' })
+                            this.$router.replace({ 
+                                name: 'thanks-component',
+                                lang: this.lang,
+                            })
                         }
                     })
                     .catch((error) => {
@@ -180,15 +179,14 @@
                 this.$router.back()
             },
             order() {
-                let data = {
-                    cart: this.orderCart,
-                    lang: this.lang,
-                    session_key: this.session_key,
-                    seat_hash: this.seat_hash,
-                    is_take_out: this.is_take_out,
-                }
                 axios
-                    .post(`/orders`, data)
+                    .post(`/api/orders`, {
+                        cart: this.orderCart,
+                        lang: this.lang,
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
+                        is_take_out: this.is_take_out,
+                    })
                     .then((response) => {
                         this.before_order = false
                         this.messages = response.data.messages
@@ -249,6 +247,14 @@
                 }, 0);
             }
         },
+        watch: {
+            $route (to, from) {
+                // ルートの変更の検知
+                this.$i18n.locale = this.lang
+            }
+        },
+        updated() {
+        },
         mounted() {
             let c = sessionStorage.getItem('cart')
             if(c) {
@@ -257,7 +263,7 @@
             this.$i18n.locale = this.lang
 
             axios
-                .post(`/item_ids`, {
+                .post(`/api/item_ids`, {
                     itemIDs: this.itemIDs
                 })
                 .then((response) => {
@@ -278,8 +284,9 @@
                 })
             setInterval(() => {
                 axios
-                    .post(`/${this.seat_hash}/json_ordered_orders`, {
-                        session_key: this.session_key
+                    .post(`/api/json_ordered_orders`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
                     })
                     .then((response) => {
                         this.ordered_orders = response.data.ordered_orders

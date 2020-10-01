@@ -32,6 +32,7 @@ class PaymentsController extends Controller
         //
     }
 
+    // API
     public function update(Request $req, \App\Payment $payment)
     {
         $payment->payment_state = $req->payment_state;

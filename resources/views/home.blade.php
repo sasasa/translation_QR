@@ -44,7 +44,7 @@ $(function(){
     $("#seat").change(function() {
         let hash = $(this).val()
         if(!!hash) {
-            open("/" + hash + "/ja/drink/items")
+            open("/" + hash + "/items#/ja/drink")
         }
     });
 });
