@@ -1,2 +1,57 @@
-body{margin:0 0 30mm}.h1,h1{font-size:20pt}.print_page{width:58mm;height:auto;margin-bottom:30mm;page-break-after:always;font-size:10pt}.print_page:last-child{page-break-after:auto}ul{list-style:none;padding:0}@page{size:58mm auto;margin:0;margin-bottom:30mm}@media print{body{width:58mm}}@media screen{body{background:#eee}.print_page{background:#fff;box-shadow:0 .5mm 2mm rgba(0,0,0,.3);margin:0}}
-/*# sourceMappingURL=print.css.map*/
+@charset "UTF-8";
+
+body {
+  margin: 0;
+  margin-bottom: 30mm;
+}
+
+h1,
+.h1 {
+  font-size: 20pt;
+}
+
+.print_page {
+  width: 58mm;
+  height: auto;
+  margin-bottom: 30mm;
+  page-break-after: always;
+  font-size: 10pt;
+}
+
+.print_page:last-child {
+  page-break-after: auto;
+  /* 最後のページの改ページを防ぐ */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+@page {
+  size: 58mm auto;
+  margin: 0;
+  margin-bottom: 30mm;
+}
+
+@media print {
+  body {
+    width: 58mm;
+    /* needed for Chrome */
+  }
+}
+
+@media screen {
+  body {
+    background: #eee;
+  }
+
+  .print_page {
+    background: white;
+    /* 背景を白く */
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, 0.3);
+    /* ドロップシャドウ */
+    margin: 0mm;
+  }
+}
+

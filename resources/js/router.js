@@ -13,22 +13,25 @@ export default new VueRouter({
     mode: 'hash',
     routes: [
         {
+            path: '/order/:lang',
+            name: 'order-component',
+            component: OrderComponent,
+            props: true,
+        },
+        {
+            path: '/thanks/:lang',
+            name: 'thanks-component',
+            component: ThanksComponent,
+            props: true,
+        },
+        {
             // routeのパス設定
-            path: '/',
+            path: '/:lang/:current_genre',
             // 名前付きルートを設定したい場合付与
             name: 'menu-component',
             // コンポーネントの指定
-            component: MenuComponent
-        },
-        {
-            path: '/order',
-            name: 'order-component',
-            component: OrderComponent
-        },
-        {
-            path: '/thanks',
-            name: 'thanks-component',
-            component: ThanksComponent
+            component: MenuComponent,
+            props: true,
         },
     ]
 });

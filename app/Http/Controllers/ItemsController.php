@@ -11,7 +11,7 @@ class ItemsController extends Controller
 {
     use SeatCheckable;
 
-    public function genre($seat_hash, $lang, $genre)
+    public function items($seat_hash)
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
         if (!$seat)
@@ -20,13 +20,12 @@ class ItemsController extends Controller
         }
 
         return view('items.items', [
-            'lang' => $lang,
-            'current_genre' => $genre,
             'seat_hash' => $seat_hash,
             'session_key' => $seat->createSession(),
         ]);
     }
 
+    // API
     public function item_ids(Request $req)
     {
         return response()->json([
@@ -34,17 +33,18 @@ class ItemsController extends Controller
         ]);
     }
 
-    public function json_items(Request $req, $seat_hash, $lang, $genre)
+    // API
+    public function json_items(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
 
         return response()->json([
-            'items' => \App\Item::allForlangAndGenre($lang, $genre)->get(),
+            'items' => \App\Item::allForlangAndGenre($req->lang, $req->genre)->get(),
             'genres' => \App\Genre::whereNull('parent_id')->
-                where('lang', 'like', $lang. '%')->
+                where('lang', 'like', $req->lang. '%')->
                 orderBy('genre_order', 'DESC')->with('children')->get(),
 
             'ordered_orders' => $seatSession->orders,

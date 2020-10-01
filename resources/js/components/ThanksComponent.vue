@@ -36,10 +36,6 @@
                 type: String,
                 required: true,
             },
-            current_genre: {
-                type: String,
-                required: true,
-            },
             lang: {
                 type: String,
                 required: true,
@@ -58,8 +54,9 @@
         },
         mounted() {
             axios
-                .post(`/${this.seat_hash}/${this.lang}/json_payment`, {
-                    session_key: this.session_key
+                .post(`/api/json_payment`, {
+                    session_key: this.session_key,
+                    seat_hash: this.seat_hash,
                 })
                 .then((response) => {
                     this.ordered_orders = response.data.ordered_orders
@@ -72,6 +69,12 @@
                     console.log(error);
                 })
             this.$i18n.locale = this.lang
+            
+            // 戻るボタンを無効化
+            history.pushState(null, null, location.href);
+            window.addEventListener('popstate', (e) => {
+                history.go(1);
+            });
         }
     }
 </script>

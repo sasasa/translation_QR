@@ -16,9 +16,10 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function json_ordered_orders(Request $req, $seat_hash)
+    // API
+    public function json_ordered_orders(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -28,6 +29,7 @@ class OrdersController extends Controller
         ]);
     }
 
+    // API
     public function json_orders()
     {
         // 2時間 前からの注文のみ取得
@@ -74,6 +76,7 @@ class OrdersController extends Controller
         ]);
     }
 
+    // API
     public function pay(Request $req)
     {
         [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
@@ -86,10 +89,10 @@ class OrdersController extends Controller
         ];
     }
 
-
-    public function json_payment(Request $req, $seat_hash, $lang)
+    // API
+    public function json_payment(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -124,6 +127,7 @@ class OrdersController extends Controller
         ]);
     }
 
+    // API
     public function store(Request $req)
     {
         [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
@@ -165,16 +169,7 @@ class OrdersController extends Controller
         ];
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
+    // API
     public function takeout(Request $req, \App\Order $order)
     {
         $order->takeout($req);
@@ -187,6 +182,7 @@ class OrdersController extends Controller
         ];
     }
 
+    // API
     public function update(Request $req, \App\Order $order)
     {
         $order->order_state = $req->order_state;
@@ -196,11 +192,6 @@ class OrdersController extends Controller
             'message' => $order->item_jp->item_name.
                 '(ID'.$order->id.')を'. $order->state_jp. 'に更新しました',
         ];
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 
     public function sum_total(Request $req)

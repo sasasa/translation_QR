@@ -41,23 +41,26 @@ Route::group(['middleware' => ['auth', 'verified', 'can:editting']], function ()
 // browsing
 Route::group(['middleware' => ['auth', 'verified', 'can:browsing']], function () {
     Route::resource('payments', 'PaymentsController');
+    Route::resource('api/payments', 'PaymentsController');
 
     Route::resource('orders', 'OrdersController', ['except'=>['store']]);
-    Route::post('json_orders', 'OrdersController@json_orders');
-    Route::patch('orders/{order}/takeout', 'OrdersController@takeout');
+    Route::resource('api/orders', 'OrdersController', ['except'=>['store']]);
+
+    Route::post('api/json_orders', 'OrdersController@json_orders');
+    Route::patch('api/orders/{order}/takeout', 'OrdersController@takeout');
     Route::get('print/{seatSession}', 'OrdersController@print');
 
     Route::get('sum_total', 'OrdersController@sum_total');
 });
 
-Route::post('{seat_hash}/{lang}/{genre}/json_items', 'ItemsController@json_items');
-Route::post('item_ids', 'ItemsController@item_ids');
-Route::get('{seat_hash}/{lang}/{genre}/items', 'ItemsController@genre');
+Route::post('api/json_items', 'ItemsController@json_items');
+Route::post('api/item_ids', 'ItemsController@item_ids');
+Route::get('{seat_hash}/items', 'ItemsController@items');
 
-Route::post('{seat_hash}/{lang}/json_payment', 'OrdersController@json_payment');
-Route::post('{seat_hash}/json_ordered_orders', 'OrdersController@json_ordered_orders');
-Route::post('orders', 'OrdersController@store');
-Route::post('pay', 'OrdersController@pay');
+Route::post('api/json_payment', 'OrdersController@json_payment');
+Route::post('api/json_ordered_orders', 'OrdersController@json_ordered_orders');
+Route::post('api/orders', 'OrdersController@store');
+Route::post('api/pay', 'OrdersController@pay');
 
 
 Route::get('/', function () {

@@ -141,7 +141,7 @@
             takeoutChange(order, event) {
                 // alert(event.target.value)
                 axios
-                    .patch(`/orders/${order.id}/takeout`, {
+                    .patch(`/api/orders/${order.id}/takeout`, {
                         is_take_out: event.target.value
                     })
                     .then((response) => {
@@ -156,7 +156,7 @@
             },
             paymentStateChange(payment, event) {
                 axios
-                    .patch(`/payments/${payment.id}/`, {
+                    .patch(`/api/payments/${payment.id}/`, {
                         payment_state: event.target.value
                     })
                     .then((response) => {
@@ -176,7 +176,7 @@
             },
             stateChange(order, event) {
                 axios
-                    .patch(`/orders/${order.id}/`, {
+                    .patch(`/api/orders/${order.id}/`, {
                         order_state: event.target.value
                     })
                     .then((response) => {
@@ -192,7 +192,7 @@
             },
             getData() {
                 axios
-                    .post(`/json_orders`)
+                    .post(`/api/json_orders`)
                     .then((response) => {
                         if(this.orders.length < response.data.orders.length) {
                             let audio = new Audio('sound/shop-chime1.mp3');
