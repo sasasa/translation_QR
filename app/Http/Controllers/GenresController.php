@@ -37,6 +37,8 @@ class GenresController extends Controller
         $this->validate($req, array_merge(\App\Genre::$rules, [
             'genre_key' => [
                 'required',
+                'alpha_dash',
+                'max:60',
                 // genre_key,langの組み合わせでユニークである
                 Rule::unique('genres')->where(function($query) use($req){
                     $query->where('lang', $req->lang);
