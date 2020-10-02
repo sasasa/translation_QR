@@ -23,6 +23,7 @@ class Seat extends Model
     public static $seat_states = [
         'empty' => '空き',
         'presence' => '使用中',
+        'payment' => '支払い中',
     ];
 
     public function seatSessions()

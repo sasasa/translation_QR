@@ -37,9 +37,17 @@ class PaymentsController extends Controller
     {
         $payment->payment_state = $req->payment_state;
         $payment->save();
+        $seat = $payment->seatSession->seat;
+        if ($payment->payment_state == 'afterpaying') {
+            $seat->seat_state = 'empty';
+            $seat->save();
+        } else {
+            $seat->seat_state = 'payment';
+            $seat->save();
+        }
         return [
             'updated_at' => $payment->updated_at,
-            'message' => $payment->seatSession->seat->seat_name.
+            'message' => $seat->seat_name.
                 '(ID'.$payment->id.')を'. $payment->state_jp. 'に更新しました',
         ];
     }
