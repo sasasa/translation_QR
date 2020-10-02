@@ -99,7 +99,7 @@ class OrdersController extends Controller
 
         \DB::beginTransaction();
         try {
-            $seat->seat_state = 'empty';
+            $seat->seat_state = 'payment';
             $seat->save();
             $seatSession->session_state = 'end_of_use';
             $seatSession->save();

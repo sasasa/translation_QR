@@ -13,8 +13,8 @@ class SeatSessionsTableSeeder extends Seeder
     {
         // for ($i=0; $i<24*30; $i++) {
         for ($i=0; $i<24*3; $i++) {
-            $dt = new Carbon('2020-07-24 09:00:00');
-            $now = $dt->addHours($i);
+            $dt = new Carbon('2020-08-30 09:00:00');
+            $now = $dt->addHours($i * 2);
 
 
             $session = new \App\SeatSession();
