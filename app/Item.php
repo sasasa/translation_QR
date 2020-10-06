@@ -133,9 +133,14 @@ class Item extends Model
     public function jp()
     {
         if( $this->lang !== 'ja_JP' ) {
-            return self::where('item_key', $this->item_key)->where('lang', 'ja_JP')->first();
+            return self::whereItemKey($this->item_key);
         } else {
             return $this;
         }
+    }
+
+    public static function whereItemKey($item_key)
+    {
+        return self::where('item_key', $item_key)->where('lang', 'ja_JP')->first();
     }
 }

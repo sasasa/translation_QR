@@ -194,53 +194,23 @@ class OrdersController extends Controller
         ];
     }
 
-    public function sum_total(Request $req)
+    public function aggregate(Request $req)
     {
-        if( $req->search_start_at ) {
-            $start_time = new Carbon($req->search_start_at);
-        } else {
-            $start_time = Carbon::today();
-        }
-        if( $req->search_end_at ) {
-            $end_time = new Carbon($req->search_end_at);
-        } else {
-            $end_time = Carbon::tomorrow();
-        }
+        $orders = \App\Order::select(\DB::raw('count(*) as order_count, item_id'))
+                            ->groupBy('item_id')->with('item')->get();
+        $items = \App\Item::select('item_key')->groupBy('item_key')->get()->map(function($item){
+            return $item->item_key;
+        });
 
-        $payments = \App\Payment::whereDate('created_at', '>=', $start_time)->
-                                whereDate('created_at', '<', $end_time)->paginate(100);
-
-        $sum_sales = \App\Payment::whereDate('created_at', '>=', $start_time)->
-                                whereDate('created_at', '<', $end_time)->sum('tax_included_price');
-
-        $count = \App\Payment::whereDate('created_at', '>=', $start_time)->
-                                whereDate('created_at', '<', $end_time)->count('tax_included_price');
-
-        Carbon::setWeekStartsAt(Carbon::SUNDAY); // 週の最初を日曜日に設定
-        Carbon::setWeekEndsAt(Carbon::SATURDAY); // 週の最後を土曜日に設定
-        $dt = Carbon::today();
-        $last_week = Carbon::today()->subWeeks(1); // 前の週の曜日
-        $last_month = Carbon::today()->subMonths(1); // 前の月の曜日
-        
-        return view('orders.sum_total', [
-            'search_start_at' => str_replace(" ", "T", $start_time),
-            'search_end_at' => str_replace(" ", "T", $end_time),
-            'payments' => $payments,
-            'sum_sales' => $sum_sales,
-            'count' => $count,
-            
-            'yesterday' => str_replace(" ", "T", Carbon::yesterday()),
-            'today' => str_replace(" ", "T", Carbon::today()),
-            'tomorrow' => str_replace(" ", "T", Carbon::tomorrow()),
-            
-            'lastOfWeek' => str_replace(" ", "T", $last_week->startOfWeek()),
-            'startOfWeek' => str_replace(" ", "T", $dt->startOfWeek()),
-            'nextOfWeek' => str_replace(" ", "T", $dt->endOfWeek()->addSeconds(1)),
-
-            'lastOfMonth' => str_replace(" ", "T", $last_month->startOfMonth()),
-            'startOfMonth' => str_replace(" ", "T", Carbon::now()->startOfMonth()),
-            'nextOfMonth' => str_replace(" ", "T", Carbon::now()->endOfMonth()->addSeconds(1)),
-
+        return view('orders.aggregate', [
+            'orders' => $orders->groupBy('item.item_key')->map(function($orders){
+                return $orders->map(function($order){
+                    return $order->order_count;
+                })->sum();
+            })->sortDesc(),
+            'items' => $items,
         ]);
     }
+
+
 }

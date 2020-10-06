@@ -45,12 +45,13 @@ Route::group(['middleware' => ['auth', 'verified', 'can:browsing']], function ()
 
     Route::resource('orders', 'OrdersController', ['except'=>['store']]);
     Route::resource('api/orders', 'OrdersController', ['except'=>['store']]);
+    Route::get('aggregate', 'OrdersController@aggregate');
 
     Route::post('api/json_orders', 'OrdersController@json_orders');
     Route::patch('api/orders/{order}/takeout', 'OrdersController@takeout');
     Route::get('print/{seatSession}', 'OrdersController@print');
 
-    Route::get('sum_total', 'OrdersController@sum_total');
+    Route::get('sum_total', 'PaymentsController@sum_total');
 });
 
 Route::post('api/json_items', 'ItemsController@json_items');
