@@ -11,7 +11,8 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        $items = \App\Item::get();
+        // 一つも買われない商品
+        $items = \App\Item::whereNotIn('id', [1, 2, 3, 4])->get();
         \App\SeatSession::all()->each(function($seatSession) use($items){
             $order_num = mt_rand(2, 12);
             $is_take_out = mt_rand(0, 1);
