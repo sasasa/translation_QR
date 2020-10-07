@@ -212,7 +212,7 @@ class OrdersController extends Controller
                                 groupBy('item_id')->with('item')->
                                 whereDate('created_at', '>=', $start_time)->
                                 whereDate('created_at', '<', $end_time)->get();
-        } else if( $req->aggregate == 'quantity' ) {
+        } else {
             $orders = \App\Order::select(\DB::raw('count(*) as order_count, item_id'))->
                                 groupBy('item_id')->with('item')->
                                 whereDate('created_at', '>=', $start_time)->
