@@ -85,5 +85,8 @@ php artisan make:controller PaymentsController --resource
 
 php artisan make:controller UsersController --resource
 
+php artisan make:test AllergenTest --unit
+php artisan make:test GenreTest --unit
+php artisan make:test ItemTest --unit
 
 `

@@ -106,15 +106,15 @@ class Item extends Model
             $allergen_lang = \App\Allergen::where('allergen_key', $allergen->allergen_key)->where('lang', $lang)->first();
             return $allergen_lang->id;
         });
-        $this->allergenSet($allergens->toArray());
+        return $this->allergenSet($allergens->toArray());
     }
 
     public function allergenSet($allergens)
     {
         if (is_array($allergens)) {
-
-            $add = collect($allergens)->diff($this->allergenIds());
-            $delete = collect($this->allergenIds())->diff($allergens);
+            $allergenIds = $this->allergenIds();
+            $add = collect($allergens)->diff($allergenIds);
+            $delete = collect($allergenIds)->diff($allergens);
 
             // dd($add);
             // dump($delete);
@@ -125,7 +125,7 @@ class Item extends Model
             return true;
         } else {
             // 送られないとき
-            $this->allergens()->detach(); //ユーザの登録済みのスキルを全て削除
+            $this->allergens()->detach(); //ユーザの登録済みのアレルゲンを全て削除
             return false;
         }
     }
