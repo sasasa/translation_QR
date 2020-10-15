@@ -42,7 +42,7 @@ class Seat extends Model
 
     public function getqrCodeAttribute()
     {
-        return new QrCode(env('APP_URL', '') .'/'. $this->seat_hash .'/ja/drink/items/');
+        return new QrCode(env('APP_URL', '') .'/'. $this->seat_hash .'/items#/ja/drink');
     }
 
     public function set_hash()

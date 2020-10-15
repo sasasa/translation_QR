@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  app:
+    build: ./infra/php
+    volumes:
+      - ./backend:/work
+
+  web:
+    image: nginx:1.18-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./backend:/work
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /work
+    depends_on:
+      - app
+
+  db:
+    build: ./infra/mysql
+    volumes:
+      - db-store:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=translation
+      - MYSQL_USER=phper
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+      - TZ=Asia/Tokyo
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
+    links:
+      - db
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
+
+volumes:
+  db-store:
