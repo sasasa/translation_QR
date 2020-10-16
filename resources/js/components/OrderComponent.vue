@@ -54,7 +54,7 @@
                     ({{$t('message.no_tax')}})
                     <button
                         v-bind:disabled="orderDisabled"
-                        v-on:click="order"
+                        v-on:click.once="order"
                         class="btn btn-danger">{{$t("message.order_confirmation")}}
                     </button>
                     <button
@@ -90,7 +90,7 @@
                         ({{$t('message.tax')}})
                         <button
                             v-bind:disabled="payDisabled"
-                            v-on:click="pay"
+                            v-on:click.once="pay"
                             class="btn btn-primary">{{$t("message.pay")}}
                         </button>
                     </div>
