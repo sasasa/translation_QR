@@ -3,6 +3,16 @@
 /public/storage
 /storage/*.key
 /vendor
+
+/backend/bootstrap/cache
+/backend/storage
+/backend/node_modules
+/backend/public/hot
+/backend/public/storage
+/backend/storage/*.key
+/backend/vendor
+
+
 .env
 .env.backup
 .phpunit.result.cache
