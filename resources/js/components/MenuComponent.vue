@@ -86,7 +86,7 @@
                     ({{$t('message.tax')}})
                     <button
                         v-bind:disabled="payDisabled"
-                        v-on:click="pay"
+                        v-on:click.once="pay"
                         class="btn btn-primary">{{$t("message.pay")}}
                     </button>
                 </div>
