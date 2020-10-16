@@ -11,7 +11,7 @@
     <title>@yield('title')</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}?{{ str_random(8) }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -21,7 +21,7 @@
         </main>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}?{{ str_random(8) }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
     @yield('script')
 </body>
 </html>
