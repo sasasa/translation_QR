@@ -4,14 +4,17 @@ services:
     build: ./infra/php
     volumes:
       - ./backend:/work
+      - php-fpm-socket:/var/run/php-fpm
 
   web:
-    image: nginx:1.18-alpine
+    build: ./infra/nginx
     ports:
       - 80:80
+      - 3000:3000
+      - 3001:3001
     volumes:
       - ./backend:/work
-      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - php-fpm-socket:/var/run/php-fpm
     working_dir: /work
     depends_on:
       - app
@@ -43,3 +46,4 @@ services:
 
 volumes:
   db-store:
+  php-fpm-socket:

@@ -25,6 +25,8 @@ php artisan storage:link
 
 composer require laravel/ui --dev
 php artisan ui vue --auth
+
+docker-compose exec web npm run watch
 npm install
 npm run dev
 npm run watch
@@ -39,7 +41,7 @@ php artisan db:seed --class=GenresTableSeeder
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 
-
+docker-compose exec app php artisan migrate:refresh
 php artisan migrate:refresh
 composer dump-autoload
 php artisan db:seed
