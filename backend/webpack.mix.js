@@ -16,3 +16,17 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/print.scss', 'public/css/print.css');
 
 mix.sourceMaps().js('node_modules/popper.js/dist/popper.js', 'public/js').sourceMaps();
+
+
+mix.browserSync({
+    proxy: '0.0.0.0:80', // アプリの起動アドレス
+    open: false, // ブラウザを自動で開かない
+    files: [ // チェックするファイルは下記で十分ではないかな。
+        './resources/**/*',
+        './app/**/*',
+        './config/**/*',
+        './routes/**/*',
+        './public/**/*'
+    ],
+    reloadOnRestart: true //BrowserSync起動時にブラウザにリロード命令おくる
+}).version()
