@@ -1,5 +1,7 @@
 <template>
     <div>
+    <Loading v-show="loading"></Loading>
+    <div>
         <div>
             <router-link v-bind:to="`/ja/${current_genre}`" replace>日本語</router-link>
             <router-link v-bind:to="`/en/${current_genre}`" replace>English</router-link>
@@ -93,11 +95,17 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
+    import Loading from './Loading'
+
     export default {
         name: 'menu-component',
+        components: {
+            Loading,
+        },
         props: {
             session_key: {
                 type: String,
@@ -122,6 +130,7 @@
                 genres: [],
                 cart: {},
                 ordered_orders: [],
+                loading: true,
             }
         },
         computed: {
@@ -228,6 +237,7 @@
                         this.items = response.data.items
                         this.genres = response.data.genres
                         this.ordered_orders = response.data.ordered_orders
+                        this.loading = false
                         // alert(JSON.stringify(response))
                     })
                     .catch((error) => {
@@ -239,6 +249,7 @@
         watch: {
             $route (to, from) {
                 // ルートの変更の検知
+                this.loading = true
                 this.getData()
                 this.$i18n.locale = this.lang
             }
