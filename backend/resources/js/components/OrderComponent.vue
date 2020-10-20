@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Loading v-show="loading"></Loading>
         <div class="before_order" v-if="before_order">
             <table class="table">
                 <tbody v-for="item in items" v-bind:key="item.id">
@@ -101,8 +102,13 @@
 </template>
 
 <script>
+    import Loading from './Loading'
+
     export default {
         name: 'order-component',
+        components: {
+            Loading,
+        },
         props: {
             session_key: {
                 type: String,
@@ -125,10 +131,12 @@
                 ordered_orders: [],
                 is_take_out: false,
                 recent_items: [],
+                loading: false,
             }
         },
         methods: {
             pay() {
+                this.loading = true
                 axios
                     .post(`/api/pay`, {
                         session_key: this.session_key,
@@ -137,7 +145,7 @@
                     })
                     .then((response) => {
                         if (response.data.ok) {
-                            this.$router.replace({ 
+                            this.$router.replace({
                                 name: 'thanks-component',
                                 lang: this.lang,
                             })
@@ -179,6 +187,7 @@
                 this.$router.back()
             },
             order() {
+                this.loading = true
                 axios
                     .post(`/api/orders`, {
                         cart: this.orderCart,
@@ -191,6 +200,7 @@
                         this.before_order = false
                         this.messages = response.data.messages
                         this.ordered_orders = response.data.ordered_orders
+                        this.loading = false
                         sessionStorage.clear()
                     })
                     .catch((error) => {

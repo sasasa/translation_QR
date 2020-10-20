@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=dc6b5175b9d13f30184e",
+=======
+    "/js/app.js": "/js/app.js?id=cb7ad9d394749b0a7029",
+>>>>>>> 72f8164261e672a3ff98bf46569aeb52df57463c
     "/css/app.css": "/css/app.css?id=7f1bdfd9c07dbb0ce8b8",
     "/css/print.css": "/css/print.css?id=9252f1b589ce0589b87c",
     "/js/popper.js": "/js/popper.js?id=5218804b2db483cc4ec4"

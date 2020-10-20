@@ -1,100 +1,99 @@
 <template>
     <div>
-    <Loading v-show="loading"></Loading>
-    <div>
+        <Loading v-show="loading"></Loading>
         <div>
-            <router-link v-bind:to="`/ja/${current_genre}`" replace>日本語</router-link>
-            <router-link v-bind:to="`/en/${current_genre}`" replace>English</router-link>
-            <router-link v-bind:to="`/zh/${current_genre}`" replace>中文</router-link>
-            <router-link v-bind:to="`/ko/${current_genre}`" replace>한글</router-link>
-        </div>
-
-
-        <div v-for="genre in genres" v-bind:key="genre.id">
-            <div v-if="genre.children.length">
-                {{genre.genre_name}}
+            <div>
+                <router-link v-bind:to="`/ja/${current_genre}`" replace>日本語</router-link>
+                <router-link v-bind:to="`/en/${current_genre}`" replace>English</router-link>
+                <router-link v-bind:to="`/zh/${current_genre}`" replace>中文</router-link>
+                <router-link v-bind:to="`/ko/${current_genre}`" replace>한글</router-link>
             </div>
-            <div v-else>
-                <router-link v-bind:to="`/${lang}/${genre.genre_key}`" replace>{{genre.genre_name}}</router-link>
+
+
+            <div v-for="genre in genres" v-bind:key="genre.id">
+                <div v-if="genre.children.length">
+                    {{genre.genre_name}}
+                </div>
+                <div v-else>
+                    <router-link v-bind:to="`/${lang}/${genre.genre_key}`" replace>{{genre.genre_name}}</router-link>
+                </div>
+
+                <ul>
+                    <li v-for="child_genre in genre.children" v-bind:key="child_genre.id">
+                        <router-link v-bind:to="`/${lang}/${child_genre.genre_key}`" replace>{{child_genre.genre_name}}</router-link>
+                    </li>
+                </ul>
             </div>
-            
-            
-            <ul>
-                <li v-for="child_genre in genre.children" v-bind:key="child_genre.id">
-                    <router-link v-bind:to="`/${lang}/${child_genre.genre_key}`" replace>{{child_genre.genre_name}}</router-link>
-                </li>
-            </ul>
-        </div>
 
 
-        <table class="table">
-            <tbody v-for="item in items" v-bind:key="item.id">
-                <tr>
-                    <th>{{$t("message.image_path")}}</th>
-                    <td><img v-bind:src="`/storage/${item.image_path}`"></td>
-                </tr>
-                <tr>
-                    <th>{{$t("message.item_name")}}</th>
-                    <td>
-                        {{item.item_name}}{{item.is_out_of_stock ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>{{$t("message.item_price")}}</th>
-                    <td>{{item.item_price}}</td>
-                </tr>
-                <tr>
-                    <th>{{$t("message.item_desc")}}</th>
-                    <td>{{item.item_desc}}</td>
-                </tr>
-                <tr>
-                    <th>{{$t("message.allergens")}}</th>
-                    <td>
-                        <span v-for="allergen in item.allergens" v-bind:key="allergen.allergen_name">
-                            {{allergen.allergen_name}}
-                            <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`">
+            <table class="table">
+                <tbody v-for="item in items" v-bind:key="item.id">
+                    <tr>
+                        <th>{{$t("message.image_path")}}</th>
+                        <td><img v-bind:src="`/storage/${item.image_path}`"></td>
+                    </tr>
+                    <tr>
+                        <th>{{$t("message.item_name")}}</th>
+                        <td>
+                            {{item.item_name}}{{item.is_out_of_stock ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{{$t("message.item_price")}}</th>
+                        <td>{{item.item_price}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t("message.item_desc")}}</th>
+                        <td>{{item.item_desc}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{$t("message.allergens")}}</th>
+                        <td>
+                            <span v-for="allergen in item.allergens" v-bind:key="allergen.allergen_name">
+                                {{allergen.allergen_name}}
+                                <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`">
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{{$t("message.add_to_cart")}}</th>
+                        <td>
+                            <span v-on:click="plus(item)" class="h1 pointer">＋</span>
+                            <span v-on:click="minus(item)" class="h1 pointer">－</span>
+                            <span class="h1">{{item_number(item)}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="card">
+                <div class="card-header">{{$t("message.order_amount")}}</div>
+                <div class="card-body text-right">
+                    <div>
+                        <span class="h1">
+                            {{total_items}}点 {{total_price}}円
                         </span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>{{$t("message.add_to_cart")}}</th>
-                    <td>
-                        <span v-on:click="plus(item)" class="h1 pointer">＋</span>
-                        <span v-on:click="minus(item)" class="h1 pointer">－</span>
-                        <span class="h1">{{item_number(item)}}</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="card">
-            <div class="card-header">{{$t("message.order_amount")}}</div>
-            <div class="card-body text-right">
-                <div>
-                    <span class="h1">
-                        {{total_items}}点 {{total_price}}円
-                    </span>
-                    ({{$t('message.no_tax')}})
-                    <button
-                        v-bind:disabled="orderDisabled"
-                        v-on:click="order"
-                        class="btn btn-primary">{{$t("message.view_cart")}}
-                    </button>
-                </div>
-                <hr>
-                <div class="mt-3">
-                    <span class="h1">
-                        {{all_items}}点{{all_price}}円
-                    </span>
-                    ({{$t('message.tax')}})
-                    <button
-                        v-bind:disabled="payDisabled"
-                        v-on:click.once="pay"
-                        class="btn btn-primary">{{$t("message.pay")}}
-                    </button>
+                        ({{$t('message.no_tax')}})
+                        <button
+                            v-bind:disabled="orderDisabled"
+                            v-on:click="order"
+                            class="btn btn-primary">{{$t("message.view_cart")}}
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="mt-3">
+                        <span class="h1">
+                            {{all_items}}点{{all_price}}円
+                        </span>
+                        ({{$t('message.tax')}})
+                        <button
+                            v-bind:disabled="payDisabled"
+                            v-on:click.once="pay"
+                            class="btn btn-primary">{{$t("message.pay")}}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -162,6 +161,7 @@
         },
         methods: {
             pay() {
+                this.loading = true
                 axios
                     .post(`/api/pay`, {
                         session_key: this.session_key,
@@ -170,7 +170,7 @@
                     })
                     .then((response) => {
                         if (response.data.ok) {
-                            this.$router.replace({ 
+                            this.$router.replace({
                                 name: 'thanks-component',
                                 lang: this.lang,
                             })
