@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>ユーザー管理</h1>
-<a href="/users/create" class="btn btn-primary mb-3">ユーザー新規登録</a>
+<a href="/users/create" class="btn btn-primary mb-3">ユーザー新規作成</a>
 <table class="table">
   @foreach ($users as $user)
   <tr>
