@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>座席管理</h1>
-<a href="/seats/create" class="btn btn-primary mb-3">座席新規登録</a>
+<a href="/seats/create" class="btn btn-primary mb-3">座席新規作成</a>
 <table class="table">
   @foreach ($seats as $seat)
   <tr>

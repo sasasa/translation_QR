@@ -3,7 +3,7 @@
 
 @section('content')
 <h1>アレルギー品目管理</h1>
-<a href="/allergens/create" class="btn btn-primary mb-3">アレルギー品目新規登録</a>
+<a href="/allergens/create" class="btn btn-primary mb-3">アレルギー品目新規作成</a>
 <table class="table">
   <tr>
     <th>{{__('validation.attributes.allergen_key')}}</th>
