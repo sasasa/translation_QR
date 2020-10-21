@@ -30,7 +30,7 @@
         {{ $genre->genre_order }}
       </td>
       <td>
-        {{ $genre->parent ? $genre->parent->genre_name.'【'.$genre->parent->lang_jp.'】' : '無し'}}
+        {{ $genre->parent ? $genre->parent->genre_name. '('. $genre->parent->genre_key .')【'.$genre->parent->lang_jp.'】' : '無し'}}
       </td>
       <td>
         <a href="/genres/{{$genre->id}}/edit" class="btn btn-sm btn-primary">編集する</a>

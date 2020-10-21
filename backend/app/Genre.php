@@ -112,7 +112,7 @@ class Genre extends Model
                     'genre_name' => '【'. $this->genre_name. '】の翻訳を入れてください',
                     'genre_key' => $this->genre_key,
                     'genre_order' => $this->genre_order,
-                    'parent_id' => $this->parent_id,
+                    'parent_id' => \App\Genre::where('genre_key', $this->parent->genre_key)->where('lang', $langVal)->first()->id,
                 ])->save();
             });
         } catch(\Illuminate\Database\QueryException $e) {
