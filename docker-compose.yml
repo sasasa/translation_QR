@@ -5,6 +5,8 @@ services:
     volumes:
       - ./backend:/work
       - php-fpm-socket:/var/run/php-fpm
+      - exclude:/work/.git
+      - vendor:/work/vendor
 
   web:
     build: ./infra/nginx
@@ -15,6 +17,8 @@ services:
     volumes:
       - ./backend:/work
       - php-fpm-socket:/var/run/php-fpm
+      - exclude:/work/.git
+      - node_modules:/work/node_modules
     working_dir: /work
     depends_on:
       - app
@@ -47,3 +51,6 @@ services:
 volumes:
   db-store:
   php-fpm-socket:
+  exclude:
+  node_modules:
+  vendor:
