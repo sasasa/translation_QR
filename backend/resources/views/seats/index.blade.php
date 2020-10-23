@@ -32,12 +32,13 @@
   </tr>
   <tr>
     <th></th>
-    <td>
+    <td class="d-flex">
       <form action="/seats/{{$seat->id}}/rehash" method="post">
         @csrf
         @method('PATCH')
         <input type="submit" value="QRコードを再生成" class="btn btn-sm btn-danger btn-rehash">
       </form>
+      <a href="/seats/{{$seat->id}}/print" class="btn btn-sm btn-primary ml-2" target="_blank">QRコードを印刷</a>
     </td>
   </tr>
   <tr>
@@ -71,7 +72,7 @@ $(function(){
         }
     });
     $(".btn-rehash").click(function() {
-        if(confirm("本当にQRコードを再生成してもよろしいですか？印刷が必要になります。")) {
+        if(confirm("本当にQRコードを再生成してもよろしいですか？再印刷が必要になります。")) {
         } else {
             //cancel
             event.preventDefault();
