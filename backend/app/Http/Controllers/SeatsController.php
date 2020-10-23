@@ -84,4 +84,11 @@ class SeatsController extends Controller
         return response($qrCode->writeString(), 200)->header('Content-Type', $qrCode->getContentType());
 
     }
+
+    public function print(\App\Seat $seat)
+    {
+        return view('seats.print', [
+            'seat' => $seat
+        ]);
+    }
 }

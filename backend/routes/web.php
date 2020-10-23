@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth', 'verified', 'can:editting']], function ()
 
     Route::resource('seats', 'SeatsController');
     Route::patch('seats/{seat}/rehash', 'SeatsController@rehash');
+    Route::get('seats/{seat}/print', 'SeatsController@print');
+
     Route::get('qr_code/{seat}', 'SeatsController@qr_code');
 
     Route::resource('users', 'UsersController');
