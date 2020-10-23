@@ -20,7 +20,7 @@
 | fulltime1@gmail.com  | hogehoge  |
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/52eb3e1f-c98d-66a4-049c-b28dbb865fda.png)
 
----
+
 
 ### ユーザーログアウト
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/9ced55d0-7079-279b-858d-b2661a7644b0.png)
@@ -32,7 +32,9 @@
 検索開始日以上(>=)、検索終了日未満(<)で設定した日付の間に発生した売上額を表示します。
 閉め日に応じて日付を設定して「検索」ボタンを押してください。
 
----
+
+
+<div style="page-break-before:always"></div>
 
 ### 人気商品確認
 ![localhost_aggregate_aggregate=quantity&_token=zYQgR5HUHEElQA2yNJ9v6ZKJApYbXarlXuusT8u9&search_start_at=2019-10-22T00%3A00%3A00&search_end_at=2020-10-23T00%3A00%3A00.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/ead25a41-81ae-c48e-f028-c02983919221.png)
@@ -48,7 +50,9 @@
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/bbb510c6-078c-110e-9732-622440e529e2.png)
 売り上げ額を選択した場合は売り上げ額の順番に並びます。
 
----
+
+
+<div style="page-break-before:always"></div>
 
 ### 注文画面
 ![localhost_fb4cf89fcbe138a73850c683029daa5a86377b1f49fc6e420b715ecd1a7c0822_items (1).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/5aa354cd-d0ab-905d-d831-1b1fee558a70.png)
@@ -57,20 +61,26 @@
 お客様はこの画面から注文したりお会計を呼んだりできます。
 管理画面でジャンルやメニューを用意しさえすれば英語、中国語、韓国語での表示も可能です。
 
+<div style="page-break-before:always"></div>
+
 #### 席を選択してメニュー表示
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/1833961d-8760-722b-e97c-59210b2e905e.png)
 ログインユーザーに閲覧以上の権限がないと表示されません。
 座席を選択してその注文画面を開くことが出来ます。
-※まれにメニュー画面がたちがらない場合があります。その場合は座席を何度か選び直してください。
+※まれにメニュー画面が立ち上がらない場合があります。その場合は座席を何度か選び直してください。
 
 #### 言語の切り替え
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/e1d40183-cc46-1a66-9de4-ec7dcf4ffedc.png)
+
 上記リンクをクリックすると使用言語を切り替えることが出来ます。
 管理画面で各国語分のジャンルやメニューを作成する必要があります。
 
 #### メニューの切り替え
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/cd2a7e59-54e4-f6a7-f1e5-90473e949b31.png)
+
 上記リンクでジャンル名をクリックすると表示するメニューを切り替えることが出来ます。
+
+<div style="page-break-before:always"></div>
 
 #### 「カートに入れる」もしくは「カートから外す」
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/8a2b0f2d-5728-813b-3313-fac5aec812c0.png)
@@ -100,9 +110,11 @@
 #### お会計
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/d9199d55-af8a-c547-13cd-745edc43a937.png)
 「お会計」をクリックするとサンクスページに遷移します。
-お客様としては店舗の従業員が伝票を持ってくるのを待っている状態になります。
+お客様としては店舗の従業員が明細を持ってくるのを待っている状態になります。
 
----
+
+
+<div style="page-break-before:always"></div>
 
 ### 注文・お会計確認
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/89d6cccd-70d1-e014-0e70-215676486ef6.png)
@@ -110,17 +122,19 @@
 どの業務が残っているのか一目瞭然となり画面上から注文やお会計を消していくことが目的になります。
 ログインユーザーに閲覧以上の権限がないとアクセスできません。
 
+<div style="page-break-before:always"></div>
+
 #### お会計->プリント中
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/2027bbd9-75e1-9b0d-3329-8d90ee1f80a6.png)
-お会計を「プリント中」に切り替えると伝票の印刷画面が立ち上がるのでそこで印刷を行います。
-サーマルプリンターをご用意ください。
+お会計を「プリント中」に切り替えると明細の印刷画面が立ち上がるのでそこで印刷を行います。
+サーマルプリンターをご用意ください。印刷を終えるかキャンセルするとページが自動で閉じられます。
 ※印刷設定は起動時に行う必要があります。
 ※まれに印刷画面が立ち上がらない場合があります。その場合は「準備中」->「プリント中」と選択し直してください
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/49209e01-16f2-7d56-41af-d848de494841.png)
 
 #### お会計->清算後
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/ba5af6d3-cca4-66bc-7bb3-e7633094c4c4.png)
-伝票が印刷出来たらお客様の下に行き清算を行なっていただきます。
+明細が印刷出来たらお客様の下に行き清算を行なっていただきます。
 その後お会計を「清算後」に切り替えると30秒ほどで項目が消えますのでこれで一連の「お会計」の業務が完了です。
 
 #### 注文->テイクアウト　もしくは　注文->店内飲食
@@ -128,6 +142,8 @@
 すでに注文を済ませたお客様が「さっきの注文テイクアウトにして」などと
 注文の変更を依頼して来た場合「テイクアウト」や「店内飲食」に切り替えます。
 もし依頼通りにした場合は税率が異なりますので必ず忘れない様にこの項目を切り替えてください。
+
+<div style="page-break-before:always"></div>
 
 #### 注文->キャンセル
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/a303b893-1863-d79b-d1c5-a4a896a15635.png)
@@ -144,7 +160,8 @@
 これで一連の「注文」の業務が完了です。
 
 
----
+
+<div style="page-break-before:always"></div>
 
 ### ユーザー管理
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/17f8d85a-08c4-283d-413e-5018301800c8.png)
@@ -176,7 +193,9 @@
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/62dc0dd7-8cd3-e4ce-dd47-6a864306e5d5.png)
 閲覧権限と権限無しのユーザーを削除することができます。
 
----
+
+
+<div style="page-break-before:always"></div>
 
 ### ジャンル管理
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/f1e7ef08-2604-babc-5685-29616978058c.png)
@@ -207,7 +226,9 @@
 #### ジャンル削除
 ジャンルを削除します。
 
----
+
+
+<div style="page-break-before:always"></div>
 
 ### アレルギー品目管理
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/6cca43d9-64c4-a718-4dfe-e4a8258bb320.png)
@@ -218,6 +239,8 @@
 * アレルギー品目のキーを入力します。新たにキーを作成した時は画像をpublic/img/allergens/{キー}.pngという形で準備する必要があります。言語が異なっていても同一アレルギー品目ならば同じキーになります。
 * 言語を選択します。
 * アレルギー品目の名前を入力します。適切に翻訳する必要があります。
+
+<div style="page-break-before:always"></div>
 
 #### 他言語アレルギー品目作成
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/0c77b231-3232-a325-0b48-56d71675bc9e.png)
@@ -231,7 +254,9 @@
 #### アレルギー品目削除
 アレルギー品目を削除します。
 
----
+
+
+<div style="page-break-before:always"></div>
 
 ### メニュー管理
 メニューを管理します。検索、作成、変更、削除ができます。
@@ -239,7 +264,7 @@
 まず日本語でメニューを作りそれをコピーして他言語のメニューを作る手順になります。
 品切れの場合もこの画面から設定します。同一のキーを持つ者同士は同じ色で表示されます。
 
-#### メニュー検索 
+#### メニュー検索
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/5d8ca247-c410-da86-fbf7-b9b6a31a8b39.png)
 各項目はAND検索で対象を絞り込んでいくようになっています。ジャンルキーを選択してさらに言語を選択するという使い方が多くなります。
 
@@ -248,14 +273,19 @@
 * ジャンルキーから絞り込みたいときに選択します。
 * 言語から絞り込みたいときに選択します。
 
+<div style="page-break-before:always"></div>
+
 #### 品切れにする(全ての言語)　もしくは 販売開始する(全ての言語)
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/5651c232-5b87-6158-4191-6e85abd6650c.png)
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/718c7999-0fa2-68c0-4a47-d2656e6b14a3.png)
+
 日本語メニューのみに表示されます。「品切れにする(全ての言語)」をクリックするとメニュー画面から注文できなくなります。「販売開始する(全ての言語)」をクリックするとメニュー画面から注文できるようになります。
 
+<div style="page-break-before:always"></div>
 
 #### メニュー新規作成
-![localhost_items_create.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/57438993-4c32-67df-7feb-94cfaefb6e94.png)
+![localhost_3002_items_create.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/0834c718-e63e-7d59-70d0-16c2d075ebd2.png)
+
 メニューを新規作成します。主に日本語メニューを作成するのに利用します。
 
 * 商品キー、その商品を識別するためのキーを設定します。言語が異なっていても同一メニューならば同じキーになります。
@@ -268,8 +298,6 @@
 * ジャンル、どのジャンルに紐づくかを設定します。メニュー画面で設定したジャンルに表示されます。
 * アレルギー品目、言語を選択するとどのアレルギー品目にあたるか選択できるようになります。
 
-![localhost_items_153_edit.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/4398b4e2-d6fb-63a5-8daf-02d7584914f6.png)
-
 
 #### 他言語メニュー作成
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/850c2da9-1b7b-e567-3f9c-4410a66b01af.png)
@@ -277,6 +305,7 @@
 日本語メニューのみに表示されます。「他言語メニュー作成」をクリックすると必要な情報をコピーした他言語のメニューを作成することができます。
 
 ![localhost_items_create_by_key_149.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/dbc57e77-bc59-c3a1-31ff-c4885ab08046.png)
+
 「他言語メニュー作成」をクリックすると他言語メニュー作成画面が表示されます。
 主となる日本語メニューから必要な情報をコピーして他言語のメニューを作成します。
 
@@ -284,6 +313,8 @@
 * 言語、言語を選択します。英語、中国語、韓国語の中から選択します。
 * 商品名、その商品の名前を入力します。メニュー画面で表示されます。適切に翻訳する必要があります。
 * 説明、メニュー画面で表示される説明文を入力します。適切に翻訳する必要があります。
+
+<div style="page-break-before:always"></div>
 
 #### メニュー編集
 ![localhost_items_153_edit.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/551cfecd-f1f1-11a9-817b-8884c0eff010.png)
@@ -303,18 +334,21 @@
 #### メニュー削除
 メニューを削除します。
 
----
+<div style="page-break-before:always"></div>
 
 ### 座席管理
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/72d029ae-52f9-50cd-8437-9afc1e671442.png)
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/5928ce62-18d3-0419-96aa-e0c60a0d852d.png)
+
 座席の管理を行います。ログインユーザーに編集権限がないとアクセスできません。
-座席ごとの注文URLを作成してそのURLのQRコードを生成します。
+初期設定時や座席の増減がある場合、QRコードの再生成や印刷を行います。
 
 #### 座席新規作成
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/5e93e548-50d5-ee4b-b706-f4977859f689.png)
 
 * 座席名を入力します。席に分かりやすい名前をつけてください。
 * 座席数を入力します。何名席かを入力してください。
+
+<div style="page-break-before:always"></div>
 
 #### 座席編集
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/17cfa4a8-1df5-0edc-4d71-387da9cad7ce.png)
@@ -324,8 +358,16 @@
 * 座席数を入力します。何名席かを入力してください。
 
 #### QRコードを再生成
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/49a46bbb-2365-e92a-4b78-de4321cf07ca.png)
-座席の注文URLを作成してそのURLのQRコードを再生成します。注文のいたずらなどが起こった場合は再生成を行なってください。お客様がご利用の最中に再生成を行なってしまうとお会計が正しく出来ませんので注意してください。
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/1a5936b2-9079-ac1d-0920-6056affef4b6.png)
+「QRコードを再生成」をクリックすると
+座席の注文URLを作成してそのURLのQRコードを再生成します。注文のいたずらなどが起こった場合は再生成を行なってください。お客様がご利用の最中に再生成を行なってしまうとお会計が正しく出来ませんのでご注意ください。
+
+<div style="page-break-before:always"></div>
+
+#### QRコードを印刷
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/7d8165dd-2390-0369-93d3-ed744ac3a667.png)
+「QRコードを印刷」をクリックするとその座席のQRコードの印刷を行います。サーマルプリンターをご用意ください。印刷を終えるかキャンセルするとページが自動で閉じられます。
+※印刷設定は起動時に行う必要があります。
 
 #### 座席削除
 座席を削除します。
