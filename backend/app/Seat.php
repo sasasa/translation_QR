@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Endroid\QrCode\QrCode;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 class Seat extends Model
 {
@@ -58,7 +59,7 @@ class Seat extends Model
             // セッションはすでに開始されている
             return $this->seatSession->session_key;
         } else {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             try {
                 $session = new \App\SeatSession();
                 $session->session_state = "in_use";
@@ -69,9 +70,9 @@ class Seat extends Model
                 $this->seat_state = 'presence';
                 $this->save();
 
-                \DB::commit();
+                DB::commit();
             } catch (\Exception $e) {
-                \DB::rollback();
+                DB::rollback();
             }
             return $session->session_key;
         }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Traits\SeatCheckable;
+use Illuminate\Support\Facades\DB;
 class ItemsController extends Controller
 {
     use SeatCheckable;
@@ -233,15 +234,15 @@ class ItemsController extends Controller
 
     public function out_of_stock(\App\Item $item)
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             \App\Item::where('item_key', $item->item_key)->get()->each(function($i) {
                 $i->is_out_of_stock = !$i->is_out_of_stock;
                 $i->save();
             });
-            \DB::commit();
+            DB::commit();
         } catch (\Exception $e) {
-            \DB::rollback();
+            DB::rollback();
         }
         return redirect()->back();
     }

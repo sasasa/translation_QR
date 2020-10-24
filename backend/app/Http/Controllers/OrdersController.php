@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Traits\SeatCheckable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 class OrdersController extends Controller
 {
     use SeatCheckable;
@@ -97,7 +99,7 @@ class OrdersController extends Controller
             return false;
         }
 
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             $seat->seat_state = 'payment';
             $seat->save();
@@ -113,9 +115,9 @@ class OrdersController extends Controller
             $payment->tax_included_price = $sum_tax_included_price;
             $payment->seat_session_id = $seatSession->id;
             $payment->save();
-            \DB::commit();
+            DB::commit();
         } catch (\Exception $e) {
-            \DB::rollback();
+            DB::rollback();
         }
 
         return response()->json([
@@ -136,9 +138,9 @@ class OrdersController extends Controller
         }
 
         $ret = [];
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
-            collect($req->cart)->each(function ($val, $idx) use($seatSession, $req, &$ret){
+            collect($req->cart)->each(function ($val) use($seatSession, $req, &$ret){
                 foreach ($val as $id => $number) {
                     $item = \App\Item::findOrFail($id);
                     for($i=1; $i<=$number; $i++){
@@ -146,21 +148,21 @@ class OrdersController extends Controller
 
                         if ($order) {
                             if($order->is_take_out) {
-                                $key = $order->item->item_name. '(ID'. $order->id. ')'. \Lang::get('message.takeout', [], $req->lang);
+                                $key = $order->item->item_name. '(ID'. $order->id. ')'. Lang::get('message.takeout', [], $req->lang);
                             } else {
                                 $key = $order->item->item_name. '(ID'. $order->id. ')';
                             }
                             $ret[$key] = $order->tax_included_price;
                         } else {
-                            $ret[$item->item_name. '('. \Lang::get('message.sorry_out_of_stock', [], $req->lang). ')'] = 0;
+                            $ret[$item->item_name. '('. Lang::get('message.sorry_out_of_stock', [], $req->lang). ')'] = 0;
                         }
 
                     }
                 }
             });
-            \DB::commit();
+            DB::commit();
         } catch (\Exception $e) {
-            \DB::rollback();
+            DB::rollback();
         }
 
         return [
@@ -208,12 +210,12 @@ class OrdersController extends Controller
         }
 
         if( $req->aggregate == 'sales' ) {
-            $orders = \App\Order::select(\DB::raw('sum(tax_included_price) as order_count, item_id'))->
+            $orders = \App\Order::select(DB::raw('sum(tax_included_price) as order_count, item_id'))->
                                 groupBy('item_id')->with('item')->
                                 whereDate('created_at', '>=', $start_time)->
                                 whereDate('created_at', '<', $end_time)->get();
         } else {
-            $orders = \App\Order::select(\DB::raw('count(*) as order_count, item_id'))->
+            $orders = \App\Order::select(DB::raw('count(*) as order_count, item_id'))->
                                 groupBy('item_id')->with('item')->
                                 whereDate('created_at', '>=', $start_time)->
                                 whereDate('created_at', '<', $end_time)->get();
