@@ -16,5 +16,7 @@ COPY --from=node /usr/local/lib /usr/local/lib
 COPY --from=node /opt /opt
 # nginx config file
 COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./SSL/localhost+1.pem /etc/nginx/ssl/localhost+1.pem
+COPY ./SSL/localhost+1-key.pem /etc/nginx/ssl/localhost+1-key.pem
 
 WORKDIR /work
