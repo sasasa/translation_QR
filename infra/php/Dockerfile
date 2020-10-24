@@ -12,7 +12,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/* && \
   docker-php-ext-configure gd --with-freetype --with-jpeg && \
   docker-php-ext-install -j$(nproc) gd && \
-  docker-php-ext-install intl pdo_mysql zip bcmath
+  docker-php-ext-install opcache intl pdo_mysql zip bcmath
 
 COPY ./php.ini /usr/local/etc/php/php.ini
 
