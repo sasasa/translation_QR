@@ -18,7 +18,7 @@ trait Translatable
         'ko_KR'=>'韓国語',
     ];
 
-    public function getLangJpAttribute()
+    public function getLangJpAttribute(): string
     {
         return self::$selectKeys[$this->lang]. '('. $this->lang. ')';
     }

@@ -21,15 +21,15 @@ class Allergen extends Model
         'lang',
     ];
 
-    public function items()
+    public function items(): object
     {
         return $this->belongsToMany('App\Item', 'allergen_item');
     }
-    public function getHashAttribute()
+    public function getHashAttribute(): int
     {
         return crc32($this->allergen_key);
     }
-    public function getNameJpAttribute()
+    public function getNameJpAttribute(): string
     {
         if ($this->lang == "ja_JP") {
             return $this->allergen_name;
@@ -38,10 +38,10 @@ class Allergen extends Model
         }
     }
 
-    public function saveOtherLangByKey()
+    public function saveOtherLangByKey(): void
     {
         try {
-            collect(['en_US', 'zh_CN', 'ko_KR'])->each(function($langVal) {
+            collect(['en_US', 'zh_CN', 'ko_KR'])->each(function(string $langVal) {
                 $new_allergen = new \App\Allergen();
                 $new_allergen->fill([
                     'lang' => $langVal,

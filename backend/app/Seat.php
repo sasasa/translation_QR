@@ -27,31 +27,31 @@ class Seat extends Model
         'payment' => '支払い中',
     ];
 
-    public function seatSessions()
+    public function seatSessions(): object
     {
         return $this->hasMany('App\SeatSession');
     }
-    public function seatSession()
+    public function seatSession(): object
     {
         return $this->hasOne('App\SeatSession')->orderBy('id', 'DESC');
     }
 
-    public function getstateJpAttribute()
+    public function getstateJpAttribute(): string
     {
         return self::$seat_states[$this->seat_state]. '('. $this->seat_state. ')';
     }
 
-    public function getqrCodeAttribute()
+    public function getqrCodeAttribute(): QrCode
     {
         return new QrCode(env('APP_URL', '') .'/'. $this->seat_hash .'/items#/ja/drink');
     }
 
-    public function set_hash()
+    public function set_hash(): void
     {
         $this->seat_hash = hash('sha256', Uuid::uuid4());
     }
 
-    public function createSession()
+    public function createSession(): string
     {
         // 'in_use' => '利用中',
         // 'end_of_use' => '利用終了',
@@ -78,11 +78,11 @@ class Seat extends Model
         }
     }
 
-    public static function forSelect()
+    public static function forSelect(): array
     {
         $ret = [];
         $ret[''] = '座席を選択してください';
-        self::all()->each(function($seat) use(&$ret) {
+        self::all()->each(function(\App\Seat $seat) use(&$ret) {
             $ret[$seat->seat_hash] = $seat->seat_name;
         });
 

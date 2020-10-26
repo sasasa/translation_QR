@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'email_verified_at' => 'datetime',
     ];
 
-    public function getPermissionJpAttribute()
+    public function getPermissionJpAttribute(): string
     {
         return self::$permissions[$this->permission];
     }

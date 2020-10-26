@@ -55,24 +55,24 @@ class Item extends Model
         'image_path',
     ];
 
-    public function genre()
+    public function genre(): object
     {
         return $this->belongsTo('App\Genre');
     }
-    public function orders()
+    public function orders(): object
     {
         return $this->hasMany('App\Order');
     }
-    public function allergens()
+    public function allergens(): object
     {
         return $this->belongsToMany('App\Allergen', 'allergen_item');
     }
-    public function getHashAttribute()
+    public function getHashAttribute(): int
     {
         return crc32($this->item_key);
     }
 
-    public static function allForlangAndGenre($lang, $genre)
+    public static function allForlangAndGenre(string $lang, string $genre): object
     {
         $item_query = self::query();
         $item_query->mySelect();
@@ -83,23 +83,23 @@ class Item extends Model
         return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->withAllergens();
     }
 
-    public function scopeMySelect($query)
+    public function scopeMySelect(object $query): object
     {
         return $query->select(['id', 'image_path', 'item_name', 'item_price', 'item_desc', 'is_out_of_stock']);
     }
 
-    public function scopeWithAllergens($query)
+    public function scopeWithAllergens(object $query): object
     {
         return $query->with('allergens:allergen_name,allergen_key');
     }
 
 
-    public function allergenIds()
+    public function allergenIds(): array
     {
         return $this->allergens()->get()->modelKeys();
     }
 
-    public function allergenCopy($ids, $lang)
+    public function allergenCopy(array $ids, string $lang): bool
     {
         $allergens = collect($ids)->map(function ($item, $key) use($lang) {
             $allergen = \App\Allergen::find($item);
@@ -109,7 +109,7 @@ class Item extends Model
         return $this->allergenSet($allergens->toArray());
     }
 
-    public function allergenSet($allergens)
+    public function allergenSet(?array $allergens): bool
     {
         if (is_array($allergens)) {
             $allergenIds = $this->allergenIds();
@@ -130,7 +130,7 @@ class Item extends Model
         }
     }
 
-    public function jp()
+    public function jp(): object
     {
         if( $this->lang !== 'ja_JP' ) {
             return self::whereItemKey($this->item_key);
@@ -139,7 +139,7 @@ class Item extends Model
         }
     }
 
-    public static function whereItemKey($item_key)
+    public static function whereItemKey(string $item_key): object
     {
         return self::where('item_key', $item_key)->where('lang', 'ja_JP')->first();
     }

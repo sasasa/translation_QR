@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class Order extends Model
 {
@@ -15,26 +15,26 @@ class Order extends Model
         'cancel' => 'キャンセル',
     ];
 
-    public function item()
+    public function item(): object
     {
         return $this->belongsTo('App\Item');
     }
-    public function item_jp()
+    public function item_jp(): object
     {
         return $this->belongsTo('App\Item', 'item_jp_id');
     }
 
-    public function seatSession()
+    public function seatSession(): object
     {
         return $this->belongsTo('App\SeatSession');
     }
 
-    public function getStateJpAttribute()
+    public function getStateJpAttribute(): string
     {
         return self::$order_states[$this->order_state]. '('. $this->order_state. ')';
     }
 
-    public function getTakeOutJpAttribute()
+    public function getTakeOutJpAttribute(): string
     {
         if ($this->is_take_out)
         {
@@ -44,7 +44,9 @@ class Order extends Model
         }
     }
 
-    public static function createByItem($item, $seatSession, $req)
+    public static function createByItem(\App\Item $item, 
+                                        \App\SeatSession $seatSession,
+                                        Request $req): ?Order
     {
         if ($item->is_out_of_stock) {
             // 時間差で在庫切れなら注文を受けない
@@ -68,7 +70,7 @@ class Order extends Model
         return $order;
     }
 
-    public function takeout($req)
+    public function takeout(Request $req): void
     {
         $this->is_take_out = $req->is_take_out;
         if( $req->is_take_out ) {
