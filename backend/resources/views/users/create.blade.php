@@ -7,6 +7,8 @@
 @include('components.errorAll')
 
 <form action="/users" method="post" class="mt-5" autocomplete="off">
+  <input type="password" name="dummy_pass" style="top: -100px; left: -100px;　position: fixed;">
+  <input type="email" name="dummy_email" style="top: -100px; left: -100px;　position: fixed;">
   @csrf
   <div class="form-group">
     <label for="name">{{__('validation.attributes.name')}}:</label>
