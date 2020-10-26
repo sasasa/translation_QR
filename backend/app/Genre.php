@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Translatable;
+use Illuminate\Database\Eloquent\Collection;
 
 class Genre extends Model
 {
@@ -24,88 +25,88 @@ class Genre extends Model
         'parent_id',
     ];
 
-    public function items()
+    public function items(): object
     {
         return $this->hasMany('App\Item');
     }
-    public function parent()
+    public function parent(): object
     {
         return $this->belongsTo('App\Genre', 'parent_id');
     }
-    public function children()
+    public function children(): object
     {
         return $this->hasMany('App\Genre', 'parent_id')->orderBy('genre_order', 'DESC');
     }
 
-    public function getHashAttribute()
+    public function getHashAttribute(): int
     {
         return crc32($this->genre_key);
     }
 
-    public static function optionsForSelectByLang($lang)
+    public static function optionsForSelectByLang(string $lang): array
     {
         $ret = [];
-        self::where('lang', $lang)->orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
+        self::where('lang', $lang)->orderBy('genre_order', 'DESC')->each(function(\App\Genre $genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
     }
 
-    public static function optionsForSelect()
+    public static function optionsForSelect(): array
     {
         $ret = self::optionsForSelectWithOut();
         $ret[''] = 'ジャンル選択前に言語を選択してください';
         return $ret;
     }
 
-    public static function optionsForSelectWithOut()
+    public static function optionsForSelectWithOut(): array
     {
         $ret = [];
-        self::orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
+        self::orderBy('genre_order', 'DESC')->each(function(\App\Genre $genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
     }
-    public static function optionsForGenreKey()
+    public static function optionsForGenreKey(): array
     {
         $ret = [];
         $ret[''] = 'ジャンルキーを選択してください';
-        self::get()->groupBy('genre_key')->each(function($ary, $key) use(&$ret){
+        self::get()->groupBy('genre_key')->each(function(Collection $ary, string $key) use(&$ret){
             $ret[$key] = $key;
         });
         return $ret;
     }
 
-    public static function optionsForSelectParents()
+    public static function optionsForSelectParents(): array
     {
         $ret = [] ;
         $ret[''] = '階層構造にする場合は選択してください';
-        self::whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function($genre) use(&$ret){
+        self::whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function(\App\Genre $genre) use(&$ret){
             $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
         });
         return $ret;
     }
 
-    public static function optionsForSelectParentsByLang($lang, $id)
+    public static function optionsForSelectParentsByLang(string $lang, ?string $id): array
     {
         $ret = [] ;
-        self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function($genre) use($id, &$ret){
+        self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function(\App\Genre $genre) use($id, &$ret){
             if($id !== $genre->id) {
                 $ret[$genre->id] = $genre->genre_name. "(". $genre->genre_key .")". "[". $genre->lang_jp ."]";
             }
         });
         return $ret;
     }
-    public function optionsForSelectParentsByLangForInstance()
+    public function optionsForSelectParentsByLangForInstance(): array
     {
         $ret = self::optionsForSelectParentsByLang($this->lang, $this->id);
         $ret[''] = '階層構造にする場合は選択してください';
         return $ret;
     }
-    public function saveOtherLangByKey()
+    public function saveOtherLangByKey(): void
     {
         try {
-            collect(['en_US', 'zh_CN', 'ko_KR'])->each(function($langVal) {
+            collect(['en_US', 'zh_CN', 'ko_KR'])->each(function(string $langVal) {
                 $new_genre = new \App\Genre();
                 $new_genre->fill([
                     'lang' => $langVal,

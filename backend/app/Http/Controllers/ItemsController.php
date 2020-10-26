@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Traits\SeatCheckable;
 use Illuminate\Support\Facades\DB;
+
 class ItemsController extends Controller
 {
     use SeatCheckable;
@@ -158,7 +159,7 @@ class ItemsController extends Controller
             'allergenIds' => old('allergens') ? old('allergens') : $item->allergenIds(),
         ]);
     }
-    private function validate_original($req, $rules, $itemId)
+    private function validate_original(Request $req, array $rules, ?int $itemId): \Illuminate\Contracts\Validation\Validator
     {
         $validator = Validator::make($req->all(), array_merge($rules, [
             'item_key' => [
@@ -236,7 +237,7 @@ class ItemsController extends Controller
     {
         DB::beginTransaction();
         try {
-            \App\Item::where('item_key', $item->item_key)->get()->each(function($i) {
+            \App\Item::where('item_key', $item->item_key)->get()->each(function(\App\Item $i) {
                 $i->is_out_of_stock = !$i->is_out_of_stock;
                 $i->save();
             });

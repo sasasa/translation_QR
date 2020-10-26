@@ -17,25 +17,25 @@ class SeatSession extends Model
         'end_of_use' => '利用終了',
     ];
 
-    public function seat()
+    public function seat(): object
     {
         return $this->belongsTo('App\Seat');
     }
-    public function orders()
+    public function orders(): object
     {
         return $this->hasMany('App\Order')->whereIn('order_state', ['preparation','delivered']);
     }
-    public function payment()
+    public function payment(): object
     {
         return $this->hasOne('App\Payment');
     }
 
-    public function getstateJpAttribute()
+    public function getstateJpAttribute(): string
     {
         return self::$session_states[$this->session_state]. '('. $this->session_state. ')';
     }
 
-    public function set_hash()
+    public function set_hash(): string
     {
         return $this->session_key = hash('sha256', Uuid::uuid4());
     }

@@ -13,12 +13,12 @@ class Payment extends Model
         'afterpaying' => '清算後',
     ];
 
-    public function getStateJpAttribute()
+    public function getStateJpAttribute(): string
     {
         return self::$payment_states[$this->payment_state]. '('. $this->payment_state. ')';
     }
 
-    public function seatSession()
+    public function seatSession(): object
     {
         return $this->belongsTo('App\SeatSession');
     }

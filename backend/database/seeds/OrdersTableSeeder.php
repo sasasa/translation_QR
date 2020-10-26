@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class OrdersTableSeeder extends Seeder
 {
@@ -13,10 +14,10 @@ class OrdersTableSeeder extends Seeder
     {
         // 一つも買われない商品
         $items = \App\Item::whereNotIn('id', [1, 2, 3, 4])->get();
-        \App\SeatSession::all()->each(function($seatSession) use($items){
+        \App\SeatSession::all()->each(function(\App\SeatSession $seatSession) use($items){
             $order_num = mt_rand(2, 12);
             $is_take_out = mt_rand(0, 1);
-            $items->random($order_num)->each(function($item) use($seatSession, $is_take_out){
+            $items->random($order_num)->each(function(\App\Item $item) use($seatSession, $is_take_out){
 
                 if ($is_take_out) {
                     DB::table('orders')->insert([
@@ -56,7 +57,7 @@ class OrdersTableSeeder extends Seeder
                     ]);
                 }
             });
-            $sum = $seatSession->orders->map(function($order){
+            $sum = $seatSession->orders->map(function(\App\Order $order){
                 return $order->tax_included_price;
             })->sum();
             $payment = new \App\Payment();

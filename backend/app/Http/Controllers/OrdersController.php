@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Traits\SeatCheckable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Database\Eloquent\Collection;
+
 class OrdersController extends Controller
 {
     use SeatCheckable;
@@ -62,13 +64,13 @@ class OrdersController extends Controller
     {
         $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
                                     where('seat_session_id', $seatSession->id)->with('item_jp')->get();
-        $all_price = $ordered_orders->map(function($order) {
+        $all_price = $ordered_orders->map(function(\App\Order $order) {
             return $order->tax_included_price;
         })->sum();
 
         return view('orders.print', [
             'seatSession' => $seatSession,
-            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function($ary, $key){
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function(Collection $ary, string $key){
                 return $ary->groupBy('item_jp.item_name');
             }),
             'all_items' => $ordered_orders->count(),
@@ -121,7 +123,7 @@ class OrdersController extends Controller
         }
 
         return response()->json([
-            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function($ary, $key){
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function(Collection $ary, string $key){
                 return $ary->groupBy('item.item_name');
             }),
             'all_items' => $ordered_orders->count(),
@@ -220,7 +222,7 @@ class OrdersController extends Controller
                                 whereDate('created_at', '>=', $start_time)->
                                 whereDate('created_at', '<', $end_time)->get();
         }
-        $items = \App\Item::select('item_key')->distinct()->get()->map(function($item){
+        $items = \App\Item::select('item_key')->distinct()->get()->map(function(\App\Item $item){
             return $item->item_key;
         });
 
@@ -231,8 +233,8 @@ class OrdersController extends Controller
         $last_month = Carbon::today()->subMonths(1); // 前の月の曜日
 
         return view('orders.aggregate', [
-            'orders' => $orders->groupBy('item.item_key')->map(function($orders){
-                return $orders->map(function($order){
+            'orders' => $orders->groupBy('item.item_key')->map(function(Collection $orders){
+                return $orders->map(function(\App\Order $order){
                     return $order->order_count;
                 })->sum();
             })->sortDesc(),
