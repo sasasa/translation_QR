@@ -64,15 +64,15 @@ class OrdersController extends Controller
     {
         $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
                                     where('seat_session_id', $seatSession->id)->with('item_jp')->get();
-        $all_price = $ordered_orders->map(function(\App\Order $order) {
-            return $order->tax_included_price;
-        })->sum();
+        $all_price = $ordered_orders->map(fn(\App\Order $order) =>
+            $order->tax_included_price
+        )->sum();
 
         return view('orders.print', [
             'seatSession' => $seatSession,
-            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function(Collection $ary, string $key){
-                return $ary->groupBy('item_jp.item_name');
-            }),
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(fn(Collection $ary) =>
+                $ary->groupBy('item_jp.item_name')
+            ),
             'all_items' => $ordered_orders->count(),
             'all_price' => $all_price,
             'time' => $seatSession->payment->created_at,
@@ -110,9 +110,9 @@ class OrdersController extends Controller
 
             $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
                                         where('seat_session_id', $seatSession->id)->with('item')->get();
-            $sum_tax_included_price = $ordered_orders->map(function ($order, $key) {
-                return $order->tax_included_price;
-            })->sum();
+            $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
+                $order->tax_included_price
+            )->sum();
             $payment = new \App\Payment();
             $payment->tax_included_price = $sum_tax_included_price;
             $payment->seat_session_id = $seatSession->id;
@@ -123,9 +123,9 @@ class OrdersController extends Controller
         }
 
         return response()->json([
-            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function(Collection $ary, string $key){
-                return $ary->groupBy('item.item_name');
-            }),
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(fn(Collection $ary) =>
+                $ary->groupBy('item.item_name')
+            ),
             'all_items' => $ordered_orders->count(),
             'all_price' => $sum_tax_included_price,
         ]);
@@ -222,9 +222,9 @@ class OrdersController extends Controller
                                 whereDate('created_at', '>=', $start_time)->
                                 whereDate('created_at', '<', $end_time)->get();
         }
-        $items = \App\Item::select('item_key')->distinct()->get()->map(function(\App\Item $item){
-            return $item->item_key;
-        });
+        $items = \App\Item::select('item_key')->distinct()->get()->map(fn(\App\Item $item) =>
+            $item->item_key
+        );
 
         Carbon::setWeekStartsAt(Carbon::SUNDAY); // 週の最初を日曜日に設定
         Carbon::setWeekEndsAt(Carbon::SATURDAY); // 週の最後を土曜日に設定
@@ -233,11 +233,9 @@ class OrdersController extends Controller
         $last_month = Carbon::today()->subMonths(1); // 前の月の曜日
 
         return view('orders.aggregate', [
-            'orders' => $orders->groupBy('item.item_key')->map(function(Collection $orders){
-                return $orders->map(function(\App\Order $order){
-                    return $order->order_count;
-                })->sum();
-            })->sortDesc(),
+            'orders' => $orders->groupBy('item.item_key')->map(fn(Collection $orders) =>
+                $orders->map(fn(\App\Order $order) => $order->order_count)->sum()
+            )->sortDesc(),
             'items' => $items,
             'aggregate' => $req->aggregate,
 

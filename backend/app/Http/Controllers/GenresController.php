@@ -40,9 +40,7 @@ class GenresController extends Controller
                 'alpha_dash',
                 'max:60',
                 // genre_key,langの組み合わせでユニークである
-                Rule::unique('genres')->where(function($query) use($req){
-                    $query->where('lang', $req->lang);
-                }),
+                Rule::unique('genres')->where(fn($q) => $q->where('lang', $req->lang)),
             ],
         ]));
         $genre = new \App\Genre();
