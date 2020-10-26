@@ -8,7 +8,7 @@
 [win]$ docker-compose exec web npm audit fix
 
 [win]$ docker-compose exec app bash
-[app]$ composer install
+[app]$ COMPOSER_MEMORY_LIMIT=-1 composer install
 [app]$ cp .env.example .env
 [app]$ php artisan key:generate
 [app]$ php artisan migrate
