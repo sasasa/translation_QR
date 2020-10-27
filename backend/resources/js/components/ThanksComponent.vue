@@ -9,10 +9,10 @@
             </div>
 
             <div v-for="(take_out_orders, is_take_out) in ordered_orders" v-bind:key="is_take_out">
-                <span v-if="is_take_out">
+                <span v-if="is_take_out == '1'">
                     <br>{{$t('message.takeout')}}
                 </span>
-                <span v-else>
+                <span v-else-if="is_take_out == '0'">
                     <br>{{$t('message.food_and_drink_in_the_store')}}
                 </span>
                 <ul>
