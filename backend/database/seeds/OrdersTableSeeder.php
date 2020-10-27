@@ -57,9 +57,9 @@ class OrdersTableSeeder extends Seeder
                     ]);
                 }
             });
-            $sum = $seatSession->orders->map(function(\App\Order $order){
-                return $order->tax_included_price;
-            })->sum();
+            $sum = $seatSession->orders->map(fn(\App\Order $order) =>
+                $order->tax_included_price
+            )->sum();
             $payment = new \App\Payment();
             $payment->insert([
                 'tax_included_price' => $sum,
