@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    // ステータス（=リスト登録中（注文前）, preparation=準備中, printing=プリント中, afterpaying=清算後）
+    // ステータス（=リスト登録中（注文前）, preparation=準備中, printing=プリント中, afterpaying=精算後）
     public static $payment_states = [
         'preparation' => '準備中',
         'printing' => 'プリント中',
-        'afterpaying' => '清算後',
+        'afterpaying' => '精算後',
     ];
 
     public function getStateJpAttribute(): string
