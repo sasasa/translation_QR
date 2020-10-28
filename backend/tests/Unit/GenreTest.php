@@ -153,21 +153,21 @@ class GenreTest extends TestCase
             'genre_name' => '【ほげほげ】の翻訳を入れてください',
             'lang' => 'en_US',
             'genre_order' => 1,
-            'parent_id' => 1,
+            'parent_id' => 2,
         ]);
         $this->assertDatabaseHas('genres', [
             'genre_key' => 'hoge',
             'genre_name' => '【ほげほげ】の翻訳を入れてください',
             'lang' => 'zh_CN',
             'genre_order' => 1,
-            'parent_id' => 1,
+            'parent_id' => 3,
         ]);
         $this->assertDatabaseHas('genres', [
             'genre_key' => 'hoge',
             'genre_name' => '【ほげほげ】の翻訳を入れてください',
             'lang' => 'ko_KR',
             'genre_order' => 1,
-            'parent_id' => 1,
+            'parent_id' => 4,
         ]);
     }
 }

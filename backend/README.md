@@ -90,5 +90,7 @@ php artisan make:controller UsersController --resource
 php artisan make:test AllergenTest --unit
 php artisan make:test GenreTest --unit
 php artisan make:test ItemTest --unit
-
+php artisan make:test OrderTest --unit
+php artisan test OrderTest
+php artisan test Tests\\Unit\\OrderTest
 `

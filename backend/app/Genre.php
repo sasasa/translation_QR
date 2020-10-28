@@ -87,7 +87,7 @@ class Genre extends Model
         return $ret;
     }
 
-    public static function optionsForSelectParentsByLang(string $lang, ?string $id): array
+    public static function optionsForSelectParentsByLang(string $lang, ?int $id): array
     {
         $ret = [] ;
         self::where('lang', $lang)->whereNull('parent_id')->orderBy('genre_order', 'DESC')->each(function(\App\Genre $genre) use($id, &$ret){

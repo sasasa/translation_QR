@@ -146,7 +146,7 @@ class OrdersController extends Controller
                 foreach ($val as $id => $number) {
                     $item = \App\Item::findOrFail($id);
                     for($i=1; $i<=$number; $i++){
-                        $order = \App\Order::createByItem($item, $seatSession, $req);
+                        $order = \App\Order::createByItem($item, $seatSession, $req->is_take_out);
 
                         if ($order) {
                             if($order->is_take_out) {

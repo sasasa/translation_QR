@@ -32,7 +32,7 @@ class AllergenTest extends TestCase
             'allergen_name' => 'hoge',
             'allergen_key' => 'hoge',
         ]);
-        $this->assertSame($allergen->Lang_jp, '日本語(ja_JP)');
+        $this->assertSame($allergen->lang_jp, '日本語(ja_JP)');
     }
 
     public function test_getNameJpAttribute()
@@ -47,8 +47,8 @@ class AllergenTest extends TestCase
             'allergen_name' => 'hogehoge',
             'allergen_key' => 'hoge',
         ]);
-        $this->assertSame($allergen_jp->Name_jp, $allergen_jp->allergen_name);
-        $this->assertSame($allergen_en->Name_jp, $allergen_jp->allergen_name);
+        $this->assertSame($allergen_jp->name_jp, $allergen_jp->allergen_name);
+        $this->assertSame($allergen_en->name_jp, $allergen_jp->allergen_name);
     }
     
     public function test_saveOtherLangByKey()
