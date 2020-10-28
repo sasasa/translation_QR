@@ -292,4 +292,7 @@
 .select-none {
     user-select: none;
 }
+.router-link-active {
+    text-decoration: underline;
+}
 </style>
