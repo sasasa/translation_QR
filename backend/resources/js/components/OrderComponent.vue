@@ -2,7 +2,7 @@
     <div>
         <Loading v-show="loading"></Loading>
         <div class="before_order" v-if="before_order">
-            <table class="table">
+            <transition-group tag="table" class="table">
                 <tbody v-for="item in items" v-bind:key="item.id">
                     <tr>
                         <th>{{$t("message.image_path")}}</th>
@@ -40,7 +40,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </transition-group>
             <div class="card">
                 <div class="card-header">{{$t("message.order_amount")}}</div>
                 <div class="card-body text-right">
@@ -319,5 +319,20 @@
 }
 .select-none {
     user-select: none;
+}
+/* 表示・非表示アニメーション中 */
+.v-enter-active, .v-leave-active {
+    transition: all 1200ms;
+}
+.v-leave-active {
+    transition: all 500ms;
+}
+/* 表示アニメーション開始時 ・ 非表示アニメーション後 */
+.v-enter {
+    opacity: 0.4;
+    background: pink;
+}
+.v-leave-to {
+    opacity: 0;
 }
 </style>
