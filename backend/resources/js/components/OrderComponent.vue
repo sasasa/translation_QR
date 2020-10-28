@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <th>{{$t("message.add_to_cart")}}</th>
-                        <td>
+                        <td class="select-none">
                             <span v-on:click="plus(item)" class="h1 pointer">＋</span>
                             <span v-on:click="minus(item)" class="h1 pointer">－</span>
                             <span class="h1">{{item_number(item)}}</span>
@@ -316,5 +316,8 @@
 }
 .pointer {
     cursor: pointer;
+}
+.select-none {
+    user-select: none;
 }
 </style>
