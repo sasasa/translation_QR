@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 trait SeatCheckable
 {
-    public function seatCheck(Request $req, string $seat_hash): array
+    public function seatCheck(string $session_key, string $seat_hash): array
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
         if (!$seat)
@@ -13,7 +13,7 @@ trait SeatCheckable
             return [false, false];
         }
         $seatSession = $seat->seatSession;
-        if ($seatSession->session_key != $req->session_key)
+        if ($seatSession->session_key !== $session_key)
         {
             return [false, false];
         }

@@ -83,7 +83,7 @@
   <tr>
     <th></th>
     <td>
-      @if ($item->lang == 'ja_JP')
+      @if ($item->lang === 'ja_JP')
       <a href="/items/create_by_key/{{$item->id}}" class="btn btn-sm btn-primary mb-2">他言語メニュー作成</a>
       <form action="/items/out_of_stock/{{$item->id}}" method="post">
         @csrf

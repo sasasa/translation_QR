@@ -38,7 +38,7 @@ class ItemsController extends Controller
     // API
     public function json_items(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }

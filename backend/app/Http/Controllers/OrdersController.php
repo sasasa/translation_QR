@@ -23,7 +23,7 @@ class OrdersController extends Controller
     // API
     public function json_ordered_orders(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -83,7 +83,7 @@ class OrdersController extends Controller
     // API
     public function pay(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -96,7 +96,7 @@ class OrdersController extends Controller
     // API
     public function json_payment(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -134,7 +134,7 @@ class OrdersController extends Controller
     // API
     public function store(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -211,7 +211,7 @@ class OrdersController extends Controller
             $end_time = Carbon::tomorrow();
         }
 
-        if( $req->aggregate == 'sales' ) {
+        if( $req->aggregate === 'sales' ) {
             $orders = \App\Order::select(DB::raw('sum(tax_included_price) as order_count, item_id'))->
                                 groupBy('item_id')->with('item')->
                                 whereDate('created_at', '>=', $start_time)->

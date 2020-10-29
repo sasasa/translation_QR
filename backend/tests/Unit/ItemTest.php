@@ -18,7 +18,6 @@ class ItemTest extends TestCase
     {
         parent::setUp();
         $this->seed('AllergensTableSeeder');
-        $this->seed('ItemsTableSeeder');
     }
 
     public function tearDown(): void
@@ -165,5 +164,41 @@ class ItemTest extends TestCase
             'image_path' => 'hoge.jpg',
         ]);
         $this->assertEquals($item_en->jp(), Item::find($item->id));
+    }
+
+    public function test_getHashAttribute()
+    {
+        $hoge_jp = Item::create([
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ',
+            'item_key' => 'hoge',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'hoge.jpg',
+        ]);
+        $hige_jp = Item::create([
+            'lang' => 'ja_JP',
+            'item_name' => 'ひげひげ',
+            'item_key' => 'hige',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'hoge.jpg',
+        ]);
+        $hoge_en = Item::create([
+            'lang' => 'en_US',
+            'item_name' => 'hogehoge',
+            'item_key' => 'hoge',
+            'item_desc' => 'Item desc',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'hoge.jpg',
+        ]);
+        $this->assertSame($hoge_jp->hash, $hoge_en->hash);
+        $this->assertNotSame($hoge_jp->hash, $hige_jp->hash);
     }
 }

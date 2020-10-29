@@ -39,7 +39,7 @@ class PaymentsController extends Controller
         $payment->payment_state = $req->payment_state;
         $payment->save();
         $seat = $payment->seatSession->seat;
-        if ($payment->payment_state == 'afterpaying') {
+        if ($payment->payment_state === 'afterpaying') {
             $seat->seat_state = 'empty';
             $seat->save();
         } else {

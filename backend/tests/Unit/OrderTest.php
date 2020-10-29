@@ -180,9 +180,9 @@ class OrderTest extends TestCase
             'order_state' => 'preparation',
             'order_price' => $item->item_price,
             'is_take_out' => true,
-            'tax_rate' => 0.01,
-            'sales_tax' => ceil(bcmul($item->item_price, 0.01, 1)),
-            'tax_included_price' => ceil(bcmul($item->item_price, 1.01, 1)),
+            'tax_rate' => 0.001,
+            'sales_tax' => ceil(bcmul($item->item_price, 0.001, 1)),
+            'tax_included_price' => ceil(bcmul($item->item_price, 1.001, 1)),
         ]);
         $is_take_out = false;
         $order->takeout($is_take_out);

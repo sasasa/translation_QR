@@ -30,7 +30,7 @@ class SeatSession extends Model
         return $this->hasOne('App\Payment');
     }
 
-    public function getstateJpAttribute(): string
+    public function getStateJpAttribute(): string
     {
         return self::$session_states[$this->session_state]. '('. $this->session_state. ')';
     }

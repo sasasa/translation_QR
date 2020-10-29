@@ -18,6 +18,7 @@ class Seat extends Model
 
     protected $fillable = [
         'seat_name',
+        'seat_state',
         'how_many',
     ];
     // 席の状態
@@ -36,12 +37,12 @@ class Seat extends Model
         return $this->hasOne('App\SeatSession')->orderBy('id', 'DESC');
     }
 
-    public function getstateJpAttribute(): string
+    public function getStateJpAttribute(): string
     {
         return self::$seat_states[$this->seat_state]. '('. $this->seat_state. ')';
     }
 
-    public function getqrCodeAttribute(): QrCode
+    public function getQrCodeAttribute(): QrCode
     {
         return new QrCode(env('APP_URL', '') .'/'. $this->seat_hash .'/items#/ja/drink');
     }
@@ -55,7 +56,7 @@ class Seat extends Model
     {
         // 'in_use' => '利用中',
         // 'end_of_use' => '利用終了',
-        if( $this->seatSession && $this->seatSession->session_state == "in_use" ) {
+        if( $this->seatSession && $this->seatSession->session_state === "in_use" ) {
             // セッションはすでに開始されている
             return $this->seatSession->session_key;
         } else {
@@ -82,7 +83,7 @@ class Seat extends Model
     {
         $ret = [];
         $ret[''] = '座席を選択してください';
-        self::all()->each(function(\App\Seat $seat) use(&$ret) {
+        self::orderBy('id', 'ASC')->each(function(\App\Seat $seat) use(&$ret) {
             $ret[$seat->seat_hash] = $seat->seat_name;
         });
 
