@@ -47,7 +47,7 @@ class ItemsController extends Controller
             'items' => \App\Item::allForlangAndGenre($req->lang, $req->genre)->get(),
             'genres' => \App\Genre::whereNull('parent_id')->
                 where('lang', 'like', $req->lang. '%')->
-                orderBy('genre_order', 'DESC')->with('children')->get(),
+                orderBy('genre_order', 'DESC')->with(['children', 'item'])->get(),
 
             'ordered_orders' => $seatSession->orders,
         ]);

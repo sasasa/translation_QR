@@ -29,6 +29,10 @@ class Genre extends Model
     {
         return $this->hasMany('App\Item');
     }
+    public function item(): object
+    {
+        return $this->hasOne('App\Item');
+    }
     public function parent(): object
     {
         return $this->belongsTo('App\Genre', 'parent_id');
