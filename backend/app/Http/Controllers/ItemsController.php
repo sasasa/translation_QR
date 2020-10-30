@@ -66,7 +66,7 @@ class ItemsController extends Controller
             $item_query->where('lang', $req->lang);
         }
         if ($req->genre_key) {
-            $item_query->whereHas('genre', fn($q) => 
+            $item_query->whereHas('genre', fn($q) =>
                 $q->where('genre_key', $req->genre_key)
             );
         }
