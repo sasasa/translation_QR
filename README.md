@@ -1,11 +1,11 @@
 # 翻訳QR
 翻訳QRを動かすにあたって必要な情報を記します。
-翻訳QRのアプリケーションの説明書は![manual.pdf](https://github.com/sasasa/translation_QR/blob/master/manual.pdf)にあります。
+翻訳QRのアプリケーションの説明書は[manual.pdf](https://github.com/sasasa/translation_QR/blob/master/manual.pdf)にあります。
 
 ## インストール
-* Gitをインストールして下さい。Macの場合はHomebrewでインストールして下さい。Windowsの場合は![Git for Windows](https://gitforwindows.org/)をインストールして下さい。
-* ソースコードを見るためには![vscode](https://code.visualstudio.com/download)をインストールしてください
-* 動作環境として![Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) もしくは![Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)をインストールしてください
+* Gitをインストールして下さい。Macの場合はHomebrewでインストールして下さい。Windowsの場合は[Git for Windows](https://gitforwindows.org/)をインストールして下さい。
+* ソースコードを見るためには[vscode](https://code.visualstudio.com/download)をインストールしてください
+* 動作環境として[Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) もしくは[Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)をインストールしてください
 
 ## vscode拡張機能
 PHP(Laravel)で書かれたソースコードを確認するにはvscodeに
