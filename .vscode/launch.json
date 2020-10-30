@@ -10,7 +10,7 @@
       "request": "launch",
       "port": 9000,//php.iniで設定したxdebug用のport番号
       "pathMappings": {
-          // {docker上のdocument root}:{ローカルのdocument root}
+          // {docker上のlaravel root}:{ローカルのlaravel root}
           "/work":"C:\\xampp\\htdocs\\translation_QR\\backend"
       },
       "ignore": [
