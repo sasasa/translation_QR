@@ -44,12 +44,11 @@ class ItemsController extends Controller
         }
 
         return response()->json([
+            'ordered_orders' => $seatSession->orders,
             'items' => \App\Item::allForlangAndGenre($req->lang, $req->genre)->get(),
             'genres' => \App\Genre::whereNull('parent_id')->
                 where('lang', 'like', $req->lang. '%')->
                 orderBy('genre_order', 'DESC')->with('children')->get(),
-
-            'ordered_orders' => $seatSession->orders,
         ]);
     }
 
