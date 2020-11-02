@@ -144,9 +144,13 @@
                 return num
             },
             all_price() {
-                return Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
-                    return accumulator + this.ordered_orders[idx].tax_included_price
-                }, 0);
+                let num = 0;
+                if (this.ordered_orders) {
+                    num = Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
+                        return accumulator + this.ordered_orders[idx].tax_included_price
+                    }, 0);
+                }
+                return num
             },
             total_items() {
                 return Object.keys(this.cart).reduce((accumulator, key) => {
