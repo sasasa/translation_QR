@@ -140,7 +140,8 @@
                 return this.all_items == 0
             },
             all_items() {
-                return this.ordered_orders.length
+                const num = this.ordered_orders ? this.ordered_orders.length : 0
+                return num
             },
             all_price() {
                 return Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
