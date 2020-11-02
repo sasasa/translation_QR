@@ -42,10 +42,13 @@ class ItemsController extends Controller
         if(!$seatSession) {
             return false;
         }
+        
+        $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get()
+        \Debugbar::info($items);
 
         return response()->json([
             'ordered_orders' => $seatSession->orders,
-            'items' => \App\Item::allForlangAndGenre($req->lang, $req->genre)->get(),
+            'items' => $items,
             'genres' => \App\Genre::whereNull('parent_id')->
                 where('lang', 'like', $req->lang. '%')->
                 orderBy('genre_order', 'DESC')->with('children')->get(),
