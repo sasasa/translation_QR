@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'verified', 'can:browsing']], function ()
     Route::get('sum_total', 'PaymentsController@sum_total');
 });
 
-Route::post('api/json_items', 'ItemsController@json_items');
+Route::put('api/json_items', 'ItemsController@json_items');
 Route::post('api/item_ids', 'ItemsController@item_ids');
 Route::get('{seat_hash}/items', 'ItemsController@items');
 

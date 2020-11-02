@@ -232,7 +232,7 @@
             },
             getData() {
                 axios
-                    .post(`/api/json_items`, {
+                    .put(`/api/json_items`, {
                         session_key: this.session_key,
                         lang: this.lang,
                         genre: this.current_genre,
