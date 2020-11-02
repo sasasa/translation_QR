@@ -26,7 +26,7 @@ class AllergensController extends Controller
             'allergen_key' => [
                 'required',
                 // allergen_key,langの組み合わせでユニークである
-                Rule::unique('allergens')->where(fn($q) => $q->where('lang', $req->lang)),
+                Rule::unique('allergens')->where('lang', $req->lang),
             ],
         ]));
 
