@@ -43,7 +43,7 @@ class ItemsController extends Controller
             return false;
         }
         
-        $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get()
+        $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get();
         \Debugbar::info($items);
 
         return response()->json([
