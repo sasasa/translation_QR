@@ -5,6 +5,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Allergen;
+use App\Item;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,6 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class AllergenTest extends TestCase
 {
     use RefreshDatabase;
+    use ArraySimilarTrait;
 
     public function setUp(): void
     {
@@ -96,5 +98,45 @@ class AllergenTest extends TestCase
         ]);
         $this->assertSame($hoge_jp->hash, $hoge_en->hash);
         $this->assertNotSame($hoge_jp->hash, $hige_jp->hash);
+    }
+
+    public function test_items()
+    {
+        $allergen = Allergen::create([
+            'lang' => 'ja_JP',
+            'allergen_name' => 'ほげ',
+            'allergen_key' => 'hoge',
+        ]);
+        $this->assertCount(0, $allergen->items->toArray());
+
+        $array1 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ1',
+            'item_key' => 'hoge1',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item1 = Item::create($array1);
+        $item1->allergenSet([$allergen->id]);
+        $array2 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ2',
+            'item_key' => 'hoge2',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item2 = Item::create($array2);
+        $item2->allergenSet([$allergen->id]);
+        
+        $allergen->refresh();
+        // dd($allergen->items->toArray());
+
+        $this->assertCount(2, $allergen->items->toArray());
     }
 }

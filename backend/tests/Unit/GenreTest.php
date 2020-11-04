@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Genre;
+use App\Item;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -193,5 +194,108 @@ class GenreTest extends TestCase
         ]);
         $this->assertSame($hoge_jp->hash, $hoge_en->hash);
         $this->assertNotSame($hoge_jp->hash, $hige_jp->hash);
+    }
+
+    public function test_items()
+    {
+        $genre = Genre::create([
+            'genre_key' => 'hoge',
+            'genre_name' => 'ほげほげ',
+            'lang' => 'ja_JP',
+            'genre_order' => 1,
+        ]);
+        $this->assertCount(0, $genre->items->toArray());
+
+        $array1 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ1',
+            'item_key' => 'hoge1',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => $genre->id,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item1 = Item::create($array1);
+        $array2 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ2',
+            'item_key' => 'hoge2',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => $genre->id,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item2 = Item::create($array2);
+
+        $genre->refresh();
+        $this->assertCount(2, $genre->items->toArray());
+    }
+
+    public function test_item()
+    {
+        $genre = Genre::create([
+            'genre_key' => 'hoge',
+            'genre_name' => 'ほげほげ',
+            'lang' => 'ja_JP',
+            'genre_order' => 1,
+        ]);
+        $this->assertNull($genre->item);
+
+        $array1 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ1',
+            'item_key' => 'hoge1',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => $genre->id,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item1 = Item::create($array1);
+        $array2 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ2',
+            'item_key' => 'hoge2',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => $genre->id,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item2 = Item::create($array2);
+
+        $genre->refresh();
+        $this->assertNotNull($genre->item);
+    }
+
+    public function test_parent_and_children()
+    {
+        $genre = Genre::create([
+            'genre_key' => 'hoge',
+            'genre_name' => 'ほげほげ',
+            'lang' => 'ja_JP',
+            'genre_order' => 1,
+            'parent_id' => null,
+        ]);
+        $this->assertNull($genre->parent);
+        
+        $parent = Genre::create([
+            'genre_key' => 'parent',
+            'genre_name' => '親',
+            'lang' => 'ja_JP',
+            'genre_order' => 1,
+            'parent_id' => null,
+        ]);
+        $this->assertCount(0, $parent->children->toArray());
+
+        $genre->parent_id = $parent->id;
+        $genre->save();
+        $genre->refresh();
+        $parent->refresh();
+
+        $this->assertNotNull($genre->parent);
+        $this->assertCount(1, $parent->children->toArray());
     }
 }

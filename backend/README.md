@@ -101,6 +101,7 @@ php artisan make:test ApiJsonOrderedOrdersTest
 
 php artisan test Tests\\Unit\\OrderTest
 php artisan test Tests\\Unit\\PaymentTest
+php artisan test Tests\\Unit\\ItemTest
 php artisan test Tests\\Unit\\SeatTest
 php artisan test Tests\\Unit\\SeatSessionTest
 php artisan test Tests\\Unit\\AllergenTest

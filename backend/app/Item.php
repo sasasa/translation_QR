@@ -73,12 +73,12 @@ class Item extends Model
         return crc32($this->item_key);
     }
 
-    public static function allForlangAndGenre(string $lang, string $genre): object
+    public static function allForLangAndGenre(string $lang, string $genreKey): object
     {
         $item_query = self::query();
         $item_query->mySelect();
         $item_query->where('lang', 'like', $lang. '%');
-        $item_query->whereHas('genre', fn($q) => $q->where('genre_key', $genre) );
+        $item_query->whereHas('genre', fn($q) => $q->where('genre_key', $genreKey) );
         return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->withAllergens();
     }
 

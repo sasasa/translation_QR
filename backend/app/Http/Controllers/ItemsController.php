@@ -44,7 +44,7 @@ class ItemsController extends Controller
         }
         
         \Debugbar::info($req->lang, $req->genre);
-        $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get();
+        $items = \App\Item::allForLangAndGenre($req->lang, $req->genre)->get();
         \Debugbar::info($items);
 
         $genres = \App\Genre::whereNull('parent_id')->

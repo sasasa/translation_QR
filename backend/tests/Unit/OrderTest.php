@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Item;
+use App\SeatSession;
 
 class OrderTest extends TestCase
 {
@@ -191,5 +193,84 @@ class OrderTest extends TestCase
         $this->assertSame($order->tax_rate, 0.1);
         $this->assertSame($order->sales_tax, ceil(bcmul($item->item_price, 0.1, 1)));
         $this->assertSame($order->tax_included_price, ceil(bcmul($item->item_price, 1.1, 1)));
+    }
+
+    public function test_item_and_item_jp()
+    {
+        $array1 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'ほげほげ',
+            'item_key' => 'hoge',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'hoge.jpg',
+        ];
+        $item1 = Item::create($array1);
+        $array2 = [
+            'lang' => 'ja_JP',
+            'item_name' => 'もげもげ',
+            'item_key' => 'moge',
+            'item_desc' => 'アイテム詳細',
+            'item_order' => 10,
+            'item_price' => 1000,
+            'genre_id' => 1,
+            'image_path' => 'moge.jpg',
+        ];
+        $item2 = Item::create($array2);
+        $order = \App\Order::create([
+            'seat_session_id' => 1,
+            'item_id' => $item1->id,
+            'item_jp_id' => $item1->id,
+            'order_state' => 'preparation',
+            'order_price' => $item1->item_price,
+            // テイクアウトかどうか
+            'is_take_out' => true,
+            // 消費税率
+            'tax_rate' => 0.08,
+            // 消費税額
+            'sales_tax' => ceil(bcmul(100, 0.08, 1)),
+            // 税込み金額
+            'tax_included_price' => ceil(bcmul(100, 1.08, 1)),
+        ]);
+        
+        $this->assertNotNull($order->item);
+        $this->assertSame($order->item->id, $item1->id);
+        $this->assertSame($order->item_jp->id, $item1->id);
+        $order->item_id = $item2->id;
+        $order->item_jp_id = $item2->id;
+        $order->save();
+        $order->refresh();
+        $this->assertSame($order->item->id, $item2->id);
+        $this->assertSame($order->item_jp->id, $item2->id);
+    }
+
+    public function test_seatSession()
+    {
+        $session = new SeatSession([
+            'session_state' => "in_use",
+            'seat_id' => 1
+        ]);
+        $session->set_hash();
+        $session->save();
+
+        $order = \App\Order::create([
+            'seat_session_id' => $session->id,
+            'item_id' => 1,
+            'item_jp_id' => 1,
+            'order_state' => 'preparation',
+            'order_price' => 1000,
+            // テイクアウトかどうか
+            'is_take_out' => true,
+            // 消費税率
+            'tax_rate' => 0.08,
+            // 消費税額
+            'sales_tax' => ceil(bcmul(100, 0.08, 1)),
+            // 税込み金額
+            'tax_included_price' => ceil(bcmul(100, 1.08, 1)),
+        ]);
+        $this->assertNotNull($order->seatSession);
+        $this->assertSame($order->seatSession->id, $session->id);
     }
 }
