@@ -38,7 +38,7 @@ class ItemsController extends Controller
     // API
     public function json_items(Request $req)
     {
-        [$seat, $seatSession] = $this->seatCheck($req, $req->seat_hash);
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
         if(!$seatSession) {
             return false;
         }
@@ -49,7 +49,7 @@ class ItemsController extends Controller
 
         $genres = \App\Genre::whereNull('parent_id')->
                             where('lang', 'like', $req->lang. '%')->
-                            orderBy('genre_order', 'DESC')->with('children')->get();
+                            orderBy('genre_order', 'DESC')->with(['children', 'item'])->get();
 
         return response()->json([
             'ordered_orders' => $seatSession->orders,

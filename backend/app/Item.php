@@ -53,6 +53,7 @@ class Item extends Model
         'item_price',
         'genre_id',
         'image_path',
+        'is_out_of_stock',
     ];
 
     public function genre(): object

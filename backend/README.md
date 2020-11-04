@@ -90,5 +90,24 @@ php artisan make:controller UsersController --resource
 php artisan make:test AllergenTest --unit
 php artisan make:test GenreTest --unit
 php artisan make:test ItemTest --unit
+php artisan make:test OrderTest --unit
+php artisan make:test PaymentTest --unit
+php artisan make:test SeatTest --unit
+php artisan make:test SeatSessionTest --unit
+php artisan make:test ApiJsonItemsTest
+php artisan make:test ApiItemIdsTest
+php artisan make:test ApiJsonPaymentTest
+php artisan make:test ApiJsonOrderedOrdersTest
 
+php artisan test Tests\\Unit\\OrderTest
+php artisan test Tests\\Unit\\PaymentTest
+php artisan test Tests\\Unit\\SeatTest
+php artisan test Tests\\Unit\\SeatSessionTest
+php artisan test Tests\\Unit\\AllergenTest
+php artisan test Tests\\Unit\\GenreTest
+php artisan test Tests\\Unit\\UserTest
+php artisan test Tests\\Feature\\ApiJsonItems
+php artisan test Tests\\Feature\\ApiItemIds
+php artisan test Tests\\Feature\\ApiJsonPayment
+php artisan test Tests\\Feature\\ApiJsonOrderedOrders
 `

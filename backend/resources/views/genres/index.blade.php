@@ -36,7 +36,7 @@
         <a href="/genres/{{$genre->id}}/edit" class="btn btn-sm btn-primary">編集する</a>
       </td>
       <td>
-        @if ($genre->lang == "ja_JP")
+        @if ($genre->lang === "ja_JP")
           <form action="/genres/{{$genre->id}}/store_by_key" method="post">
             @csrf
             <input type="submit" value="他言語ジャンル作成" class="btn btn-sm btn-primary">

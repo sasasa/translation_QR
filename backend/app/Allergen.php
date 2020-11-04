@@ -31,7 +31,7 @@ class Allergen extends Model
     }
     public function getNameJpAttribute(): string
     {
-        if ($this->lang == "ja_JP") {
+        if ($this->lang === "ja_JP") {
             return $this->allergen_name;
         } else {
             return \App\Allergen::where('lang', "ja_JP")->where('allergen_key', $this->allergen_key)->first()->allergen_name;

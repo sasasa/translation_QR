@@ -11,7 +11,7 @@
 
 
             <div v-for="genre in genres" v-bind:key="genre.id">
-                <div v-if="genre.children.length">
+                <div v-if="genre.children.length && !genre.item">
                     {{genre.genre_name}}
                 </div>
                 <div v-else>

@@ -32,7 +32,7 @@ class AllergenTest extends TestCase
             'allergen_name' => 'hoge',
             'allergen_key' => 'hoge',
         ]);
-        $this->assertSame($allergen->Lang_jp, '日本語(ja_JP)');
+        $this->assertSame($allergen->lang_jp, '日本語(ja_JP)');
     }
 
     public function test_getNameJpAttribute()
@@ -47,8 +47,8 @@ class AllergenTest extends TestCase
             'allergen_name' => 'hogehoge',
             'allergen_key' => 'hoge',
         ]);
-        $this->assertSame($allergen_jp->Name_jp, $allergen_jp->allergen_name);
-        $this->assertSame($allergen_en->Name_jp, $allergen_jp->allergen_name);
+        $this->assertSame($allergen_jp->name_jp, $allergen_jp->allergen_name);
+        $this->assertSame($allergen_en->name_jp, $allergen_jp->allergen_name);
     }
     
     public function test_saveOtherLangByKey()
@@ -75,5 +75,26 @@ class AllergenTest extends TestCase
             'allergen_name' => '【ほげほげ】の翻訳を入れてください',
             'allergen_key' => 'hoge',
         ]);
+    }
+
+    public function test_getHashAttribute()
+    {
+        $hoge_jp = Allergen::create([
+            'lang' => 'ja_JP',
+            'allergen_name' => 'ほげ',
+            'allergen_key' => 'hoge',
+        ]);
+        $hige_jp = Allergen::create([
+            'lang' => 'ja_JP',
+            'allergen_name' => 'ひげ',
+            'allergen_key' => 'hige',
+        ]);
+        $hoge_en = Allergen::create([
+            'lang' => 'en_US',
+            'allergen_name' => 'hoge',
+            'allergen_key' => 'hoge',
+        ]);
+        $this->assertSame($hoge_jp->hash, $hoge_en->hash);
+        $this->assertNotSame($hoge_jp->hash, $hige_jp->hash);
     }
 }

@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class Order extends Model
 {
+    protected $fillable = [
+        'seat_session_id',
+        'item_id',
+        'item_jp_id',
+        'order_state',
+        'order_price',
+        'is_take_out',
+        'tax_rate',
+        'sales_tax',
+        'tax_included_price',
+    ];
+
     // ステータス（=リスト登録中（注文前）, preparation=準備中, delivered=お届け後, cancel=キャンセル）
     // 席の状態
     public static $order_states = [
@@ -46,7 +58,7 @@ class Order extends Model
 
     public static function createByItem(\App\Item $item, 
                                         \App\SeatSession $seatSession,
-                                        Request $req): ?Order
+                                        bool $is_take_out): ?Order
     {
         if ($item->is_out_of_stock) {
             // 時間差で在庫切れなら注文を受けない
@@ -65,15 +77,15 @@ class Order extends Model
         }
 
         $order->order_price = $item->item_price;
-        $order->takeout($req);
+        $order->takeout($is_take_out);
         $order->save();
         return $order;
     }
 
-    public function takeout(Request $req): void
+    public function takeout(bool $is_take_out): void
     {
-        $this->is_take_out = $req->is_take_out;
-        if( $req->is_take_out ) {
+        $this->is_take_out = $is_take_out;
+        if( $is_take_out ) {
             // 消費税率
             $this->tax_rate = 0.08;
         } else {

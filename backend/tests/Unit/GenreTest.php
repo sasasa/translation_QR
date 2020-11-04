@@ -153,21 +153,45 @@ class GenreTest extends TestCase
             'genre_name' => '【ほげほげ】の翻訳を入れてください',
             'lang' => 'en_US',
             'genre_order' => 1,
-            'parent_id' => 1,
+            'parent_id' => 2,
         ]);
         $this->assertDatabaseHas('genres', [
             'genre_key' => 'hoge',
             'genre_name' => '【ほげほげ】の翻訳を入れてください',
             'lang' => 'zh_CN',
             'genre_order' => 1,
-            'parent_id' => 1,
+            'parent_id' => 3,
         ]);
         $this->assertDatabaseHas('genres', [
             'genre_key' => 'hoge',
             'genre_name' => '【ほげほげ】の翻訳を入れてください',
             'lang' => 'ko_KR',
             'genre_order' => 1,
-            'parent_id' => 1,
+            'parent_id' => 4,
         ]);
+    }
+
+    public function test_getHashAttribute()
+    {
+        $hoge_jp = Genre::create([
+            'genre_key' => 'hoge',
+            'genre_name' => 'ほげほげ',
+            'lang' => 'ja_JP',
+            'genre_order' => 1,
+        ]);
+        $hige_jp = Genre::create([
+            'genre_key' => 'hige',
+            'genre_name' => 'ひげひげ',
+            'lang' => 'ja_JP',
+            'genre_order' => 1,
+        ]);
+        $hoge_en = Genre::create([
+            'genre_key' => 'hoge',
+            'genre_name' => 'hogehoge',
+            'lang' => 'en_US',
+            'genre_order' => 1,
+        ]);
+        $this->assertSame($hoge_jp->hash, $hoge_en->hash);
+        $this->assertNotSame($hoge_jp->hash, $hige_jp->hash);
     }
 }
