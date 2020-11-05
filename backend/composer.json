@@ -9,8 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
-        "ext-mbstring": "*",
         "ext-bcmath": "*",
+        "ext-mbstring": "*",
+        "barryvdh/laravel-debugbar": "^3.4",
         "endroid/qr-code": "^3.9",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -20,8 +21,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "laravelcollective/html": "^6.1",
-        "ramsey/uuid": "^4.1",
-        "barryvdh/laravel-debugbar": "^3.4"
+        "paypayopa/php-sdk": "^0.9.0",
+        "ramsey/uuid": "^4.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
