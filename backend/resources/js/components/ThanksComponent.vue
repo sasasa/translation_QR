@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -49,6 +48,10 @@
                 type: String,
                 required: true,
             },
+            payment: {
+                type: String,
+                required: false,
+            }
         },
         data() {
             return {
@@ -67,6 +70,7 @@
                 .post(`/api/json_payment`, {
                     session_key: this.session_key,
                     seat_hash: this.seat_hash,
+                    payment: this.payment,
                 })
                 .then((response) => {
                     this.ordered_orders = response.data.ordered_orders

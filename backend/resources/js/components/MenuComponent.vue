@@ -88,7 +88,12 @@
                         <button
                             v-bind:disabled="payDisabled"
                             v-on:click.once="pay"
-                            class="btn btn-primary">{{$t("message.pay")}}
+                            class="btn btn-primary my-1">{{$t("message.pay")}}
+                        </button>
+                        <button
+                            v-bind:disabled="payDisabled"
+                            v-on:click.once="paypay"
+                            class="btn btn-primary my-1">{{$t("message.paypay")}}
                         </button>
                     </div>
                 </div>
@@ -165,6 +170,24 @@
             }
         },
         methods: {
+            paypay() {
+                this.loading = true
+                axios
+                    .post(`/api/paypay`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
+                        lang: this.lang,
+                        payment: 'paypay',
+                    })
+                    .then((response) => {
+                        if (response.data.ok) {
+                            location.href = response.data.redirectUrl
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            },
             pay() {
                 this.loading = true
                 axios

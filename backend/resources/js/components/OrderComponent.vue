@@ -56,11 +56,11 @@
                     <button
                         v-bind:disabled="orderDisabled"
                         v-on:click.once="order"
-                        class="btn btn-danger">{{$t("message.order_confirmation")}}
+                        class="btn btn-danger my-1">{{$t("message.order_confirmation")}}
                     </button>
                     <button
                         v-on:click="back"
-                        class="btn btn-primary">{{$t("message.return_to_menu")}}
+                        class="btn btn-primary my-1">{{$t("message.return_to_menu")}}
                     </button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         </ul>
                         <button
                             v-on:click="back"
-                            class="btn btn-primary">{{$t("message.return_to_menu")}}
+                            class="btn btn-primary my-1">{{$t("message.return_to_menu")}}
                         </button>
                     </div>
                     <hr>
@@ -92,7 +92,12 @@
                         <button
                             v-bind:disabled="payDisabled"
                             v-on:click.once="pay"
-                            class="btn btn-primary">{{$t("message.pay")}}
+                            class="btn btn-primary my-1">{{$t("message.pay")}}
+                        </button>
+                        <button
+                            v-bind:disabled="payDisabled"
+                            v-on:click.once="paypay"
+                            class="btn btn-primary my-1">{{$t("message.paypay")}}
                         </button>
                     </div>
                 </div>
@@ -135,6 +140,24 @@
             }
         },
         methods: {
+            paypay(){
+                this.loading = true
+                axios
+                    .post(`/api/paypay`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
+                        lang: this.lang,
+                        payment: 'paypay',
+                    })
+                    .then((response) => {
+                        if (response.data.ok) {
+                            location.href = response.data.redirectUrl
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            },
             pay() {
                 this.loading = true
                 axios

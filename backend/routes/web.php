@@ -65,6 +65,7 @@ Route::post('api/json_payment', 'OrdersController@json_payment');
 Route::post('api/json_ordered_orders', 'OrdersController@json_ordered_orders');
 Route::post('api/orders', 'OrdersController@store');
 Route::post('api/pay', 'OrdersController@pay');
+Route::post('api/paypay', 'OrdersController@paypay');
 
 
 Route::get('/', function () {

@@ -8,6 +8,8 @@ use App\Traits\SeatCheckable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\Eloquent\Collection;
+use PayPay\OpenPaymentAPI\Client;
+use PayPay\OpenPaymentAPI\Models\CreateQrCodePayload;
 
 class OrdersController extends Controller
 {
@@ -80,6 +82,56 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function paypay(Request $req)
+    {
+        [$seat, $seatSession] = $this->seatCheck($req->session_key, $req->seat_hash);
+        if(!$seatSession) {
+            return false;
+        }
+        $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
+                                    where('seat_session_id', $seat->seatSession->id)->with('item')->get();
+        $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
+            $order->tax_included_price
+        )->sum();
+
+        $client = new Client([
+            'API_KEY' => env('PAYPAY_API_KEY', 'Laravel'),
+            'API_SECRET'=> env('PAYPAY_API_SECRET', 'Laravel'),
+            'MERCHANT_ID' => env('PAYPAY_MERCHANT_ID', 'Laravel')
+        ], false);
+        // dd($client);
+
+        $payload = new CreateQrCodePayload();
+        $payload->setMerchantPaymentId("my_payment_id" . \time());
+        $payload->setCodeType("ORDER_QR");
+        $amount = [
+            "amount" => $sum_tax_included_price,
+            "currency" => "JPY"
+        ];
+        $payload->setAmount($amount);
+        $payload->setOrderDescription('ありがとうございました');
+        $payload->setRedirectType('WEB_LINK');
+        $payload->setRedirectUrl(env('APP_URL', '') .'/'. 
+                                $req->seat_hash .'/items#/thanks/'. $req->lang. '/paypay');
+        $payload->setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1');
+
+        //=================================================================
+        // Calling the method to create a qr code
+        //=================================================================
+        $response = $client->code->createQRCode($payload);
+        // 処理がうまくいってなかったら抜ける
+        if($response['resultInfo']['code'] !== 'SUCCESS') {
+            return;
+        } else {
+            $this->paymentTransaction($seat, $req);
+
+            return [
+                'ok' => true,
+                'redirectUrl' => $response['data']['url'],
+            ];
+        }
+    }
+
     // API
     public function pay(Request $req)
     {
@@ -93,6 +145,37 @@ class OrdersController extends Controller
         ];
     }
 
+    private function paymentTransaction(\App\Seat $seat, Request $req)
+    {
+        DB::beginTransaction();
+        try {
+            $seat->seat_state = 'payment';
+            $seat->save();
+            if ($req->payment) {
+                // paypay支払いなどの時は席セッションはまだ切らない
+            } else {
+                $seat->seatSession->session_state = 'end_of_use';
+                $seat->seatSession->save();
+            }
+
+            $ordered_orders = \App\Order::orderedOrders($seat->seatSession)->get();
+            $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
+                $order->tax_included_price
+            )->sum();
+            $payment = new \App\Payment();
+            $payment->tax_included_price = $sum_tax_included_price;
+            $payment->seat_session_id = $seat->seatSession->id;
+            if ($req->payment) {
+                $payment->payment_state = 'paypay';
+            }
+            $payment->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+        return [$ordered_orders, $sum_tax_included_price];
+    }
+
     // API
     public function json_payment(Request $req)
     {
@@ -100,26 +183,17 @@ class OrdersController extends Controller
         if(!$seatSession) {
             return false;
         }
-
-        DB::beginTransaction();
-        try {
-            $seat->seat_state = 'payment';
-            $seat->save();
+        if ($req->payment) {
+            // paypay支払いなどの時はこのタイミングで席セッションを切る
             $seatSession->session_state = 'end_of_use';
             $seatSession->save();
 
-            $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
-                                        where('seat_session_id', $seatSession->id)->with('item')->get();
+            $ordered_orders = \App\Order::orderedOrders($seatSession)->get();
             $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
                 $order->tax_included_price
             )->sum();
-            $payment = new \App\Payment();
-            $payment->tax_included_price = $sum_tax_included_price;
-            $payment->seat_session_id = $seatSession->id;
-            $payment->save();
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
+        } else {
+            [$ordered_orders, $sum_tax_included_price] = $this->paymentTransaction($seat, $req);
         }
 
         return response()->json([

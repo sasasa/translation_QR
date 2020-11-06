@@ -19,7 +19,7 @@ export default new VueRouter({
             props: true,
         },
         {
-            path: '/thanks/:lang',
+            path: '/thanks/:lang/:payment',
             name: 'thanks-component',
             component: ThanksComponent,
             props: true,
