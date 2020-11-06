@@ -176,7 +176,7 @@ class OrdersController extends Controller
     // API
     public function takeout(Request $req, \App\Order $order)
     {
-        $order->takeout($req);
+        $order->takeout($req->is_take_out);
         $order->save();
 
         return [
