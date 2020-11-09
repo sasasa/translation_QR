@@ -91,6 +91,7 @@
                             class="btn btn-primary my-1">{{$t("message.pay")}}
                         </button>
                         <button
+                            v-bind:style="{display: paypayAvailable}"
                             v-bind:disabled="payDisabled"
                             v-on:click.once="paypay"
                             class="btn btn-primary my-1">{{$t("message.paypay")}}
@@ -135,6 +136,7 @@
                 cart: {},
                 ordered_orders: [],
                 loading: true,
+                paypayAvailable: `inline`,
             }
         },
         computed: {
@@ -265,6 +267,7 @@
                         this.items = response.data.items
                         this.genres = response.data.genres
                         this.ordered_orders = response.data.ordered_orders
+                        this.paypayAvailable = response.data.paypayAvailable
                         this.loading = false
                         // alert(JSON.stringify(response))
                     })

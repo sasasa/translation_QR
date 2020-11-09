@@ -95,6 +95,7 @@
                             class="btn btn-primary my-1">{{$t("message.pay")}}
                         </button>
                         <button
+                            v-bind:style="{display: paypayAvailable}"
                             v-bind:disabled="payDisabled"
                             v-on:click.once="paypay"
                             class="btn btn-primary my-1">{{$t("message.paypay")}}
@@ -137,6 +138,7 @@
                 is_take_out: false,
                 recent_items: [],
                 loading: false,
+                paypayAvailable: `inline`,
             }
         },
         methods: {
@@ -300,6 +302,7 @@
                     itemIDs: this.itemIDs
                 })
                 .then((response) => {
+                    this.paypayAvailable = response.data.paypayAvailable
                     this.recent_items = response.data.items
                     this.recent_items.forEach((item) => {
                         if (item.is_out_of_stock) {

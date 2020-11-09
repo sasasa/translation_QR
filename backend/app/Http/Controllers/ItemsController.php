@@ -33,6 +33,7 @@ class ItemsController extends Controller
     {
         return response()->json([
             'items' => \App\Item::mySelect()->whereIn('id', $req->itemIDs)->withAllergens()->get(),
+            'paypayAvailable' => env('PAYPAY_API_SECRET', null) ? 'inline' : 'none'
         ]);
     }
 
@@ -56,6 +57,7 @@ class ItemsController extends Controller
             'ordered_orders' => $seatSession->orders,
             'items' => $items,
             'genres' => $genres,
+            'paypayAvailable' => env('PAYPAY_API_SECRET', null) ? 'inline' : 'none'
         ]);
     }
 
