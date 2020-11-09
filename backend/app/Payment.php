@@ -12,11 +12,17 @@ class Payment extends Model
         'payment_state',
     ];
 
-    // ステータス（=リスト登録中（注文前）, preparation=準備中, printing=プリント中, afterpaying=精算後）
+    // ステータス（=リスト登録中（注文前）, 
+    //preparation=準備中, 
+    //printing=プリント中, 
+    //paypay=paypay支払い
+    //afterpaying=精算後,
+    //）
     public static $payment_states = [
         'preparation' => '準備中',
         'printing' => 'プリント中',
         'afterpaying' => '精算後',
+        'paypay' => 'paypay支払い',
     ];
 
     public function getStateJpAttribute(): string

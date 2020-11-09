@@ -21,7 +21,12 @@ class CreatePaymentsTable extends Migration
             $table->integer('tax_included_price');
 
             // ステータス（=リスト登録中（注文前）, preparation=準備中, printing=プリント中, afterpaying=精算後）
-            $table->enum('payment_state', ['preparation', 'printing','afterpaying'])->default('preparation');
+            $table->enum('payment_state', [
+                'preparation',
+                'printing',
+                'afterpaying',
+                'paypay',
+            ])->default('preparation');
 
             $table->timestamps();
         });

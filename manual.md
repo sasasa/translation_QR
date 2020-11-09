@@ -4,7 +4,7 @@
 ## はじめに
 はじめに翻訳QRとは
 * 複数言語で飲食店のメニューを作成可能です。
-* お客様のスマホでQRコードで読み込んだメニューから注文が可能です。
+* お客様のスマホでQRコードで読み込んだメニューから注文や決済が可能です。
 * お店のPCやスマホから管理画面を開き注文情報の一元管理が可能です。
 
 ---
@@ -13,11 +13,11 @@
 1. http://url/home/ にアクセスする。とログイン画面が表示されます。
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/dab6c2e5-331a-3b8f-4265-ce1640d341fe.png)
 
-1. 以下のユーザー情報を入力してログインすると管理画面に遷移します。普段からこのページを利用することになります。
+1. 以下のユーザー情報を入力してログインすると管理画面に遷移します。普段からこのページを利用することになります。最初にログインした際は「ユーザー管理」の「パスワード変更」からパスワードを変更することをお願いいたします。
 
 | email | pass |
 | -------------------- | --------- |
-| fulltime1@gmail.com  | hogehoge  |
+| fulltime0@gmail.com  | hogehoge  |
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/52eb3e1f-c98d-66a4-049c-b28dbb865fda.png)
 
 
@@ -62,8 +62,8 @@
 ## メニュー画面・注文画面
 ![localhost_items.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/5aa354cd-d0ab-905d-d831-1b1fee558a70.png)
 
-メニュー画面・注文画面です。お客様はQRコードを読み取り自身のスマホからアクセスします。
-ログインユーザーは管理画面からアクセス可能です。
+メニュー画面・注文画面です。お客様はQRコードを読み取りご自身のスマホからアクセスします。席ごとにQRコードが異なり席を識別することが出来ます。
+メニュー画面・注文画面には管理画面からもアクセス可能です。
 お客様はこの画面から注文したりお会計を呼んだりできます。
 管理画面でジャンルやメニューを用意しさえすれば英語、中国語、韓国語での表示も可能です。
 
@@ -123,6 +123,18 @@
 「お会計」をクリックするとサンクスページに遷移します。
 お客様は店舗の従業員が明細を持ってくるのを待っている状態になります。
 
+<div style="page-break-before:always"></div>
+
+### paypay支払い サンクスページ
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/75dd2628-150e-d935-cc8e-10d5ab9d772f.png)
+
+paypayに申し込んでいる場合は「paypay支払い」ボタンが表示されます。「paypay支払い」をクリックするとpaypayアプリが起動して支払うことが出来ます。支払いを済ませるとサンクスページに遷移します。以下の様に画面が遷移していきます。
+
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/b88a482d-124d-bb29-6ef9-2538238b6944.jpeg" width="200">
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/fb5d57ea-814a-74e5-e62b-0eae6249b675.jpeg" width="200">
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/b01bdb15-357b-3ff9-d78c-d14e2708be77.jpeg" width="200">
+
+
 
 <div style="page-break-before:always"></div>
 
@@ -133,27 +145,42 @@
 どの業務が残っているのか一目瞭然となり画面上から「注文」や「お会計」を消していくことが目的になります。
 ログインユーザーに閲覧以上の権限がないとアクセスできません。
 「注文」は席名、メニュー名を確認して「準備中」→「お届け済み」と切り替えて行きます。
-「お会計」は席名、お会計額を確認して「準備中」→「プリント中」→「精算後」と切り替えて行きます。
+「お会計」は席名、お会計額を確認して「準備中」→「プリント中」→「精算後」と切り替えていきます。
+もしくは「paypay支払い」→「精算後」と切り替えます。
 
 <div style="page-break-before:always"></div>
 
-### お会計　→　プリント中
+### お会計　準備中　→　プリント中
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/2027bbd9-75e1-9b0d-3329-8d90ee1f80a6.png)
 
 お会計を「プリント中」に切り替えると明細の印刷画面が立ち上がるのでそこで印刷を行います。
 サーマルプリンターをご用意ください。印刷を終えるかキャンセルするとページが自動で閉じられます。
 ※印刷設定は起動時に行う必要があります。
-※まれに印刷画面が立ち上がらない場合があります。その場合は「準備中」->「プリント中」と選択し直してください
+※まれに印刷画面が立ち上がらない場合があります。その場合は「準備中」→「プリント中」と選択し直してください
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/49209e01-16f2-7d56-41af-d848de494841.png)
 
-### お会計　→　精算後
+### お会計　プリント中　→　精算後
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/40f35fba-bd1b-dc42-3140-54ec5a8b60ae.png)
 
 明細が印刷出来たらお客様の下に行き精算を行なっていただきます。
 その後お会計を「精算後」に切り替えると30秒ほどで項目が消えますのでこれで一連の「お会計」の業務が完了です。
 
-### 注文　→　テイクアウト　もしくは　注文　→　店内飲食
+### お会計　paypay支払い　→　精算後
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/fdfb047f-3404-ab9f-6543-f65ba976e64f.png)
+
+お客様がpaypayで支払う際は項目が「paypay支払い」となります。
+お客様の下に行き本当に支払っていただいたかどうか確認を行なっていただきます。
+スマホの画面を提示していただき以下の様な表示になっていたらpaypayでの支払いは終了しています。
+
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/fb5d57ea-814a-74e5-e62b-0eae6249b675.jpeg" width="300">
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/b01bdb15-357b-3ff9-d78c-d14e2708be77.jpeg" width="300">
+
+その後お会計を「精算後」に切り替えると30秒ほどで項目が消えますのでこれで一連の「お会計」の業務が完了です。
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/a337b0cd-5687-dd44-1aaf-4eefe448e2bf.png)
+
+### 注文　店内飲食　→　テイクアウト　もしくは　テイクアウト　→　店内飲食
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/8517dfa2-7591-c5b2-4430-d0d8664c84cf.png)
 
 すでに注文を済ませたお客様から「さっきの注文をテイクアウトにして下さい」などと
@@ -162,7 +189,7 @@
 
 <div style="page-break-before:always"></div>
 
-### 注文　→　キャンセル
+### 注文　準備中　→　キャンセル
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/a303b893-1863-d79b-d1c5-a4a896a15635.png)
 
 すでに注文を済ませたお客様から「さっきのパスタの注文をキャンセルして下さい」などと
@@ -170,7 +197,7 @@
 「キャンセル」に切り替えてから30秒ほどで項目が消えます。
 もし依頼通りにキャンセルした場合はお会計額が異なりますので必ず忘れない様にこの項目を切り替えてください。またこちらの画面のみ「キャンセル」に切り替えてしまって間違って調理してしまわない様に厨房へ連絡もお願いいたします。
 
-### 注文　→　お届け済み
+### 注文　準備中　→　お届け済み
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/29cd453e-b37a-4530-bb3d-28de853d1666.png)
 
 お客様に料理をお届けした後で「お届け済み」に切り替えます。

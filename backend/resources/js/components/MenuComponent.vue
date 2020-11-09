@@ -88,7 +88,13 @@
                         <button
                             v-bind:disabled="payDisabled"
                             v-on:click.once="pay"
-                            class="btn btn-primary">{{$t("message.pay")}}
+                            class="btn btn-primary my-1">{{$t("message.pay")}}
+                        </button>
+                        <button
+                            v-bind:style="{display: paypayAvailable}"
+                            v-bind:disabled="payDisabled"
+                            v-on:click.once="paypay"
+                            class="btn btn-primary my-1">{{$t("message.paypay")}}
                         </button>
                     </div>
                 </div>
@@ -130,6 +136,7 @@
                 cart: {},
                 ordered_orders: [],
                 loading: true,
+                paypayAvailable: `inline`,
             }
         },
         computed: {
@@ -165,6 +172,24 @@
             }
         },
         methods: {
+            paypay() {
+                this.loading = true
+                axios
+                    .post(`/api/paypay`, {
+                        session_key: this.session_key,
+                        seat_hash: this.seat_hash,
+                        lang: this.lang,
+                        payment: 'paypay',
+                    })
+                    .then((response) => {
+                        if (response.data.ok) {
+                            location.href = response.data.redirectUrl
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            },
             pay() {
                 this.loading = true
                 axios
@@ -242,6 +267,7 @@
                         this.items = response.data.items
                         this.genres = response.data.genres
                         this.ordered_orders = response.data.ordered_orders
+                        this.paypayAvailable = response.data.paypayAvailable
                         this.loading = false
                         // alert(JSON.stringify(response))
                     })

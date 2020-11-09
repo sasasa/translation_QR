@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Traits\SeatCheckable;
 use Illuminate\Support\Facades\DB;
+use Debugbar;
 
 class ItemsController extends Controller
 {
     use SeatCheckable;
 
-    public function items($seat_hash)
+    public function items(string $seat_hash)
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
         if (!$seat)
@@ -32,6 +33,7 @@ class ItemsController extends Controller
     {
         return response()->json([
             'items' => \App\Item::mySelect()->whereIn('id', $req->itemIDs)->withAllergens()->get(),
+            'paypayAvailable' => env('PAYPAY_API_SECRET', null) ? 'inline' : 'none'
         ]);
     }
 
@@ -43,9 +45,9 @@ class ItemsController extends Controller
             return false;
         }
         
-        \Debugbar::info($req->lang, $req->genre);
-        $items = \App\Item::allForLangAndGenre($req->lang, $req->genre)->get();
-        \Debugbar::info($items);
+        // Debugbar::info($req->lang, $req->genre);
+        $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get();
+        // Debugbar::info($items);
 
         $genres = \App\Genre::whereNull('parent_id')->
                             where('lang', 'like', $req->lang. '%')->
@@ -55,6 +57,7 @@ class ItemsController extends Controller
             'ordered_orders' => $seatSession->orders,
             'items' => $items,
             'genres' => $genres,
+            'paypayAvailable' => env('PAYPAY_API_SECRET', null) ? 'inline' : 'none'
         ]);
     }
 

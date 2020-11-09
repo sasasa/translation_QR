@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34965fa5ef41d6cec69ccfcae27caadb",
+    "content-hash": "a4bc3b8c4b9513f1ce2415887e3ce80a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -59,6 +59,89 @@
             "time": "2020-10-29T16:03:21+00:00"
         },
         {
+            "name": "atoum/atoum",
+            "version": "3.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/atoum/atoum.git",
+                "reference": "e90606b89e62c5c18c5d02596078edf55f35b3c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/atoum/atoum/zipball/e90606b89e62c5c18c5d02596078edf55f35b3c3",
+                "reference": "e90606b89e62c5c18c5d02596078edf55f35b3c3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-tokenizer": "*",
+                "ext-xml": "*",
+                "php": "^5.6.0 || ^7.0.0 <7.5.0"
+            },
+            "replace": {
+                "mageekguy/atoum": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2"
+            },
+            "suggest": {
+                "atoum/stubs": "Provides IDE support (like autocompletion) for atoum",
+                "ext-mbstring": "Provides support for UTF-8 strings",
+                "ext-xdebug": "Provides code coverage report (>= 2.3)"
+            },
+            "bin": [
+                "bin/atoum"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Frédéric Hardy",
+                    "email": "frederic.hardy@atoum.org",
+                    "homepage": "http://blog.mageekbox.net"
+                },
+                {
+                    "name": "François Dussert",
+                    "email": "francois.dussert@atoum.org"
+                },
+                {
+                    "name": "Gérald Croes",
+                    "email": "gerald.croes@atoum.org"
+                },
+                {
+                    "name": "Julien Bianchi",
+                    "email": "julien.bianchi@atoum.org"
+                },
+                {
+                    "name": "Ludovic Fleury",
+                    "email": "ludovic.fleury@atoum.org"
+                }
+            ],
+            "description": "Simple modern and intuitive unit testing framework for PHP 5.3+",
+            "homepage": "http://www.atoum.org",
+            "keywords": [
+                "TDD",
+                "atoum",
+                "test",
+                "unit testing"
+            ],
+            "time": "2020-03-04T10:29:09+00:00"
+        },
+        {
             "name": "bacon/bacon-qr-code",
             "version": "2.0.3",
             "source": {
@@ -106,76 +189,6 @@
             "description": "BaconQrCode is a QR code generator for PHP.",
             "homepage": "https://github.com/Bacon/BaconQrCode",
             "time": "2020-10-30T02:02:47+00:00"
-        },
-        {
-            "name": "barryvdh/laravel-debugbar",
-            "version": "v3.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "233c10688f4c1a6e66ed2ef123038b1363d1bedc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/233c10688f4c1a6e66ed2ef123038b1363d1bedc",
-                "reference": "233c10688f4c1a6e66ed2ef123038b1363d1bedc",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/routing": "^6|^7|^8",
-                "illuminate/session": "^6|^7|^8",
-                "illuminate/support": "^6|^7|^8",
-                "maximebf/debugbar": "^1.16.3",
-                "php": ">=7.2",
-                "symfony/debug": "^4.3|^5",
-                "symfony/finder": "^4.3|^5"
-            },
-            "require-dev": {
-                "orchestra/testbench-dusk": "^4|^5|^6",
-                "phpunit/phpunit": "^8.5|^9.0",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.5-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Barryvdh\\Debugbar\\ServiceProvider"
-                    ],
-                    "aliases": {
-                        "Debugbar": "Barryvdh\\Debugbar\\Facade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Barryvdh\\Debugbar\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                }
-            ],
-            "description": "PHP Debugbar integration for Laravel",
-            "keywords": [
-                "debug",
-                "debugbar",
-                "laravel",
-                "profiler",
-                "webprofiler"
-            ],
-            "time": "2020-09-07T19:32:39+00:00"
         },
         {
             "name": "brick/math",
@@ -670,6 +683,56 @@
             "time": "2020-10-22T13:48:01+00:00"
         },
         {
+            "name": "firebase/php-jwt",
+            "version": "v5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/firebase/php-jwt.git",
+                "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/feb0e820b8436873675fd3aca04f3728eb2185cb",
+                "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4.8 <=9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firebase\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Neuman Vong",
+                    "email": "neuman+pear@twilio.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anant Narayanan",
+                    "email": "anant@php.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
+            "homepage": "https://github.com/firebase/php-jwt",
+            "keywords": [
+                "jwt",
+                "php"
+            ],
+            "time": "2020-03-25T18:49:23+00:00"
+        },
+        {
             "name": "fruitcake/laravel-cors",
             "version": "v2.0.3",
             "source": {
@@ -977,16 +1040,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.29.2",
+            "version": "v7.29.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "0fb15ae253c3a043f2c5cbf9641427a7646ea77a"
+                "reference": "93f6d565a07045baa0e4b941ae1f733cd5984d65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0fb15ae253c3a043f2c5cbf9641427a7646ea77a",
-                "reference": "0fb15ae253c3a043f2c5cbf9641427a7646ea77a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/93f6d565a07045baa0e4b941ae1f733cd5984d65",
+                "reference": "93f6d565a07045baa0e4b941ae1f733cd5984d65",
                 "shasum": ""
             },
             "require": {
@@ -1131,25 +1194,25 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-10-29T18:57:35+00:00"
+            "time": "2020-11-03T14:12:58+00:00"
         },
         {
             "name": "laravel/helpers",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/helpers.git",
-                "reference": "b4b8d6e84a6306fc88870f61a244d8c537779f2d"
+                "reference": "cde8ea2427db4f37d67729846b70452499210a21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/helpers/zipball/b4b8d6e84a6306fc88870f61a244d8c537779f2d",
-                "reference": "b4b8d6e84a6306fc88870f61a244d8c537779f2d",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/cde8ea2427db4f37d67729846b70452499210a21",
+                "reference": "cde8ea2427db4f37d67729846b70452499210a21",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
-                "php": ">=7.1.3"
+                "php": "^7.1.3|^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^7.0|^8.0|^9.0"
@@ -1184,7 +1247,7 @@
                 "helpers",
                 "laravel"
             ],
-            "time": "2020-08-25T17:54:37+00:00"
+            "time": "2020-11-03T16:38:41+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1252,27 +1315,23 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v2.4.1",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "1c69ae3e8b52fe6c9eaf83b43c6dd8ef5c3f9e2c"
+                "reference": "d01a705763c243b07be795e9d1bb47f89260f73d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/1c69ae3e8b52fe6c9eaf83b43c6dd8ef5c3f9e2c",
-                "reference": "1c69ae3e8b52fe6c9eaf83b43c6dd8ef5c3f9e2c",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/d01a705763c243b07be795e9d1bb47f89260f73d",
+                "reference": "d01a705763c243b07be795e9d1bb47f89260f73d",
                 "shasum": ""
             },
             "require": {
                 "illuminate/console": "^7.0",
                 "illuminate/filesystem": "^7.0",
                 "illuminate/support": "^7.0",
-                "php": "^7.2.5"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^8.0"
+                "php": "^7.2.5|^8.0"
             },
             "type": "library",
             "extra": {
@@ -1303,7 +1362,7 @@
                 "laravel",
                 "ui"
             ],
-            "time": "2020-09-22T16:51:51+00:00"
+            "time": "2020-11-03T19:45:19+00:00"
         },
         {
             "name": "laravelcollective/html",
@@ -1567,67 +1626,6 @@
             ],
             "description": "Mime-type detection for Flysystem",
             "time": "2020-10-18T11:50:25+00:00"
-        },
-        {
-            "name": "maximebf/debugbar",
-            "version": "v1.16.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "1a1605b8e9bacb34cc0c6278206d699772e1d372"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/1a1605b8e9bacb34cc0c6278206d699772e1d372",
-                "reference": "1a1605b8e9bacb34cc0c6278206d699772e1d372",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1",
-                "psr/log": "^1.0",
-                "symfony/var-dumper": "^2.6|^3|^4|^5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5"
-            },
-            "suggest": {
-                "kriswallsmith/assetic": "The best way to manage assets",
-                "monolog/monolog": "Log using Monolog",
-                "predis/predis": "Redis storage"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.16-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DebugBar\\": "src/DebugBar/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Maxime Bouroumeau-Fuseau",
-                    "email": "maxime.bouroumeau@gmail.com",
-                    "homepage": "http://maximebf.com"
-                },
-                {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                }
-            ],
-            "description": "Debug bar in the browser for php application",
-            "homepage": "https://github.com/maximebf/php-debugbar",
-            "keywords": [
-                "debug",
-                "debugbar"
-            ],
-            "time": "2020-05-06T07:06:27+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1947,6 +1945,59 @@
                 "serialize"
             ],
             "time": "2020-10-11T21:42:15+00:00"
+        },
+        {
+            "name": "paypayopa/php-sdk",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paypay/paypayopa-sdk-php.git",
+                "reference": "c5190490cd9e46f1b0b99b3beb54b432185a3e4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paypay/paypayopa-sdk-php/zipball/c5190490cd9e46f1b0b99b3beb54b432185a3e4f",
+                "reference": "c5190490cd9e46f1b0b99b3beb54b432185a3e4f",
+                "shasum": ""
+            },
+            "require": {
+                "atoum/atoum": "^3.4",
+                "firebase/php-jwt": "^5.2",
+                "guzzlehttp/guzzle": "^6.0 || ^7.0",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpstan/phpstan": "^0.12.33",
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayPay\\OpenPaymentAPI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "PayPay Open Source Development Team",
+                    "email": "opensource@paypay-corp.co.jp"
+                }
+            ],
+            "description": "PHP SDK for PayPay Open Payment API",
+            "keywords": [
+                "japan",
+                "opa",
+                "payment",
+                "paypay",
+                "qr",
+                "qrcode"
+            ],
+            "time": "2020-11-04T11:02:27+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -2682,58 +2733,6 @@
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
             "time": "2020-10-24T12:01:57+00:00"
-        },
-        {
-            "name": "symfony/debug",
-            "version": "v4.4.16",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/debug.git",
-                "reference": "c87adf3fc1cd0bf4758316a3a150d50a8f957ef4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/c87adf3fc1cd0bf4758316a3a150d50a8f957ef4",
-                "reference": "c87adf3fc1cd0bf4758316a3a150d50a8f957ef4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.3",
-                "psr/log": "~1.0",
-                "symfony/polyfill-php80": "^1.15"
-            },
-            "conflict": {
-                "symfony/http-kernel": "<3.4"
-            },
-            "require-dev": {
-                "symfony/http-kernel": "^3.4|^4.0|^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Debug\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Debug Component",
-            "homepage": "https://symfony.com",
-            "time": "2020-10-24T11:50:19+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4659,6 +4658,137 @@
     ],
     "packages-dev": [
         {
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "233c10688f4c1a6e66ed2ef123038b1363d1bedc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/233c10688f4c1a6e66ed2ef123038b1363d1bedc",
+                "reference": "233c10688f4c1a6e66ed2ef123038b1363d1bedc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^6|^7|^8",
+                "illuminate/session": "^6|^7|^8",
+                "illuminate/support": "^6|^7|^8",
+                "maximebf/debugbar": "^1.16.3",
+                "php": ">=7.2",
+                "symfony/debug": "^4.3|^5",
+                "symfony/finder": "^4.3|^5"
+            },
+            "require-dev": {
+                "orchestra/testbench-dusk": "^4|^5|^6",
+                "phpunit/phpunit": "^8.5|^9.0",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.5-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Debugbar\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Debugbar": "Barryvdh\\Debugbar\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "time": "2020-09-07T19:32:39+00:00"
+        },
+        {
+            "name": "beyondcode/laravel-dump-server",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-dump-server.git",
+                "reference": "1d1b4c066a7f855d34a027f7af49aa77416c3c1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-dump-server/zipball/1d1b4c066a7f855d34a027f7af49aa77416c3c1b",
+                "reference": "1d1b4c066a7f855d34a027f7af49aa77416c3c1b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "illuminate/http": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "php": "^7.2.5",
+                "symfony/var-dumper": "^5.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^7.0|^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\DumpServer\\DumpServerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\DumpServer\\": "src"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondco.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony Var-Dump Server for Laravel",
+            "homepage": "https://github.com/beyondcode/laravel-dump-server",
+            "keywords": [
+                "beyondcode",
+                "laravel-dump-server"
+            ],
+            "time": "2020-10-22T07:39:00+00:00"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.3.1",
             "source": {
@@ -4998,6 +5128,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {
@@ -5046,6 +5177,67 @@
                 "test"
             ],
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "maximebf/debugbar",
+            "version": "v1.16.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximebf/php-debugbar.git",
+                "reference": "1a1605b8e9bacb34cc0c6278206d699772e1d372"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/1a1605b8e9bacb34cc0c6278206d699772e1d372",
+                "reference": "1a1605b8e9bacb34cc0c6278206d699772e1d372",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "psr/log": "^1.0",
+                "symfony/var-dumper": "^2.6|^3|^4|^5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "The best way to manage assets",
+                "monolog/monolog": "Log using Monolog",
+                "predis/predis": "Redis storage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.16-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DebugBar\\": "src/DebugBar/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Debug bar in the browser for php application",
+            "homepage": "https://github.com/maximebf/php-debugbar",
+            "keywords": [
+                "debug",
+                "debugbar"
+            ],
+            "time": "2020-05-06T07:06:27+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -6496,6 +6688,58 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "symfony/debug",
+            "version": "v4.4.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/debug.git",
+                "reference": "c87adf3fc1cd0bf4758316a3a150d50a8f957ef4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/c87adf3fc1cd0bf4758316a3a150d50a8f957ef4",
+                "reference": "c87adf3fc1cd0bf4758316a3a150d50a8f957ef4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "psr/log": "~1.0",
+                "symfony/polyfill-php80": "^1.15"
+            },
+            "conflict": {
+                "symfony/http-kernel": "<3.4"
+            },
+            "require-dev": {
+                "symfony/http-kernel": "^3.4|^4.0|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Debug\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Debug Component",
+            "homepage": "https://symfony.com",
+            "time": "2020-10-24T11:50:19+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.2.0",
             "source": {
@@ -6592,8 +6836,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.2.5",
-        "ext-mbstring": "*",
-        "ext-bcmath": "*"
+        "ext-bcmath": "*",
+        "ext-mbstring": "*"
     },
     "platform-dev": []
 }

@@ -95,4 +95,10 @@ class Order extends Model
         $this->sales_tax = ceil(bcmul($this->item->item_price, $this->tax_rate, 1));
         $this->tax_included_price = ceil(bcmul($this->item->item_price, 1 + $this->tax_rate, 1));
     }
+
+    public static function orderedOrders(\App\SeatSession $seatSession): object
+    {
+        return self::whereIn('order_state', ['preparation', 'delivered'])->
+                    where('seat_session_id', $seatSession->id)->with('item');
+    }
 }
