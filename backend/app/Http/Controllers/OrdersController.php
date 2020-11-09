@@ -38,10 +38,11 @@ class OrdersController extends Controller
     // API
     public function json_orders()
     {
-        // 2時間 前からの注文のみ取得
+        // 2時間前
         $two_hour_ago = Carbon::now()->subHours(2)->toTimeString();
-        // 30分 前のお会計のみ取得
-        $thirty_minute_ago = Carbon::now()->subMinutes(30)->toTimeString();
+        // 30分前
+        // $thirty_minute_ago = Carbon::now()->subMinutes(30)->toTimeString();
+
         return response()->json([
             'order_states' => \App\Order::$order_states,
             'payment_states' => \App\Payment::$payment_states,
@@ -52,7 +53,7 @@ class OrdersController extends Controller
 
             'payments' => \App\Payment::orderBy('id', 'DESC')->
                 whereDate('created_at', '>=', Carbon::today())->
-                whereTime('created_at', '>=', $thirty_minute_ago)->
+                whereTime('created_at', '>=', $two_hour_ago)->
                 with(['seatSession.seat'])->get()
         ]);
     }
@@ -151,12 +152,9 @@ class OrdersController extends Controller
         try {
             $seat->seat_state = 'payment';
             $seat->save();
-            if ($req->payment) {
-                // paypay支払いなどの時は席セッションはまだ切らない
-            } else {
-                $seat->seatSession->session_state = 'end_of_use';
-                $seat->seatSession->save();
-            }
+            
+            $seat->seatSession->session_state = 'end_of_use';
+            $seat->seatSession->save();
 
             $ordered_orders = \App\Order::orderedOrders($seat->seatSession)->get();
             $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
@@ -184,9 +182,11 @@ class OrdersController extends Controller
             return false;
         }
         if ($req->payment) {
-            // paypay支払いなどの時はこのタイミングで席セッションを切る
-            $seatSession->session_state = 'end_of_use';
-            $seatSession->save();
+            // paypay支払いなどの時はこのタイミングですでに席セッションは切れて次のセッションが始まっている。
+            // よってひとつ前に存在しているセッションを取得しなければならない。
+            $seatSession = \App\SeatSession::where('seat_id', $seat->id)->
+                                                orderBy('id', 'DESC')->
+                                                offset(1)->limit(1)->first();
 
             $ordered_orders = \App\Order::orderedOrders($seatSession)->get();
             $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>

@@ -7,6 +7,7 @@ Vue.use(VueRouter);
 import MenuComponent from './components/MenuComponent.vue';
 import OrderComponent from './components/OrderComponent.vue';
 import ThanksComponent from './components/ThanksComponent.vue';
+import PaypayThanksComponent from './components/PaypayThanksComponent.vue';
 
 export default new VueRouter({
     // モードの設定
@@ -31,6 +32,15 @@ export default new VueRouter({
             name: 'menu-component',
             // コンポーネントの指定
             component: MenuComponent,
+            props: true,
+        },
+        {
+            // routeのパス設定
+            path: '/:thanks_lang_payment',
+            // 名前付きルートを設定したい場合付与
+            name: 'paypaythanks-component',
+            // コンポーネントの指定
+            component: PaypayThanksComponent,
             props: true,
         },
     ]

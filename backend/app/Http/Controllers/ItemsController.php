@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Traits\SeatCheckable;
 use Illuminate\Support\Facades\DB;
+use Debugbar;
 
 class ItemsController extends Controller
 {
     use SeatCheckable;
 
-    public function items($seat_hash)
+    public function items(string $seat_hash)
     {
         $seat = \App\Seat::where('seat_hash', $seat_hash)->first();
         if (!$seat)
@@ -43,9 +44,9 @@ class ItemsController extends Controller
             return false;
         }
         
-        \Debugbar::info($req->lang, $req->genre);
+        // Debugbar::info($req->lang, $req->genre);
         $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get();
-        \Debugbar::info($items);
+        // Debugbar::info($items);
 
         $genres = \App\Genre::whereNull('parent_id')->
                             where('lang', 'like', $req->lang. '%')->
