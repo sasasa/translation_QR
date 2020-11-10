@@ -28,16 +28,17 @@
     </span>
     @enderror
   </div>
-  
+
+
   <div class="form-group">
     <label for="permission">{{__('validation.attributes.permission')}}:</label>
+  @if (Auth::id() === $user->id)
+    <input readonly value="{{Auth::user()->permission_jp}}" type="text" class="form-control" name="permission_jp">
+  @else
     {{ Form::select('permission', \App\User::$permissions, old('permission', $user->permission), empty($errors->first('permission')) ? ['class'=>"form-control", 'id'=>'permission'] : ['class'=>"form-control is-invalid", 'id'=>'permission']) }}
-</div>
+  @endif
+  </div>
+
   <button type="submit" class="btn btn-primary">編集</button>
 </form>
-@endsection
-
-@section('script')
-<script type="module">
-</script>
 @endsection
