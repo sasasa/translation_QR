@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth', 'verified', 'can:editting']], function ()
     Route::patch('items/out_of_stock/{item}', 'ItemsController@out_of_stock');
 
     Route::resource('allergens', 'AllergensController');
-    
+
     Route::post('allergens/{allergen}/store_by_key', 'AllergensController@store_by_key');
 
     Route::resource('genres', 'GenresController');
