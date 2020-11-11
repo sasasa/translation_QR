@@ -19,6 +19,11 @@
         <main class="py-4 container">
             @yield('content')
         </main>
+        <footer>
+            @if (!\Route::is('law'))
+                <a href="/law" target="_brank">特定商取引法に基づく表記</a>
+            @endif
+        </footer>
     </div>
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>

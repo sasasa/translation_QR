@@ -72,6 +72,7 @@ php artisan make:model Order -m
 php artisan make:seeder OrdersTableSeeder
 php artisan db:seed --class=OrdersTableSeeder
 php artisan make:controller OrdersController --resource
+php artisan make:controller StaticController
 
 
 php artisan make:model Allergen -m
