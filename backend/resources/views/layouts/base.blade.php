@@ -23,6 +23,9 @@
             @if (!\Route::is('law'))
                 <a href="/law" target="_brank">特定商取引法に基づく表記</a>
             @endif
+            @if (!\Route::is('policy'))
+                <a href="/policy" target="_brank">プライバシーポリシー</a>
+            @endif
         </footer>
     </div>
     <!-- Scripts -->

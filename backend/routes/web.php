@@ -76,4 +76,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('law', 'StaticController@law')->name('law');
+Route::get('policy', 'StaticController@policy')->name('policy');
+
 Route::get('paypay', 'HomeController@paypay');
