@@ -67,15 +67,15 @@ class OrdersController extends Controller
     {
         $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
                                     where('seat_session_id', $seatSession->id)->with('item_jp')->get();
-        $all_price = $ordered_orders->map(fn(\App\Order $order) =>
-            $order->tax_included_price
-        )->sum();
+        $all_price = $ordered_orders->map(function(\App\Order $order) {
+            return $order->tax_included_price;
+        })->sum();
 
         return view('orders.print', [
             'seatSession' => $seatSession,
-            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(fn(Collection $ary) =>
-                $ary->groupBy('item_jp.item_name')
-            ),
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function(Collection $ary) {
+                return $ary->groupBy('item_jp.item_name');
+            }),
             'all_items' => $ordered_orders->count(),
             'all_price' => $all_price,
             'time' => $seatSession->payment->created_at,
@@ -89,11 +89,11 @@ class OrdersController extends Controller
         if(!$seatSession) {
             return false;
         }
-        $ordered_orders = \App\Order::whereIn('order_state', ['preparation', 'delivered'])->
-                                    where('seat_session_id', $seat->seatSession->id)->with('item')->get();
-        $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
-            $order->tax_included_price
-        )->sum();
+        $ordered_orders = \App\Order::orderedOrders($seatSession)->get();
+
+        $sum_tax_included_price = $ordered_orders->map(function(\App\Order $order) {
+            return $order->tax_included_price;
+        })->sum();
 
         $client = new Client([
             'API_KEY' => env('PAYPAY_API_KEY', 'Laravel'),
@@ -112,7 +112,7 @@ class OrdersController extends Controller
         $payload->setAmount($amount);
         $payload->setOrderDescription('ありがとうございました');
         $payload->setRedirectType('WEB_LINK');
-        $payload->setRedirectUrl(env('APP_URL', '') .'/'. 
+        $payload->setRedirectUrl(env('APP_URL', '') .'/'.
                                 $req->seat_hash .'/items#/thanks/'. $req->lang. '/paypay');
         $payload->setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1');
 
@@ -152,23 +152,25 @@ class OrdersController extends Controller
         try {
             $seat->seat_state = 'payment';
             $seat->save();
-            
-            $seat->seatSession->session_state = 'end_of_use';
-            $seat->seatSession->save();
 
-            $ordered_orders = \App\Order::orderedOrders($seat->seatSession)->get();
-            $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
-                $order->tax_included_price
-            )->sum();
+            $seatSession = $seat->seatSession;
+            $seatSession->session_state = 'end_of_use';
+            $seatSession->save();
+
+            $ordered_orders = \App\Order::orderedOrders($seatSession)->get();
+            $sum_tax_included_price = $ordered_orders->map(function (\App\Order $order) {
+                return $order->tax_included_price;
+            })->sum();
             $payment = new \App\Payment();
             $payment->tax_included_price = $sum_tax_included_price;
-            $payment->seat_session_id = $seat->seatSession->id;
+            $payment->seat_session_id = $seatSession->id;
             if ($req->payment) {
                 $payment->payment_state = 'paypay';
             }
             $payment->save();
             DB::commit();
         } catch (\Exception $e) {
+            \Debugbar::info('----------------------------------');
             DB::rollback();
         }
         return [$ordered_orders, $sum_tax_included_price];
@@ -186,20 +188,20 @@ class OrdersController extends Controller
             // よってひとつ前に存在しているセッションを取得しなければならない。
             $seatSession = \App\SeatSession::where('seat_id', $seat->id)->
                                                 orderBy('id', 'DESC')->
-                                                offset(1)->limit(1)->first();
+                                                offset(1)->first();
 
             $ordered_orders = \App\Order::orderedOrders($seatSession)->get();
-            $sum_tax_included_price = $ordered_orders->map(fn(\App\Order $order) =>
-                $order->tax_included_price
-            )->sum();
+            $sum_tax_included_price = $ordered_orders->map(function (\App\Order $order) {
+                return $order->tax_included_price;
+            })->sum();
         } else {
             [$ordered_orders, $sum_tax_included_price] = $this->paymentTransaction($seat, $req);
         }
 
         return response()->json([
-            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(fn(Collection $ary) =>
-                $ary->groupBy('item.item_name')
-            ),
+            'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function(Collection $ary) {
+                return $ary->groupBy('item.item_name');
+            }),
             'all_items' => $ordered_orders->count(),
             'all_price' => $sum_tax_included_price,
         ]);
@@ -296,9 +298,9 @@ class OrdersController extends Controller
                                 whereDate('created_at', '>=', $start_time)->
                                 whereDate('created_at', '<', $end_time)->get();
         }
-        $items = \App\Item::select('item_key')->distinct()->get()->map(fn(\App\Item $item) =>
-            $item->item_key
-        );
+        $items = \App\Item::select('item_key')->distinct()->get()->map(function(\App\Item $item) {
+            return $item->item_key;
+        });
 
         Carbon::setWeekStartsAt(Carbon::SUNDAY); // 週の最初を日曜日に設定
         Carbon::setWeekEndsAt(Carbon::SATURDAY); // 週の最後を土曜日に設定
@@ -307,9 +309,11 @@ class OrdersController extends Controller
         $last_month = Carbon::today()->subMonths(1); // 前の月の曜日
 
         return view('orders.aggregate', [
-            'orders' => $orders->groupBy('item.item_key')->map(fn(Collection $orders) =>
-                $orders->map(fn(\App\Order $order) => $order->order_count)->sum()
-            )->sortDesc(),
+            'orders' => $orders->groupBy('item.item_key')->map(function(Collection $orders) {
+                return $orders->map(function(\App\Order $order) {
+                    return $order->order_count;
+                })->sum();
+            })->sortDesc(),
             'items' => $items,
             'aggregate' => $req->aggregate,
 

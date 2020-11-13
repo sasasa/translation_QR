@@ -78,7 +78,9 @@ class Item extends Model
         $item_query = self::query();
         $item_query->mySelect();
         $item_query->where('lang', 'like', $lang. '%');
-        $item_query->whereHas('genre', fn($q) => $q->where('genre_key', $genreKey) );
+        $item_query->whereHas('genre', function($q) use($genreKey) {
+            $q->where('genre_key', $genreKey);
+        } );
         return $item_query->orderBy('item_order', 'DESC')->orderBy('id', 'DESC')->withAllergens();
     }
 

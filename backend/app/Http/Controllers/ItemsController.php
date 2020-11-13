@@ -44,7 +44,7 @@ class ItemsController extends Controller
         if(!$seatSession) {
             return false;
         }
-        
+
         // Debugbar::info($req->lang, $req->genre);
         $items = \App\Item::allForlangAndGenre($req->lang, $req->genre)->get();
         // Debugbar::info($items);
@@ -74,9 +74,9 @@ class ItemsController extends Controller
             $item_query->where('lang', $req->lang);
         }
         if ($req->genre_key) {
-            $item_query->whereHas('genre', fn($q) =>
-                $q->where('genre_key', $req->genre_key)
-            );
+            $item_query->whereHas('genre', function($q) use($req) {
+                $q->where('genre_key', $req->genre_key);
+            });
         }
 
         return view('items.index', [
@@ -172,12 +172,11 @@ class ItemsController extends Controller
         $validator = Validator::make($req->all(), array_merge($rules, [
             'item_key' => [
                 'required',
-                Rule::unique('items')->ignore($itemId)->where(fn($q) =>
-                    $q->where('lang', $req->lang)
-                ),
+                Rule::unique('items')->ignore($itemId)->where(function($q) use($req) {
+                    $q->where('lang', $req->lang);
+                }),
             ],
         ]));
-        
 
         $validator->after(function ($validator) use($req) {
             if( $req->lang !== 'ja_JP' ) {

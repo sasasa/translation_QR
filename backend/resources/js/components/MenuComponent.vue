@@ -250,7 +250,7 @@
                 sessionStorage.setItem('cart', JSON.stringify(this.cart))
             },
             order() {
-                this.$router.push({ 
+                this.$router.push({
                     name: 'order-component',
                     lang: this.lang,
                 })

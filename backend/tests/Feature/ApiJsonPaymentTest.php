@@ -72,9 +72,9 @@ class ApiJsonPaymentTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(fn($ary) =>
-                    $ary->groupBy('item.item_name')
-                )->toArray(),
+                'ordered_orders' => $ordered_orders->groupBy('is_take_out')->map(function($ary) {
+                    return $ary->groupBy('item.item_name');
+                })->toArray(),
                 'all_items' => '1',
                 'all_price' => '1100',
             ]);

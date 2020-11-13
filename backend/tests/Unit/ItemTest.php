@@ -400,7 +400,7 @@ class ItemTest extends TestCase
         $items = Item::allForLangAndGenre('ja', 'hoge')->get();
         // dd($items->toArray());
         $this->assertArraySimilar(
-            $items->map(fn($item)=>$item->id)->toArray(),
+            $items->map(function($item){ return $item->id; })->toArray(),
             [$item1->id, $item4->id, $item2->id]
         );
     }
