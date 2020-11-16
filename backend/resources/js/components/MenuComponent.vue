@@ -36,7 +36,7 @@
                         <th>{{$t("message.item_name")}}</th>
                         <td>
                             <h1>サーバーデバック用：{{item.is_out_of_stock}}</h1>
-                            {{item.item_name}}{{(item.is_out_of_stock === '1') ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
+                            {{item.item_name}}{{(item.is_out_of_stock.toString(10) === '1') ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
                         </td>
                     </tr>
                     <tr>
@@ -218,7 +218,7 @@
             plus(item) {
                 let json_item = JSON.stringify(item)
 
-                if(item.is_out_of_stock === '1') {
+                if(item.is_out_of_stock.toString(10) === '1') {
                     Vue.delete(this.cart, json_item)
                     sessionStorage.setItem('cart', JSON.stringify(this.cart))
                     return alert(this.$t("message.sorry_out_of_stock"))
@@ -235,7 +235,7 @@
                 this.cart = JSON.parse(sessionStorage.getItem('cart'));
 
                 let json_item = JSON.stringify(item)
-                if(item.is_out_of_stock === '1') {
+                if(item.is_out_of_stock.toString(10) === '1') {
                     Vue.delete(this.cart, json_item)
                     sessionStorage.setItem('cart', JSON.stringify(this.cart))
                     return alert(this.$t("message.sorry_out_of_stock"))
