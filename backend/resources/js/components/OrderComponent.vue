@@ -307,7 +307,9 @@
                     this.recent_items.forEach((item) => {
                         if (item.is_out_of_stock.toString(10) === '1') {
                             // 時間差でcartに追加されてしまったitemを削除
-                            item.is_out_of_stock = 0
+                            // Xserverのときは '0' が入る
+                            // ローカル開発環境の時は 0 が入る
+                            item.is_out_of_stock = '0'
                             let json_item = JSON.stringify(item)
                             Vue.delete(this.cart, json_item)
                             sessionStorage.setItem('cart', JSON.stringify(this.cart))
