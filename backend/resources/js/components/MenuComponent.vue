@@ -35,7 +35,7 @@
                     <tr>
                         <th>{{$t("message.item_name")}}</th>
                         <td>
-                            {{item.item_name}}{{item.is_out_of_stock ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
+                            {{item.item_name}}{{(item.is_out_of_stock === 1) ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
                         </td>
                     </tr>
                     <tr>
