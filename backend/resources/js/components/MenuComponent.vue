@@ -35,6 +35,7 @@
                     <tr>
                         <th>{{$t("message.item_name")}}</th>
                         <td>
+                            <h1>サーバーデバック用：{{item.is_out_of_stock}}</h1>
                             {{item.item_name}}{{(item.is_out_of_stock === 1) ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
                         </td>
                     </tr>
