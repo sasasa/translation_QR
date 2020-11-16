@@ -19,7 +19,7 @@
                     <li v-for="(orders, item_name) in take_out_orders" v-bind:key="orders[0].id">
                         {{item_name}}---
                         {{orders.length}}<br>
-                        {{orders.reduce((accumulator, order)=>{return order.tax_included_price + accumulator}, 0)}}円
+                        {{orders.reduce((acc, order)=>{return Number(order.tax_included_price) + acc}, 0)}}円
                     </li>
                 </ul>
             </div>

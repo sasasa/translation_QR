@@ -232,6 +232,7 @@
                         // handle error
                         console.log(error);
                         this.before_order = false
+                        this.loading = false
                         this.message = this.$t('message.error')
                     })
             }
@@ -245,7 +246,7 @@
             },
             all_price() {
                 return Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
-                    return accumulator + this.ordered_orders[idx].tax_included_price
+                    return accumulator + Number(this.ordered_orders[idx].tax_included_price)
                 }, 0);
             },
             orderCart() {

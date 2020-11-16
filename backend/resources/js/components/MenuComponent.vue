@@ -35,7 +35,6 @@
                     <tr>
                         <th>{{$t("message.item_name")}}</th>
                         <td>
-                            <h1>サーバーデバック用：{{item.is_out_of_stock}}</h1>
                             {{item.item_name}}{{(item.is_out_of_stock.toString(10) === '1') ? `【${$t("message.sorry_out_of_stock")}】` : "" }}
                         </td>
                     </tr>
@@ -154,8 +153,8 @@
             all_price() {
                 let num = 0;
                 if (this.ordered_orders) {
-                    num = Object.keys(this.ordered_orders).reduce((accumulator, idx) => {
-                        return accumulator + this.ordered_orders[idx].tax_included_price
+                    num = Object.keys(this.ordered_orders).reduce((acc, idx) => {
+                        return acc + Number(this.ordered_orders[idx].tax_included_price)
                     }, 0);
                 }
                 return num
