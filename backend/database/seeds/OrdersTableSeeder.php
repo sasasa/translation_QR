@@ -60,6 +60,8 @@ class OrdersTableSeeder extends Seeder
             $sum = $seatSession->orders->map(function(\App\Order $order) {
                 return $order->tax_included_price;
             })->sum();
+
+            $is_paypay = mt_rand(0, 1);
             $payment = new \App\Payment();
             $payment->insert([
                 'tax_included_price' => $sum,
@@ -68,6 +70,7 @@ class OrdersTableSeeder extends Seeder
                 // 'created_at' => now(),
                 'updated_at' => $seatSession->created_at,
                 // 'updated_at' => now(),
+                'is_paypay' => $is_paypay ? true : false,
             ]);
         });
     }
