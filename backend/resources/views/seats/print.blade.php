@@ -3,7 +3,10 @@
 
 @section('content')
 <div class="print_page">
-  <h1>Menu</h1>
+  <div class="flex-box">
+    <h1>Menu</h1>
+    <p class="flex-box__paragraph">{{$seat->seat_name}}</p>
+  </div>
   <img src="/qr_code/{{$seat->id}}">
 </div>
 @endsection

@@ -39,3 +39,11 @@ ul {
     margin: 0mm;
   }
 }
+.flex-box {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  &__paragraph {
+    font-size: 15pt;
+  }
+}
