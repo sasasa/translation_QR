@@ -28,6 +28,9 @@ class CreatePaymentsTable extends Migration
                 'paypay',
             ])->default('preparation');
 
+            // paypayで決済
+            $table->boolean('is_paypay')->default(false);
+
             $table->timestamps();
         });
     }

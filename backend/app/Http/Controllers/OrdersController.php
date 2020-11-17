@@ -166,6 +166,7 @@ class OrdersController extends Controller
             $payment->seat_session_id = $seatSession->id;
             if ($req->payment) {
                 $payment->payment_state = 'paypay';
+                $payment->is_paypay = true;
             }
             $payment->save();
             DB::commit();

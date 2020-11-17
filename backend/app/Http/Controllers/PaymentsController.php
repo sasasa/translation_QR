@@ -72,32 +72,43 @@ class PaymentsController extends Controller
             $end_time = Carbon::tomorrow();
         }
 
-        $payments = \App\Payment::whereDate('created_at', '>=', $start_time)->
-                                whereDate('created_at', '<', $end_time)->paginate(100);
+        $payment_query = \App\Payment::query();
+        $payment_query->whereDate('created_at', '>=', $start_time)->whereDate('created_at', '<', $end_time);
 
-        $sum_sales = \App\Payment::whereDate('created_at', '>=', $start_time)->
-                                whereDate('created_at', '<', $end_time)->sum('tax_included_price');
+        if ( $req->payment_service === "paypay" ) {
+            $payment_service = "paypay";
+            $payments = $payment_query->where('is_paypay', true)->paginate(100);
 
-        $count = \App\Payment::whereDate('created_at', '>=', $start_time)->
-                                whereDate('created_at', '<', $end_time)->count('tax_included_price');
+            $sum_sales = $payment_query->where('is_paypay', true)->sum('tax_included_price');
+
+            $count = $payment_query->where('is_paypay', true)->count('tax_included_price');
+        } else {
+            $payment_service = "all";
+            $payments = $payment_query->paginate(100);
+
+            $sum_sales = $payment_query->sum('tax_included_price');
+
+            $count = $payment_query->count('tax_included_price');
+        }
 
         Carbon::setWeekStartsAt(Carbon::SUNDAY); // 週の最初を日曜日に設定
         Carbon::setWeekEndsAt(Carbon::SATURDAY); // 週の最後を土曜日に設定
         $dt = Carbon::today();
         $last_week = Carbon::today()->subWeeks(1); // 前の週の曜日
         $last_month = Carbon::today()->subMonths(1); // 前の月の曜日
-        
+
         return view('payments.sum_total', [
             'search_start_at' => str_replace(" ", "T", $start_time),
             'search_end_at' => str_replace(" ", "T", $end_time),
             'payments' => $payments,
             'sum_sales' => $sum_sales,
             'count' => $count,
-            
+            'payment_service' => $payment_service,
+
             'yesterday' => str_replace(" ", "T", Carbon::yesterday()),
             'today' => str_replace(" ", "T", Carbon::today()),
             'tomorrow' => str_replace(" ", "T", Carbon::tomorrow()),
-            
+
             'lastOfWeek' => str_replace(" ", "T", $last_week->startOfWeek()),
             'startOfWeek' => str_replace(" ", "T", $dt->startOfWeek()),
             'nextOfWeek' => str_replace(" ", "T", $dt->endOfWeek()->addSeconds(1)),

@@ -13,7 +13,7 @@ class SeatSessionsTableSeeder extends Seeder
     {
         // for ($i=0; $i<24*30; $i++) {
         for ($i=0; $i<24*3; $i++) {
-            $dt = new Carbon('2020-08-30 09:00:00');
+            $dt = Carbon::now()->subMonth();
             $now = $dt->addHours($i * 2);
 
 
@@ -105,7 +105,7 @@ class SeatSessionsTableSeeder extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now,
             ]);
-            
+
         }
     }
 }
