@@ -1,17 +1,17 @@
 # 翻訳QR
 翻訳QRを動かすにあたって必要な情報を記します。
 
-試しに使ってみたい場合のURLは
+試しに使ってみたい場合は
 [ステージング環境](https://test-qr.grow-up-webmarketing.co.jp/home#/)
-になります。
-以下のアカウントで入ることができるます。
+で操作してください。
+以下のアカウントでサインインすることができます。
 | email | pass |
 | ------------- | ------------- |
 | fulltime0@gmail.com  | hogehoge  |
 
 翻訳QRのアプリケーションの説明書は[manual.pdf](https://github.com/sasasa/translation_QR/blob/master/manual.pdf)にあります。
 
-バグや説明書に間違いがあった際は[こちら](https://github.com/sasasa/translation_QR/issues/new)
+アプリケーションのバグや説明書に間違いがあった際は[こちら](https://github.com/sasasa/translation_QR/issues/new)
 までご連絡いただければ幸いです。
 
 ## インストール
