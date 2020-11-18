@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         \App\User::truncate();
 
         //特定のデータを追加
-        for($i=0; $i<8; $i++)
+        for($i=0; $i<1; $i++)
         {
             \App\User::create([
                 'name' => '社員'. $i,
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
                 'permission' => \App\User::EDITING
             ]);
         }
-        for($i=0; $i<8; $i++)
+        for($i=0; $i<0; $i++)
         {
             \App\User::create([
                 'name' => 'バイト'. $i,
