@@ -1,11 +1,23 @@
 # 翻訳QR
 翻訳QRを動かすにあたって必要な情報を記します。
+
+試しに使ってみたい場合のURLは
+[ステージング環境](https://test-qr.grow-up-webmarketing.co.jp/home#/)
+になります。
+以下のアカウントで入ることができるます。
+| email | pass |
+| ------------- | ------------- |
+| fulltime0@gmail.com  | hogehoge  |
+
 翻訳QRのアプリケーションの説明書は[manual.pdf](https://github.com/sasasa/translation_QR/blob/master/manual.pdf)にあります。
+
+バグや説明書に間違いがあった際は[こちら](https://github.com/sasasa/translation_QR/issues/new)
+までご連絡いただければ幸いです。
 
 ## インストール
 * Gitをインストールして下さい。Macの場合はHomebrewでインストールして下さい。Windowsの場合は[Git for Windows](https://gitforwindows.org/)をインストールして下さい。
-* ソースコードを見るためには[vscode](https://code.visualstudio.com/download)をインストールしてください
-* 動作環境として[Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) もしくは[Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)をインストールしてください
+* ソースコードを見るためには[vscode](https://code.visualstudio.com/download)をインストールしてください。
+* 動作環境として[Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows) もしくは[Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac/)をインストールしてください。
 
 ## vscode拡張機能
 PHP(Laravel)で書かれたソースコードを確認するにはvscodeに
@@ -139,15 +151,17 @@ http://localhost:8080/
 * /backend/resources/sass/*.scss
 
 ### 変更手順
-1. ```docker-compose exec web npm run watch```で変更を待ち受ける
-1. https://localhost:3000/home# にアクセスする
+1. ```docker-compose exec web npm run watch```で変更を待ち受ける。
+1. https://localhost:3000/home# にアクセスする。
 1. 変更したいURLを調べる。(例：https://localhost/d6c145bfd54212e280262ee0f913575bf8c727bf55e71f578547a37e65d55572/items#/ja/drink
-1. /backend/routes/web.phpでどのルートかを確認する(例：`Route::get('{seat_hash}/items', 'ItemsController@items');`
-1. コントローラーを見てどのviewを使っているかを確認する(例：'items.items'とあるので/backend/resources/views/items/items.blade.phpを使っているということが分かる。
+1. /backend/routes/web.phpでどのルートかを確認する。(例：`Route::get('{seat_hash}/items', 'ItemsController@items');`
+1. コントローラーを見てどのviewを使っているかを確認する。(例：'items.items'とあるので/backend/resources/views/items/items.blade.phpを使っているということが分かる。
 1. ふつうはこのページを書き換えて終了だがvue.jsを使っている場合はさらに調査が必要。(例：&lt;router-view&gt;とあるのでvue-routerを使っているとわかる。
 1. vue-routerの設定は/backend/resources/js/router.jsにあるので確認すると(例：#/ja/drinkに当てはまるのはMenuComponent.vueだと確認できる。
-1. /backend/resources/js/components/MenuComponent.vueを変更する
+1. /backend/resources/js/components/MenuComponent.vueを変更する。
 1. npm run watchが変更を探知して自動でビルドする。
 
 ### ※自動でビルドしてくれないときは
-dockerではなくローカル環境にnpmをインストールする必要がある。
+dockerではなくローカル環境にnpmをインストールする必要があります。
+1. ```[pc]$ cd backend```でプロジェクトルートからLaravelルートに移動する。
+1. ```[pc]$ npm run watch```で変更を待ち受ける。
