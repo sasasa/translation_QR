@@ -14,7 +14,7 @@ class ItemsTableSeeder extends Seeder
     {
         // 前提としてstorage/app/public内に必要な画像が存在していること
         for($i = 1; $i <= 10; $i++) {
-            if (!Storage::disk('public')->exists('han1.jpg')) 
+            if (!Storage::disk('public')->exists('han10.jpg')) 
             {
                 if ( Storage::disk('public')->exists('han.jpg') ) {
                     Storage::disk('public')->copy('han.jpg', 'han'. $i. '.jpg');
