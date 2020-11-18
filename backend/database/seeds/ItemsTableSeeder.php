@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsTableSeeder extends Seeder
 {
@@ -11,31 +12,31 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        // 前提としてstorage/app/public内にdog.jpgが存在していること
+        // 前提としてstorage/app/public内に必要な画像が存在していること
         for($i = 1; $i <= 10; $i++) {
-            // if (!Storage::disk('public')->exists('han1.jpg')) 
-            // {
-            //     if ( Storage::disk('public')->exists('han.jpg') ) {
-            //         Storage::disk('public')->copy('han.jpg', 'han'. $i. '.jpg');
-            //     } else {
-            //         throw new Exception('storage/app/public内にhan.jpgが存在しないのでSeedingを終了する');
-            //     }
-            //     if ( Storage::disk('public')->exists('drink.jpg') ) {
-            //         Storage::disk('public')->copy('drink.jpg', 'drink'. $i. '.jpg');
-            //     } else {
-            //         throw new Exception('storage/app/public内にdrink.jpgが存在しないのでSeedingを終了する');
-            //     }
-            //     if ( Storage::disk('public')->exists('set.jpg') ) {
-            //         Storage::disk('public')->copy('set.jpg', 'set'. $i. '.jpg');
-            //     } else {
-            //         throw new Exception('storage/app/public内にset.jpgが存在しないのでSeedingを終了する');
-            //     }
-            //     if ( Storage::disk('public')->exists('carbonara.jpg') ) {
-            //         Storage::disk('public')->copy('carbonara.jpg', 'carbonara'. $i. '.jpg');
-            //     } else {
-            //         throw new Exception('storage/app/public内にcarbonara.jpgが存在しないのでSeedingを終了する');
-            //     }
-            // }
+            if (!Storage::disk('public')->exists('han1.jpg')) 
+            {
+                if ( Storage::disk('public')->exists('han.jpg') ) {
+                    Storage::disk('public')->copy('han.jpg', 'han'. $i. '.jpg');
+                } else {
+                    throw new Exception('storage/app/public内にhan.jpgが存在しないのでSeedingを終了する');
+                }
+                if ( Storage::disk('public')->exists('drink.jpg') ) {
+                    Storage::disk('public')->copy('drink.jpg', 'drink'. $i. '.jpg');
+                } else {
+                    throw new Exception('storage/app/public内にdrink.jpgが存在しないのでSeedingを終了する');
+                }
+                if ( Storage::disk('public')->exists('set.jpg') ) {
+                    Storage::disk('public')->copy('set.jpg', 'set'. $i. '.jpg');
+                } else {
+                    throw new Exception('storage/app/public内にset.jpgが存在しないのでSeedingを終了する');
+                }
+                if ( Storage::disk('public')->exists('carbonara.jpg') ) {
+                    Storage::disk('public')->copy('carbonara.jpg', 'carbonara'. $i. '.jpg');
+                } else {
+                    throw new Exception('storage/app/public内にcarbonara.jpgが存在しないのでSeedingを終了する');
+                }
+            }
 
             // 単品
             $item = new \App\Item();
