@@ -166,7 +166,7 @@ const messages = {
             no_tax: '不含税',
             tax: '所含税款',
             pay: '支付',
-            pay: 'paypay支付',
+            paypay: 'paypay支付',
             takeout: '取出',
             food_and_drink_in_the_store: '在商店吃喝',
             thanks_wait: '非常感谢你。请稍候。',
