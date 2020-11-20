@@ -177,6 +177,10 @@ return [
 
         'allergen_name' => 'アレルギー品目',
         'allergen_key' => 'アレルギー品目のキー',
+
+        'id' => 'ID',
+        'content' => '履歴ログ内容',
+        'created_at' => '作成日時'
     ],
 
 ];

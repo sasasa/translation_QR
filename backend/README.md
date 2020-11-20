@@ -112,4 +112,7 @@ php artisan test Tests\\Feature\\ApiJsonItems
 php artisan test Tests\\Feature\\ApiItemIds
 php artisan test Tests\\Feature\\ApiJsonPayment
 php artisan test Tests\\Feature\\ApiJsonOrderedOrders
+
+php artisan make:model Webhook -m
+php artisan make:controller WebhooksController --resource
 `

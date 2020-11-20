@@ -55,7 +55,11 @@ Route::group(['middleware' => ['auth', 'verified', 'can:browsing']], function ()
     Route::get('print/{seatSession}', 'OrdersController@print');
 
     Route::get('sum_total', 'PaymentsController@sum_total');
+
+    Route::resource('webhooks', 'WebhooksController', ['except'=>['store']]);
 });
+
+Route::post('api/webhooks', 'WebhooksController@store');
 
 Route::post('api/json_items', 'ItemsController@json_items');
 Route::post('api/item_ids', 'ItemsController@item_ids');
