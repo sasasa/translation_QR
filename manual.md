@@ -435,3 +435,12 @@ paypayに申し込んでいる場合は「paypay支払い」ボタンが表示�
 
 ### 座席削除
 座席を削除します。
+
+
+<div style="page-break-before:always"></div>
+
+## paypay履歴確認
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/7ecccbe2-5b33-149c-7c79-5e65f3481fa5.png)
+
+paypayに申し込んでいる場合は「paypay履歴確認」が表示されます。paypayから送られてくるデータを表示します。
