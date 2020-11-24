@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="add-style.css">
+</head>
+
+<body id="body" class="spa_wrapper">
+
+  <div id="spa_panel_main" class="spa_panel dropdown">
+
+    <!-- accordion menu -->
+    <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <ul class="dropdown-item">
+      <li class="dropdown-menu"><a href="ja,food">食べ物</a>
+        <ul class="dropdown-item">
+            <li class="dropdown-item"><a href="ja,food">食べ物一覧</a>
+            <li class="dropdown-item"><a href="ja,food,meat">肉</a></li>
+            <li class="dropdown-item"><a href="ja,food,fish">魚</a></li>
+            <li class="dropdown-item"><a href="ja,food,vegetable">野菜</a></li>
+         </ul>
+          </ul>
+          <ul class="dropdown-item">
+            <li class="dropdown-item"><a href="ja,drink">飲み物</a></li>
+            <li class="dropdown-item"><a href="ja,drink">飲み物一覧</a></li>
+            <li class="dropdown-item"><a href="ja,drink,softdrink">ソフトドリンク</a></li>
+            <li class="dropdown-item"><a href="ja,drink,alcohol">アルコール</a></li>
+          </ul>
+          <ul  class="dropdown-item"><li class="dropdown-item"><a href="ja,gift">ギフト</a></li></ul>
+          <ul class="dropdown-item">
+            <li class="dropdown-item"><a href="ja,set-meals,breakfast">朝食セット</a></li>
+            <li class="dropdown-item"><a href="ja,set-meals,lunch">ランチ</a></li>
+            <li class="dropdown-item"><a href="ja,set-meals,dinner">ディナー</a></li>
+
+        </ul>
+       <ul class="dropdown-item">
+        <li class="dropdown-item"><a href="payment">お支払い</a></li>
+          <ul class="dropdown-item">
+            <li class="dropdown-item"><a href="line-pay">LINE Pay</a></li>
+          </ul>
+        </li>
+        <li class="dropdown-item"><a href="ja">店舗概要</a></li>
+        <li class="dropdown-item"><a href="for-staff">for staff</a></li>
+      </ul>
+  </div>
+</div>
+
+    <div class="stellarnav dropdown-toggle" style="position: -webkit-sticky; position: sticky;">
+ 
+
+    </div>
+
+<img src="https://toffee3.grow-up-webmarketing.co.jp/hqr/img/header.jpg" class="head_img">
+
+    <!-- select language on current view -->
+<ul class="hqr-select-language">
+<li><a href="ja,food">日本語</a></li>
+<li><a href="en,food">English</a></li>
+<li><a href="zh,food">中文</a></li>
+<li><a href="ko,food">한글</a></li>
+</ul>
+
+    <!-- show sns icons -->
+    <!-- sns icon -->
+    <ul class="shareList">
+      <li class="shareList__item"><a class="shareList__link icon-twitter" href="" target="_blank" title="Twitter" style="pointer-events: none;"></a></li>
+      <li class="shareList__item"><a class="shareList__link icon-facebook" href="https://ja-jp.facebook.com/Growupfukuoka/" target="_blank" title="Facebook"></a></li>
+      <li class="shareList__item"><a class="shareList__link icon-google" href="https://goo.gl/maps/tTdLKDuJ5LaUs3Mf6" target="_blank" title="Google"></a></li>
+      <li class="shareList__item"><a class="shareList__link icon-line" href="" target="_blank" title="LINE" style="pointer-events: none;"></a></li>
+      <li class="shareList__item"><a class="shareList__link icon-instagram" href="" target="_blank" title="Instagram" style="pointer-events: none;"></a></li>
+    </ul>
+
+
+    <!-- select big category on current language -->
+<ul class="hqr-select-category">
+  <li>
+    <a href="ja,food">食べ物</a>
+  </li>
+  <li>
+    <a href="ja,drink">飲み物</a>
+  </li>
+  <li>
+    <a href="ja,gift">ギフト</a>
+  </li>
+</ul>
+
+
+    <div class="container">
+  <div class='onethird-frame  onethird-edit-pointer' >
+    <h2 class="inner-category">- FOOD -</h2>
+<section class="hqr-item">
+  <img src="hqr/img/items/dip.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">クリームチーズの豆腐ディップ<wbr>とバゲット<br>TOFU dip</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">700円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('dip');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+
+<h2 class="inner-category">- SWEETS -</h2>
+<img src="https://toffee3.grow-up-webmarketing.co.jp/hqr/img/items/choco.jpg">
+<h3 class="item-title">ICE TOFU CHOCO<br>アイス豆腐チョコ</h3>
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-b-m.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">BASIC <wbr>ベーシック <wbr>ミニ</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">500円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-b-m');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-b-r.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">BASIC <wbr>ベーシック <wbr>レギュラー</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">1300円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-b-r');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-m-m.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">MACCHA <wbr>抹茶 <wbr>ミニ</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">500円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-m-m');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-m-r.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">MACCHA <wbr>抹茶 <wbr>レギュラー</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">1400円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-m-r');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-h-m.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">HOJICHA <wbr>ほうじ茶 <wbr>ミニ</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">500円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-h-m');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-h-r.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">HOJICHA <wbr>ほうじ茶 <wbr>レギュラー</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">1400円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-h-r');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-p-m.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">PISTACHIO <wbr>ピスタチオ <wbr>ミニ</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">500円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-p-m');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/choco-p-r.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">PISTACHIO <wbr>ピスタチオ <wbr>レギュラー</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">1400円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('choco-p-r');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<p>※ミニはTOFFEE限定販売です</p>
+<h3 class="item-title">三原豆腐店の豆乳ドーナツ</h3>
+<img src="https://toffee3.grow-up-webmarketing.co.jp/hqr/img/items/donut.jpg">
+<section class="hqr-item">
+  <img src="./hqr/img/items/donut-p-4.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">プレーン <wbr>4piece</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">350円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('donut-p-4');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/donut-p-8.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">プレーン <wbr>8piece</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">650円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('donut-p-8');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/donut-p-12.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">プレーン <wbr>12piece</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">950円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('donut-p-12');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/donut-k-4.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">きなこ <wbr>4piece</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">380円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('donut-k-4');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/donut-k-8.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">きなこ <wbr>8piece</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">680円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('donut-k-8');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+<section class="hqr-item">
+  <img src="./hqr/img/items/donut-k-12.jpg" alt="商品画像" class="onethird-article-image">
+  <h2 class="hqr-item-name">きなこ <wbr>12piece</h2>
+  <div class="hqr-item-summary">
+    <p><p></p></p>
+  </div>
+  <p class="hqr-item-price">980円</p>
+  <div class="hqr-item-switcher">
+    <button class="hqr-item-order-add" onclick="increaseItem('donut-k-12');updateItemCount()">Add</button>
+  </div>
+  
+<details class="hqr-item-allergy-list" ><summary>アレルギー品目</summary><ul><li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li></ul></details>
+</section>
+
+
+  </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        
+      </div>
+    </div>
+
+    <div id="hqr-view-items">
+      <button id="hqr-view-items-button" class="hqr-view-items-button" onclick="hqrListForCustomer()"><span id="hqr-view-items-count">1</span></button>
+    </div>
+
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>

@@ -1,0 +1,60 @@
+body{background-image: url(background.jpg);}
+body:before{
+  content:"";
+  display:block;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+  width:100%;
+  height:100vh;
+}
+li{
+  list-style: none;
+}
+.head_img,.container > div > img{
+  width: 100%;
+}
+.container{
+  width: 90%;
+  margin: 0 auto;
+}
+h1,h2,h3,p,.hqr-item-name,.hqr-item-summary p,.hqr-item-price{
+	font-family: 'Noto Sans JP', sans-serif;
+}
+h2.hqr-item-name{
+  font-size: 1.2em;
+  line-height: 1.2;
+  border-bottom: 1px solid #444;
+  padding: .5rem;
+}
+.inner-category{
+  padding: 2rem 0;
+  font-size: 2em;
+}
+
+/* ----GIFT---- */
+.category-title{
+  padding: 2rem 0;
+  height: 120px;
+}
+.gift-link-box{
+  margin-bottom: 5rem;
+}
+.item-title{
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.2em;
+}
+.gift-link-text{
+  border-left: .5rem solid #444;
+  margin-top: 1rem;
+  padding-left: .5rem;
+  color: #444;
+}
+.gift-link-img{
+  width: 100%;
+}
+.gift-link-box{
+  margin-bottom: 5rem;
+}
