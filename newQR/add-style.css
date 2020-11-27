@@ -157,15 +157,15 @@ h2.hqr-item-name {
 
 /* ---CART--- */
 
+.order-menu {
+    margin-bottom: 12rem;
+}
+
 #cart h1 {
     text-align: center;
     width: 100%;
     background-color: #707070;
     color: #fff;
-}
-
-#cart .container .menu-item-img {
-    max-width: 10rem;
 }
 
 .price {
@@ -193,6 +193,8 @@ h2.hqr-item-name {
 .total-price {
     background-color: #ACACAC;
     color: #fff;
+    padding: .3rem;
+    font-size: .8rem;
 }
 
 .pre-total {
@@ -216,7 +218,7 @@ h2.hqr-item-name {
     width: 50%;
 }
 
-#cart .btn.btn-light {
+.footer-pre-total-button button {
     border: .02rem solid #AAD4FF;
     background-color: #AAD4FF;
     margin: .3rem;
@@ -226,4 +228,72 @@ h2.hqr-item-name {
 .footer-pre-total-button {
     display: flex;
     justify-content: space-around;
+}
+
+
+/*---注文完了画面---*/
+
+.comp-p {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 5rem auto;
+}
+
+.comp-box {
+    border: .05rem solid #707070;
+    background-color: #fff;
+    padding: 1rem;
+    margin: 0 .5rem 12rem .5rem;
+}
+
+.comp-box h1 {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.comp-box section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.comp-box section p:first-child {
+    width: 60%;
+}
+
+.comp-box section p {
+    width: 20%;
+}
+
+.tax-rate {
+    font-size: .8rem;
+    text-align: right;
+}
+
+.back-menu {
+    border: .01rem solid #707070;
+    margin: 1rem 0 1rem auto;
+    display: block;
+}
+
+.butoon-blue {
+    background-color: #707070;
+    color: #fff;
+}
+
+.tax-in-total-price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tax-in-total-price p,
+.tax-in-total-price div {
+    width: 50%;
+}
+
+.tax-in-total-price p span {
+    font-size: 1.2rem;
+    font-weight: bold;
 }
