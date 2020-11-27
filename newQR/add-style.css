@@ -48,6 +48,13 @@ p,
     text-align: center;
 }
 
+
+/* ---main---*/
+
+.hqr-item {
+    margin-bottom: 10rem;
+}
+
 h2.hqr-item-name {
     font-size: 1.2em;
     line-height: 1.2;
@@ -81,11 +88,23 @@ h2.hqr-item-name {
 
 .menu-item-img {
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+.hqr-item-allergy-list {
+    margin: 1rem auto;
 }
 
 .hqr-item-price {
     text-align: right;
     font-size: 1.5rem;
+}
+
+.hqr-item-price span {
+    padding-right: .5rem;
 }
 
 .menu-cart {
@@ -101,11 +120,35 @@ h2.hqr-item-name {
 
 /* ---footer--- */
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
 .footer-now-cart,
 .footer-now-finish {
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.footer-now-cart {
+    background-color: #fff;
+    padding: 1rem .5rem;
+}
+
+.footer-now-cart>button,
+.footer-now-finish>button {
+    font-size: .6rem;
+    border: .02rem solid #707070;
+}
+
+.footer-now-finish {
+    background-color: #707070;
+    color: #fff;
+    padding: 1rem .5rem;
 }
 
 
