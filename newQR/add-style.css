@@ -46,13 +46,14 @@ p,
 
 .center {
     text-align: center;
+    margin: 0 auto;
 }
 
 
 /* ---main---*/
 
 .hqr-item {
-    margin-bottom: 10rem;
+    margin-bottom: 12rem;
 }
 
 h2.hqr-item-name {
@@ -107,7 +108,8 @@ h2.hqr-item-name {
     padding-right: .5rem;
 }
 
-.menu-cart {
+.menu-cart,
+.quantity {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,50 +138,92 @@ h2.hqr-item-name {
 
 .footer-now-cart {
     background-color: #fff;
-    padding: 1rem .5rem;
+    padding: .5rem .5rem;
 }
 
 .footer-now-cart>button,
 .footer-now-finish>button {
     font-size: .6rem;
-    border: .02rem solid #707070;
+    background-color: #AAD4FF;
+    padding: 1rem .5rem;
 }
 
 .footer-now-finish {
     background-color: #707070;
     color: #fff;
-    padding: 1rem .5rem;
+    padding: .8rem .5rem;
 }
 
 
-/* ----GIFT---- */
+/* ---CART--- */
 
-.category-title {
-    padding: 2rem 0;
-    height: 120px;
-}
-
-.gift-link-box {
-    margin-bottom: 5rem;
-}
-
-.item-title {
-    margin-bottom: 2rem;
+#cart h1 {
     text-align: center;
-    font-size: 1.2em;
+    width: 100%;
+    background-color: #707070;
+    color: #fff;
 }
 
-.gift-link-text {
-    border-left: .5rem solid #444;
-    margin-top: 1rem;
-    padding-left: .5rem;
-    color: #444;
+#cart .container .menu-item-img {
+    max-width: 10rem;
 }
 
-.gift-link-img {
+.price {
+    text-align: right;
+    font-size: 1.5rem;
+}
+
+.quantity p {
+    font-size: 1.2rem;
+    padding-left: 1rem;
+}
+
+#cart footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
 }
 
-.gift-link-box {
-    margin-bottom: 5rem;
+.footer-pre-total {
+    background-color: #fff;
+    font-size: 1.2rem;
+}
+
+.total-price {
+    background-color: #ACACAC;
+    color: #fff;
+}
+
+.pre-total {
+    font-size: 1.5rem;
+}
+
+.cart-footer-flx {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: .5rem;
+    color: #707070;
+}
+
+.cart-footer-flx p {
+    font-size: .8rem;
+}
+
+.cart-footer-flx div {
+    font-size: .8rem;
+    width: 50%;
+}
+
+#cart .btn.btn-light {
+    border: .02rem solid #AAD4FF;
+    background-color: #AAD4FF;
+    margin: .3rem;
+    color: #707070;
+}
+
+.footer-pre-total-button {
+    display: flex;
+    justify-content: space-around;
 }
