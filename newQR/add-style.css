@@ -143,11 +143,11 @@ h2.hqr-item-name {
 
 .footer-now-cart>button,
 .footer-now-finish>div>button {
-    font-size: .8rem;
+    font-size: .9rem;
     background-color: #AAD4FF;
-    padding: .5rem .5rem;
+    padding: .5rem;
     display: block;
-    width: 130px;
+    width: 140px;
 }
 
 .footer-now-finish>div>button:first-child {
@@ -288,7 +288,6 @@ h2.hqr-item-name {
 
 .butoon-blue {
     background-color: #AAD4FF;
-    color: #fff;
 }
 
 .border {
