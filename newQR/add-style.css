@@ -221,19 +221,22 @@ h2.hqr-item-name {
 
 .cart-footer-flx div {
     font-size: .8rem;
+}
+
+.footer-pre-total-button {
     width: 50%;
+    text-align: right;
 }
 
 .footer-pre-total-button button {
     border: .02rem solid #AAD4FF;
     background-color: #AAD4FF;
-    margin: .3rem;
     color: #707070;
+    width: 140px;
 }
 
-.footer-pre-total-button {
-    display: flex;
-    justify-content: space-around;
+.footer-pre-total-button button:first-child {
+    margin-bottom: .5rem;
 }
 
 
@@ -288,6 +291,7 @@ h2.hqr-item-name {
 
 .butoon-blue {
     background-color: #AAD4FF;
+    color: #707070;
 }
 
 .border {
