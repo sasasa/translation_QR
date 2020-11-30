@@ -133,7 +133,7 @@ h2.hqr-item-name {
 .footer-now-finish {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .footer-now-cart {
@@ -142,10 +142,16 @@ h2.hqr-item-name {
 }
 
 .footer-now-cart>button,
-.footer-now-finish>button {
-    font-size: .6rem;
+.footer-now-finish>div>button {
+    font-size: .8rem;
     background-color: #AAD4FF;
-    padding: 1rem .5rem;
+    padding: .5rem .5rem;
+    display: block;
+    width: 130px;
+}
+
+.footer-now-finish>div>button:first-child {
+    margin-bottom: .5rem;
 }
 
 .footer-now-finish {
@@ -281,7 +287,7 @@ h2.hqr-item-name {
 }
 
 .butoon-blue {
-    background-color: #707070;
+    background-color: #AAD4FF;
     color: #fff;
 }
 
@@ -291,7 +297,7 @@ h2.hqr-item-name {
     width: 95%;
 }
 
-.accounting-box {
+.payment-box {
     text-align: right;
 }
 
@@ -304,9 +310,12 @@ h2.hqr-item-name {
     justify-content: space-between;
 }
 
-.tax-in-total-price p,
+.tax-in-total-price p {
+    width: 45%;
+}
+
 .tax-in-total-price div {
-    width: 50%;
+    width: 55%;
 }
 
 .tax-in-total-price p span {
