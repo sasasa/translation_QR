@@ -145,6 +145,11 @@ p,
     padding: .5rem .5rem;
 }
 
+.footer-now-cart p,
+.footer-now-finish p {
+    font-size: .8rem;
+}
+
 .footer-now-cart>button,
 .footer-now-finish>div>button {
     font-size: .9rem;
@@ -152,6 +157,8 @@ p,
     padding: .5rem;
     display: block;
     width: 140px;
+    color: #707070;
+    border: 1px solid #707070;
 }
 
 .footer-now-finish>div>button:first-child {
@@ -185,7 +192,7 @@ p,
 #cart h1 {
     text-align: center;
     width: 100%;
-    background-color: #707070;
+    background-color: #AAD4FF;
     color: #fff;
 }
 
@@ -244,7 +251,7 @@ p,
 }
 
 .footer-pre-total-button button {
-    border: .02rem solid #AAD4FF;
+    border: 1px solid #707070;
     background-color: #AAD4FF;
     color: #707070;
     width: 140px;
@@ -312,9 +319,11 @@ p,
     display: block;
 }
 
-.butoon-blue {
+.button-blue {
     background-color: #AAD4FF;
     color: #707070;
+    border: 1px solid #707070;
+    margin-bottom: .5rem;
 }
 
 .border {
@@ -347,4 +356,39 @@ p,
 .tax-in-total-price p span {
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+
+/* ---thanks--- */
+
+.thanks-orderd-h1 {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 5rem auto;
+}
+
+.thanks-orderd-box {
+    width: 95%;
+    padding: 1rem;
+    margin: 0 auto 12rem auto;
+    max-width: 768px;
+}
+
+.thanks-orderd-box p {
+    margin: 1rem 0;
+    text-align: right;
+}
+
+.tanks-orderd-taxinprice {
+    font-size: 1.3rem;
+}
+
+ul.thanks-orderd-list li {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+ul.thanks-orderd-list li span {
+    display: block;
+    text-align: right;
 }
