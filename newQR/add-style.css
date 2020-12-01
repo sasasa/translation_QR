@@ -50,13 +50,17 @@ p,
 }
 
 
-/* ---main---*/
+/* ---menu-main---*/
 
 .hqr-item {
-    margin-bottom: 12rem;
+    margin-bottom: 10rem;
 }
 
-h2.hqr-item-name {
+.container .hqr-item:last-of-type {
+    margin-bottom: 15rem;
+}
+
+.hqr-item-name {
     font-size: 1.2em;
     line-height: 1.2;
     border-bottom: 1px solid #444;
@@ -248,6 +252,14 @@ h2.hqr-item-name {
 
 .footer-pre-total-button button:first-child {
     margin-bottom: .5rem;
+}
+
+.takeout {
+    color: #707070;
+}
+
+.takeout input {
+    margin: .3rem;
 }
 
 
