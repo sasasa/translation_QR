@@ -11,22 +11,13 @@
     <title>@yield('title')</title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="{{ mix('css/add-style.css') }}">
 </head>
 <body>
     <div id="app">
-        <main class="py-4 container">
-            @yield('content')
-        </main>
-        <footer>
-            @if (!\Route::is('law'))
-                <a href="/law" target="_brank">特定商取引法に基づく表記</a>
-            @endif
-            @if (!\Route::is('policy'))
-                <a href="/policy" target="_brank">プライバシーポリシー</a>
-            @endif
-        </footer>
+        @yield('content')
     </div>
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>

@@ -1,29 +1,43 @@
 <template>
     <div>
         <Loading v-show="loading"></Loading>
-        <div>
-            <h1>{{$t('message.thanks_wait')}}</h1>
-            <div class="h1">{{all_items}}点{{all_price}}円</div>
-            <div>
-                ({{$t('message.tax')}})
-            </div>
 
-            <div v-for="(take_out_orders, is_take_out) in ordered_orders" v-bind:key="is_take_out">
-                <span v-if="is_take_out == '1'">
-                    <br>{{$t('message.takeout')}}
-                </span>
-                <span v-else-if="is_take_out == '0'">
-                    <br>{{$t('message.food_and_drink_in_the_store')}}
-                </span>
-                <ul>
-                    <li v-for="(orders, item_name) in take_out_orders" v-bind:key="orders[0].id">
-                        {{item_name}}---
-                        {{orders.length}}<br>
-                        {{orders.reduce((acc, order)=>{return Number(order.tax_included_price) + acc}, 0)}}円
+        <h1 class="thanks-orderd-h1">{{$t('message.thanks')}}<br>{{$t('message.wait')}}
+        </h1>
+        <section class="thanks-orderd-box">
+            <p class="tanks-orderd-taxinprice">
+                {{all_items}}点{{all_price}}円({{$t('message.tax')}})
+            </p>
+
+            <div
+            v-for="(take_out_orders, is_take_out) in ordered_orders"
+            v-bind:key="is_take_out">
+                <p v-if="is_take_out == '1'">
+                    {{$t('message.takeout')}}
+                </p>
+                <p v-else-if="is_take_out == '0'">
+                    {{$t('message.food_and_drink_in_the_store')}}
+                </p>
+                <ul class="thanks-orderd-list">
+                    <li
+                    v-for="(orders, item_name) in take_out_orders"
+                    v-bind:key="orders[0].id">
+                        {{item_name}}---{{orders.length}}
+                        <span>{{orders.reduce((acc, order)=>{return Number(order.tax_included_price) + acc}, 0)}}円</span>
                     </li>
                 </ul>
             </div>
+        </section>
+        <div class="notice">
+            <p>
+                <a href="https://test-qr.grow-up-webmarketing.co.jp/law#/">特定商取引法に基づく表記</a>
+            </p>
+            <p>|</p>
+            <p>
+                <a href="https://test-qr.grow-up-webmarketing.co.jp/policy#/">プライバシーポリシー</a>
+            </p>
         </div>
+        
     </div>
 </template>
 

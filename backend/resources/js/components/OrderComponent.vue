@@ -1,108 +1,149 @@
 <template>
     <div>
         <Loading v-show="loading"></Loading>
-        <div class="before_order" v-if="before_order">
-            <transition-group tag="table" class="table">
-                <tbody v-for="item in items" v-bind:key="item.id">
-                    <tr>
-                        <th>{{$t("message.image_path")}}</th>
-                        <td><img v-bind:src="`/storage/${item.image_path}`"></td>
-                    </tr>
-                    <tr>
-                        <th>{{$t("message.item_name")}}</th>
-                        <td>
-                        {{item.item_name}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{$t("message.item_price")}}</th>
-                        <td>{{item.item_price}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{$t("message.item_desc")}}</th>
-                        <td>{{item.item_desc}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{$t("message.allergens")}}</th>
-                        <td>
-                            <span v-for="allergen in item.allergens" v-bind:key="allergen.allergen_name">
-                                {{allergen.allergen_name}}
-                                <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`">
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{$t("message.add_to_cart")}}</th>
-                        <td class="select-none">
-                            <span v-on:click="plus(item)" class="h1 pointer">＋</span>
-                            <span v-on:click="minus(item)" class="h1 pointer">－</span>
-                            <span class="h1">{{item_number(item)}}</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </transition-group>
-            <div class="card">
-                <div class="card-header">{{$t("message.order_amount")}}</div>
-                <div class="card-body text-right">
-                    <label for="takeout">
-                        <input id="takeout" type="checkbox" v-model="is_take_out">
-                        {{$t('message.takeout')}}
-                    </label>
+        <div id="cart" class="before_order" v-if="before_order">
 
-                    <span class="h1">
-                        {{total_items}}点 {{this.total_price}}円
-                    </span>
-                    ({{$t('message.no_tax')}})
-                    <button
-                        v-bind:disabled="orderDisabled"
-                        v-on:click.once="order"
-                        class="btn btn-danger my-1">{{$t("message.order_confirmation")}}
-                    </button>
-                    <button
-                        v-on:click="back"
-                        class="btn btn-primary my-1">{{$t("message.return_to_menu")}}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="after_order" v-else>
-            <div class="card">
-                <div class="card-header">{{$t("message.order_completed")}}</div>
-                <div class="card-body text-right">
-                    <div>
-                        <div class="text-left">
-                            ({{$t('message.tax')}})
+            <h1>CART</h1>
+            <transition-group tag="div" class="container">
+                <section 
+                v-for="item in items"
+                v-bind:key="item.id"
+                class="order-menu">
+                    <div class="cart-flx">
+                        <p>
+                            <img v-bind:src="`/storage/${item.image_path}`" class="menu-item-img">
+                        </p>
+                        <div>
+                            <p class="hqr-item-name cart-item-name">
+                                {{item.item_name}}
+                            </p>
+                            <div class="hqr-item-summary">
+                                <p class="cart-summary">
+                                    {{item.item_desc}}
+                                </p>
+                            </div>
+                            <p class="price">{{item.item_price}}円</p>
                         </div>
-                        <ul class="text-left">
-                            <li v-for="(value, key) in messages" v-bind:key="key">
-                                {{key}}<br>{{value}}円
+                    </div>
+                    <details class="hqr-item-allergy-list">
+                        <summary>{{$t("message.allergens")}}</summary>
+                        <ul>
+                            <li
+                            v-for="allergen in item.allergens"
+                            v-bind:key="allergen.allergen_name">
+                                <span>
+                                    <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`">
+                                </span>
+                                <span>{{allergen.allergen_name}}</span>
                             </li>
                         </ul>
-                        <button
-                            v-on:click="back"
-                            class="btn btn-primary my-1">{{$t("message.return_to_menu")}}
-                        </button>
+                    </details>
+                    <div class="quantity">
+                        <p>{{item_number(item)}}個</p>
+
+                        <div>
+                            <span v-on:click="plus(item)">
+                                <img src="/img/plus-blue.png">
+                            </span>
+                            <span v-on:click="minus(item)">
+                                <img src="/img/minus-blue.png">
+                            </span>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="mt-3">
-                        <span class="h1">
-                            {{all_items}}点{{all_price}}円
-                        </span>
-                        ({{$t('message.tax')}})
+                </section>
+            </transition-group>
+            <footer>
+                <div class="footer-pre-total">
+                    <p class="total-price">{{$t("message.order_amount")}}</p>
+
+                    <div class="cart-footer-flx">
+                        <div>
+                            <p><span class="pre-total">{{this.total_price}}円</span>({{$t('message.no_tax')}})</p>
+                            <div class="takeout">
+                                <label for="takeout">
+                                    <input id="takeout" type="checkbox" v-model="is_take_out">
+                                    {{$t('message.takeout')}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="footer-pre-total-button">
+                            <button 
+                            v-bind:disabled="orderDisabled"
+                            v-on:click.once="order"
+                            class="btn btn-light">
+                                {{$t("message.order_confirmation")}}
+                            </button>
+                            <button
+                            v-on:click="back"
+                            class="btn btn-light">
+                                {{$t("message.return_to_menu")}}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="notice">
+                        <p>
+                            <a href="/law">特定商取引法に基づく表記</a>
+                        </p>
+                        <p>|</p>
+                        <p>
+                            <a href="/policy">プライバシーポリシー</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="after_order" v-else>
+            <p class="comp-p">
+                {{$t("message.order_completed")}}
+            </p>
+            <article class="comp-box">
+                <h1>{{$t("message.ordered_products")}}</h1>
+                <section
+                v-for="(value, key) in messages"
+                v-bind:key="key">
+                    <p>{{key}}</p>
+                    <p>1点</p>
+                    <p>{{value}}円</p>
+                </section>
+                <p class="tax-rate">({{$t('message.tax')}})</p>
+                <button
+                v-on:click="back"
+                class="btn btn-light back-menu w140">
+                    {{$t("message.return_to_menu")}}
+                </button>
+
+                <div class="border"></div>
+                <div class="tax-in-total-price">
+                    <p>
+                        {{all_items}}点<br>
+                        <span>{{all_price}}円</span>({{$t('message.tax')}})
+                    </p>
+                    <div class="payment-box">
                         <button
-                            v-bind:disabled="payDisabled"
-                            v-on:click.once="pay"
-                            class="btn btn-primary my-1">{{$t("message.pay")}}
+                        v-bind:disabled="payDisabled"
+                        v-on:click.once="pay"
+                        class="btn btn-light button-blue w140">
+                            {{$t("message.pay")}}
                         </button>
                         <button
-                            v-bind:style="{display: paypayAvailable}"
-                            v-bind:disabled="payDisabled"
-                            v-on:click.once="paypay"
-                            class="btn btn-primary my-1">{{$t("message.paypay")}}
+                        v-bind:style="{display: paypayAvailable}"
+                        v-bind:disabled="payDisabled"
+                        v-on:click.once="paypay"
+                        class="btn btn-light button-blue w140">
+                            {{$t("message.paypay")}}
                         </button>
                     </div>
                 </div>
-            </div>
+                <div class="notice">
+                    <p>
+                        <a href="/law">特定商取引法に基づく表記</a>
+                    </p>
+                    <p>|</p>
+                    <p>
+                        <a href="/policy">プライバシーポリシー</a>
+                    </p>
+                </div>
+            </article>
         </div>
     </div>
 </template>
