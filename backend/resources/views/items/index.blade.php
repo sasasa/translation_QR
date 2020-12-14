@@ -64,7 +64,7 @@
   </tr>
   <tr>
     <th>{{__('validation.attributes.genre_id')}}</th>
-    <td>{{$item->genre->genre_name}}({{$item->genre->genre_key}})</td>
+    <td>{{$item->genre && $item->genre->genre_name}}({{$item->genre && $item->genre->genre_key}})</td>
   </tr>
   <tr>
     <th>{{__('validation.attributes.allergen_name')}}</th>
