@@ -73,7 +73,7 @@
                         <ul>
                             <li v-for="allergen in item.allergens" v-bind:key="allergen.allergen_name">
                                 <span>
-                                    <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`">
+                                    <img v-bind:src="`/img/allergens/${allergen.allergen_key}.png`" class="allergens-img">
                                 </span>
                                 <span>{{allergen.allergen_name}}</span>
                             </li>
