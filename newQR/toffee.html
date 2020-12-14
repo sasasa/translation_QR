@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="add-style.css">
+</head>
+
+<body id="body" class="spa_wrapper">
+    <!-- select language on current view -->
+    <ul class="hqr-select-language">
+        <li><button type="button" class="btn btn-primary"><a href="ja,food">日本語</a></button>
+        </li>
+        <li><button type="button" class="btn btn-primary"><a href="en,food">English</a></button>
+        </li>
+        <li><button type="button" class="btn btn-primary"><a href="zh,food">中文</a></button>
+        </li>
+        <li><button type="button" class="btn btn-primary"><a href="ko,food">한글</a></button>
+        </li>
+    </ul>
+
+    <div id="spa_panel_main" class="spa_panel dropdown">
+        <!-- accordion menu -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                メニュー
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ul>
+                    <li class="dropdown-item"><a href="ja,food">食べ物</a></li>
+                    <ul class="dropdown-item">
+                        <li class="dropdown-item"><a href="ja,food">食べ物一覧</a>
+                            <li class="dropdown-item"><a href="ja,food,meat">肉</a></li>
+                            <li class="dropdown-item"><a href="ja,food,fish">魚</a></li>
+                            <li class="dropdown-item"><a href="ja,food,vegetable">野菜</a></li>
+                    </ul>
+                    <li class="dropdown-item"><a href="ja,drink">飲み物</a></li>
+                    <ul class="dropdown-item">
+
+                        <ul>
+                            <li class="dropdown-item"><a href="ja,drink">飲み物一覧</a></li>
+                            <li class="dropdown-item"><a href="ja,drink,softdrink">ソフトドリンク</a></li>
+                            <li class="dropdown-item"><a href="ja,drink,alcohol">アルコール</a></li>
+                        </ul>
+
+                    </ul>
+                    <li class="dropdown-item"><a href="ja,gift">ギフト</a></li>
+                    <li class="dropdown-item"><a href="ja,set-meals,breakfast">朝食セット</a></li>
+                    <li class="dropdown-item"><a href="ja,set-meals,lunch">ランチ</a></li>
+                    <li class="dropdown-item"><a href="ja,set-meals,dinner">ディナー</a></li>
+                    <li class="dropdown-item"><a href="payment">お支払い</a></li>
+                    <ul class="dropdown-item">
+                        <li class="dropdown-item"><a href="line-pay">LINE Pay</a></li>
+                    </ul>
+                    <li class="dropdown-item"><a href="ja">店舗概要</a></li>
+                    <li class="dropdown-item"><a href="for-staff">for staff</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <img src="https://toffee3.grow-up-webmarketing.co.jp/hqr/img/header.jpg" class="head_img">
+
+        <!-- show sns icons -->
+
+        <ul class="shareList">
+            <li class="shareList__item">
+                <a class="shareList__link icon-twitter" href="" target="_blank" title="Twitter" style="pointer-events: none;"></a>
+            </li>
+            <li class="shareList__item">
+                <a class="shareList__link icon-facebook" href="https://ja-jp.facebook.com/Growupfukuoka/" target="_blank" title="Facebook"></a>
+            </li>
+            <li class="shareList__item">
+                <a class="shareList__link icon-google" href="https://goo.gl/maps/tTdLKDuJ5LaUs3Mf6" target="_blank" title="Google"></a>
+            </li>
+            <li class="shareList__item">
+                <a class="shareList__link icon-line" href="" target="_blank" title="LINE" style="pointer-events: none;"></a>
+            </li>
+            <li class="shareList__item">
+                <a class="shareList__link icon-instagram" href="" target="_blank" title="Instagram" style="pointer-events: none;"></a>
+            </li>
+        </ul>
+
+
+        <div class="container">
+            <h2 class="inner-category center">- FOOD -</h2>
+            <section class="hqr-item">
+                <img src="hqr/img/items/dip.jpg" alt="商品画像" class="menu-item-img">
+                <h2 class="hqr-item-name">クリームチーズの豆腐ディップ<wbr>とバゲット<br>TOFU dip</h2>
+                <div class="hqr-item-summary">
+                    <p>ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。
+                    </p>
+                </div>
+                <p class="hqr-item-price">700円</p>
+
+                <details class="hqr-item-allergy-list">
+                    <summary>アレルギー品目</summary>
+                    <ul>
+                        <li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li>
+                    </ul>
+                </details>
+                <div class="menu-cart">
+                    <p>カートに入れる</p>
+                    <div>
+                        <span class="h1 pointer"><img src="hqr/img/parts/plus-blue.png"></span>
+                        <span class="h1 pointer"><img src="hqr/img/parts/minus-blue.png"></span>
+                    </div>
+                </div>
+            </section>
+            <section class="hqr-item">
+                <img src="hqr/img/items/donut.jpg" alt="商品画像" class="menu-item-img">
+                <h2 class="hqr-item-name">三原豆腐店の<wbr>豆乳ドーナッツ<br>きなこ</h2>
+                <div class="hqr-item-summary">
+                    <p>ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。
+                    </p>
+                </div>
+
+                <details class="hqr-item-allergy-list">
+                    <summary>アレルギー品目</summary>
+                    <ul>
+                        <li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li>
+                    </ul>
+                </details>
+                <p class="hqr-item-price"><span>4 pieces</span>350円</p>
+                <div class="menu-cart">
+                    <p>カートに入れる</p>
+                    <div>
+                        <span class="h1 pointer"><img src="hqr/img/parts/plus-blue.png"></span>
+                        <span class="h1 pointer"><img src="hqr/img/parts/minus-blue.png"></span>
+                    </div>
+                </div>
+            </section>
+            <section class="hqr-item">
+                <img src="hqr/img/items/donut.jpg" alt="商品画像" class="menu-item-img">
+                <h2 class="hqr-item-name">三原豆腐店の<wbr>豆乳ドーナッツ<br>きなこ</h2>
+                <div class="hqr-item-summary">
+                    <p>ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。
+                    </p>
+                </div>
+
+                <details class="hqr-item-allergy-list">
+                    <summary>アレルギー品目</summary>
+                    <ul>
+                        <li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li>
+                    </ul>
+                </details>
+                <p class="hqr-item-price"><span>8 pieces</span>650円</p>
+                <div class="menu-cart">
+                    <p>カートに入れる</p>
+                    <div>
+                        <span class="h1 pointer"><img src="hqr/img/parts/plus-blue.png"></span>
+                        <span class="h1 pointer"><img src="hqr/img/parts/minus-blue.png"></span>
+                    </div>
+                </div>
+            </section>
+            <section class="hqr-item">
+                <img src="hqr/img/items/donut.jpg" alt="商品画像" class="menu-item-img">
+                <h2 class="hqr-item-name">三原豆腐店の<wbr>豆乳ドーナッツ<br>きなこ</h2>
+                <div class="hqr-item-summary">
+                    <p>ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。ここに説明文が入ります。
+                    </p>
+                </div>
+
+                <details class="hqr-item-allergy-list">
+                    <summary>アレルギー品目</summary>
+                    <ul>
+                        <li><span><img src="./hqr/img/allergen/allergen-soybean.png"></span><span>大豆</span></li>
+                    </ul>
+                </details>
+                <p class="hqr-item-price"><span>12 pieces</span>950円</p>
+                <div class="menu-cart">
+                    <p>カートに入れる</p>
+                    <div>
+                        <span class="h1 pointer"><img src="hqr/img/parts/plus-blue.png"></span>
+                        <span class="h1 pointer"><img src="hqr/img/parts/minus-blue.png"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="footer">
+
+                <div class="footer-now-cart">
+                    <p>現在<span>1点</span><span class="pre-total">1,000円</span><span>(税抜)</span></p>
+                    <button type="button" class="btn btn-light">カートの中を見る</button>
+                </div>
+                <div class="footer-now-finish">
+                    <p>注文完了<span>10点</span><br><span class="pre-total">20,000円</span>(税抜)</p>
+                    <div>
+                        <button type="button" class="btn btn-light">お会計</button>
+                        <button type="button" class="btn btn-light">paypay払い</button>
+                    </div>
+                </div>
+                <div class="notice">
+                    <p>
+                        <a href="https://test-qr.grow-up-webmarketing.co.jp/law#/">特定商取引法に基づく表記</a>
+                    </p>
+                    <p>|</p>
+                    <p>
+                        <a href="https://test-qr.grow-up-webmarketing.co.jp/policy#/">プライバシーポリシー</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

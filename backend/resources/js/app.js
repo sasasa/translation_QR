@@ -61,11 +61,12 @@ Vue.use(VueI18n)
 const messages = {
     en: {
         message: {
-            image_path: 'image',
-            item_name: 'name',
-            item_price: 'price',
-            item_desc: 'description',
+            // image_path: 'image',
+            // item_name: 'name',
+            // item_price: 'price',
+            // item_desc: 'description',
             allergens: 'allergens',
+            ordered_products: 'Ordered Products',
 
             add_to_cart: 'Add to cart',
             order_amount: 'Order amount',
@@ -83,18 +84,20 @@ const messages = {
             paypay: 'paypay payment',
             takeout: 'Take out',
             food_and_drink_in_the_store: 'Food and drink in the store',
-            thanks_wait: 'Thank you very much. Please wait a moment.',
+            thanks: 'Thank you very much.',
+            wait: 'Please wait a moment.',
 
             sorry_out_of_stock: 'Sorry, Out of stock.',
         },
     },
     ja: {
         message: {
-            image_path: '画像',
-            item_name: '商品名',
-            item_price: '価格',
-            item_desc: '説明',
+            // image_path: '画像',
+            // item_name: '商品名',
+            // item_price: '価格',
+            // item_desc: '説明',
             allergens: 'アレルギー品目',
+            ordered_products: '注文済み商品',
 
             add_to_cart: 'カートに入れる',
             order_amount: 'ご注文金額',
@@ -112,18 +115,20 @@ const messages = {
             paypay: 'paypay支払い',
             takeout: 'テイクアウト',
             food_and_drink_in_the_store: '店内飲食',
-            thanks_wait: 'ありがとうございました。しばらくお待ちください。',
+            thanks: 'ありがとうございました。',
+            wait: 'しばらくお待ちください。',
 
             sorry_out_of_stock: '申し訳ありません、在庫切れです。',
         },
     },
     ko: {
         message: {
-            image_path: '이미지',
-            item_name: '상품명',
-            item_price: '가격',
-            item_desc: '설명',
+            // image_path: '이미지',
+            // item_name: '상품명',
+            // item_price: '가격',
+            // item_desc: '설명',
             allergens: '알레르기 물질',
+            ordered_products: '주문 된 상품',
 
             add_to_cart: '장바구니에 담기',
             order_amount: '주문 금액',
@@ -141,17 +146,19 @@ const messages = {
             paypay: 'paypay결제하기',
             takeout: '테이크 아웃',
             food_and_drink_in_the_store: '점내에서의 음식',
-            thanks_wait: '감사합니다. 잠시 기다려주십시오.',
+            thanks: '감사합니다.',
+            wait: '잠시 기다려주십시오.',
             sorry_out_of_stock: '죄송 품절입니다.',
         },
     },
     zh: {
         message: {
-            image_path: '图片',
-            item_name: '产品名称',
-            item_price: '价钱',
-            item_desc: '说明',
+            // image_path: '图片',
+            // item_name: '产品名称',
+            // item_price: '价钱',
+            // item_desc: '说明',
             allergens: '过敏物质',
+            ordered_products: '订购的产品',
 
             add_to_cart: '添加到购物车',
             order_amount: '订单金额',
@@ -170,6 +177,8 @@ const messages = {
             takeout: '取出',
             food_and_drink_in_the_store: '在商店吃喝',
             thanks_wait: '非常感谢你。请稍候。',
+            thanks: '非常感谢你。',
+            wait: '请稍候。',
             sorry_out_of_stock: '抱歉，没货了。',
         },
     },

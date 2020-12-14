@@ -1,0 +1,264 @@
+{
+  "config": {
+    "imagePath": "./hqr/img/allergen/",
+    "fileNamePrefix": "allergen-",
+    "fileNameExt": "png",
+    "msgAllergen": {
+      "en": "Allergen",
+      "zh": "Allergen",
+      "ko": "Allergen",
+      "ja": "アレルギー品目"
+    },
+    "msgNoAllergen": {
+      "en": "No labelling of allergens",
+      "zh": "No labelling of allergens",
+      "ko": "No labelling of allergens",
+      "ja": "アレルギー表示品目なし"
+    }
+  },
+  "allergen": {
+    "egg": {
+      "image": "",
+      "name": {
+        "en": "Egg",
+        "zh": "鸡蛋",
+        "ko": "계란",
+        "ja": "たまご"
+      }
+    },
+    "milk": {
+      "image": "",
+      "name": {
+        "en": "Milk",
+        "zh": "牛奶",
+        "ko": "우유",
+        "ja": "牛乳"
+      }
+    },
+    "wheat": {
+      "image": "",
+      "name": {
+        "en": "Wheat",
+        "zh": "小麦",
+        "ko": "밀",
+        "ja": "小麦"
+      }
+    },
+    "buckwheat": {
+      "image": "",
+      "name": {
+        "en": "Buckwheat",
+        "zh": "荞",
+        "ko": "메밀",
+        "ja": "そば"
+      }
+    },
+    "peanut": {
+      "image": "",
+      "name": {
+        "en": "Peanut",
+        "zh": "花生",
+        "ko": "땅콩",
+        "ja": "落花生"
+      }
+    },
+    "shrimp": {
+      "image": "",
+      "name": {
+        "en": "Shrimp",
+        "zh": "虾",
+        "ko": "새우",
+        "ja": "えび"
+      }
+    },
+    "crab": {
+      "image": "",
+      "name": {
+        "en": "Crab",
+        "zh": "蟹",
+        "ko": "게",
+        "ja": "かに"
+      }
+    },
+    "squid": {
+      "image": "",
+      "name": {
+        "en": "Squid",
+        "zh": "乌贼",
+        "ko": "오징어",
+        "ja": "いか"
+      }
+    },
+    "abalone": {
+      "image": "",
+      "name": {
+        "en": "Abalone",
+        "zh": "鲍鱼",
+        "ko": "전복",
+        "ja": "あわび"
+      }
+    },
+    "salmonroe": {
+      "image": "",
+      "name": {
+        "en": "Salmon Roe",
+        "zh": "三文鱼子",
+        "ko": "연어알",
+        "ja": "いくら"
+      }
+    },
+    "salmon": {
+      "image": "",
+      "name": {
+        "en": "Salmon",
+        "zh": "三文鱼",
+        "ko": "연어",
+        "ja": "さけ"
+      }
+    },
+    "mackerel": {
+      "image": "",
+      "name": {
+        "en": "Mackerel",
+        "zh": "鲭鱼",
+        "ko": "고등어",
+        "ja": "さば"
+      }
+    },
+    "apple": {
+      "image": "",
+      "name": {
+        "en": "Apple",
+        "zh": "苹果",
+        "ko": "사과",
+        "ja": "りんご"
+      }
+    },
+    "peach": {
+      "image": "",
+      "name": {
+        "en": "Peach",
+        "zh": "桃子",
+        "ko": "복숭아",
+        "ja": "もも"
+      }
+    },
+    "kiwi": {
+      "image": "",
+      "name": {
+        "en": "Kiwi",
+        "zh": "猕猴桃",
+        "ko": "키위",
+        "ja": "キウイ"
+      }
+    },
+    "orange": {
+      "image": "",
+      "name": {
+        "en": "Orange",
+        "zh": "橙子",
+        "ko": "주황색",
+        "ja": "オレンジ"
+      }
+    },
+    "banana": {
+      "image": "",
+      "name": {
+        "en": "Banana",
+        "zh": "香蕉",
+        "ko": "바나나",
+        "ja": "バナナ"
+      }
+    },
+    "walnut": {
+      "image": "",
+      "name": {
+        "en": "Walnut",
+        "zh": "核桃",
+        "ko": "호두",
+        "ja": "くるみ"
+      }
+    },
+    "soybean": {
+      "image": "",
+      "name": {
+        "en": "Soybean",
+        "zh": "黄豆",
+        "ko": "대두",
+        "ja": "大豆"
+      }
+    },
+    "matsutakemushroom": {
+      "image": "",
+      "name": {
+        "en": "Matsutake mushroom",
+        "zh": "松茸蘑菇",
+        "ko": "송이",
+        "ja": "まつたけ"
+      }
+    },
+    "yam": {
+      "image": "",
+      "name": {
+        "en": "yam",
+        "zh": "山药",
+        "ko": "참마",
+        "ja": "やまいも"
+      }
+    },
+    "gelatin": {
+      "image": "",
+      "name": {
+        "en": "Gelatin",
+        "zh": "明胶",
+        "ko": "젤라틴",
+        "ja": "ゼラチン"
+      }
+    },
+    "beef": {
+      "image": "",
+      "name": {
+        "en": "Beef",
+        "zh": "牛肉",
+        "ko": "쇠고기",
+        "ja": "牛肉"
+      }
+    },
+    "pork": {
+      "image": "",
+      "name": {
+        "en": "Pork",
+        "zh": "豚肉",
+        "ko": "돼지고기",
+        "ja": "豚肉"
+      }
+    },
+    "chicken": {
+      "image": "",
+      "name": {
+        "en": "Chicken",
+        "zh": "鸡",
+        "ko": "닭고기",
+        "ja": "鶏肉"
+      }
+    },
+    "sesame": {
+      "image": "",
+      "name": {
+        "en": "Sesame",
+        "zh": "芝麻",
+        "ko": "참깨",
+        "ja": "ごま"
+      }
+    },
+    "cashewnut": {
+      "image": "",
+      "name": {
+        "en": "Cashew nut",
+        "zh": "腰果",
+        "ko": "캐슈 너트",
+        "ja": "カシューナッツ"
+      }
+    }
+  }
+}
