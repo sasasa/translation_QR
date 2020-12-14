@@ -117,12 +117,9 @@ p,
     padding-right: .5rem;
 }
 
-.menu-cart {
-    max-width: 15rem;
-}
-
 .menu-cart,
 .quantity {
+    max-width: 15rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
