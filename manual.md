@@ -169,8 +169,10 @@ paypayに申し込んでいる場合は「paypay支払い」ボタンが表示�
 ### お会計　paypay支払い　→　精算後
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/fdfb047f-3404-ab9f-6543-f65ba976e64f.png)
 
-お客様がpaypayで支払う際は項目が「paypay支払い」となります。
-お客様の下に行き本当に支払っていただいたかどうか確認を行なっていただきます。
+お客様が支払いpaypayで支払う際は項目が「paypay支払い」となります。
+「paypay支払い」を押しただけで実際に決済していない場合や決済に失敗している場合は
+アプリケーションで感知することができませんので
+お客様の下に行き本当に支払っていただいたかどうか画面の確認を行なっていただきます。
 スマホの画面を提示していただき以下の様な表示になっていたらpaypayでの支払いは終了しています。
 
 <img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/598261/fb5d57ea-814a-74e5-e62b-0eae6249b675.jpeg" width="300">

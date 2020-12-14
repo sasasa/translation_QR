@@ -21,6 +21,9 @@ class Allergen extends Model
         'lang',
     ];
 
+    public static $cacheNames = [
+    ];
+
     public function items(): object
     {
         return $this->belongsToMany('App\Item', 'allergen_item');
@@ -29,12 +32,26 @@ class Allergen extends Model
     {
         return crc32($this->allergen_key);
     }
+
+
+    public static function nameJpHash(string $key): string
+    {
+        if (array_key_exists($key , self::$cacheNames)) {
+            return self::$cacheNames[$key];
+        } else {
+            \App\Allergen::where('lang', "ja_JP")->get()->each(function($allergen){
+                self::$cacheNames[$allergen->allergen_key] = $allergen->allergen_name;
+            });
+            return self::$cacheNames[$key];
+        }
+    }
+
     public function getNameJpAttribute(): string
     {
         if ($this->lang === "ja_JP") {
             return $this->allergen_name;
         } else {
-            return \App\Allergen::where('lang', "ja_JP")->where('allergen_key', $this->allergen_key)->first()->allergen_name;
+            return self::nameJpHash($this->allergen_key);
         }
     }
 

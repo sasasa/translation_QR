@@ -110,7 +110,7 @@ class OrdersController extends Controller
             "currency" => "JPY"
         ];
         $payload->setAmount($amount);
-        $payload->setOrderDescription('ありがとうございました');
+        $payload->setOrderDescription('画面を確認しますのでお支払い後そのままお待ちください');
         $payload->setRedirectType('WEB_LINK');
         $payload->setRedirectUrl(env('APP_URL', '') .'/'.
                                 $req->seat_hash .'/items#/thanks/'. $req->lang. '/paypay');
