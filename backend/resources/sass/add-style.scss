@@ -103,6 +103,11 @@ p,
     margin: 1rem auto;
 }
 
+.hqr-item-allergy-list ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .hqr-item-price {
     text-align: right;
     font-size: 1.5rem;
@@ -110,6 +115,10 @@ p,
 
 .hqr-item-price span {
     padding-right: .5rem;
+}
+
+.menu-cart {
+    max-width: 15rem;
 }
 
 .menu-cart,

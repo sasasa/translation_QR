@@ -66,7 +66,7 @@
                             {{item.item_desc}}
                         </p>
                     </div>
-                    <p class="hqr-item-price">{{item.item_price}}</p>
+                    <p class="hqr-item-price">{{item.item_price}}円</p>
 
                     <details class="hqr-item-allergy-list">
                         <summary>{{$t("message.allergens")}}</summary>
