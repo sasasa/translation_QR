@@ -31,8 +31,9 @@
                     @endif
                     <div class="form-group col-auto">
                         <label for="seat">席を選択してメニュー表示</label>
-                        {{ Form::select('seat', \App\Seat::forSelect(), old('seat'), empty($errors->first('seat')) ? ['class'=>"form-control", 'id'=>'seat'] : ['class'=>"form-control is-invalid", 'id'=>'seat']) }}
+                        {{ Form::select('seat', \App\Seat::forSelect(), old('seat'), ['class'=>"form-control", 'id'=>'seat']) }}
                     </div>
+                    <button class="btn btn-primary btn-open">メニューを表示</button>
                     @endcan
                 </div>
             </div>
@@ -45,8 +46,8 @@
 <script type="module">
 
 $(function(){
-    $("#seat").change(function() {
-        let hash = $(this).val()
+    $('.btn-open').click(function(){
+        let hash = $('#seat').val()
         if(!!hash) {
             open("/" + hash + "/items#/ja/drink")
         }
