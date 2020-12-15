@@ -71,7 +71,12 @@ class GenresController extends Controller
 
     public function destroy(\App\Genre $genre)
     {
-        $genre->delete();
+        if( $genre->item ) {
+            // 紐づけてあるならば削除できない
+            session()->flash('message', $genre->genre_name. 'に紐づけてあるメニューが存在するため削除できません。');
+        } else {
+            $genre->delete();
+        }
 
         return redirect('/genres');
     }

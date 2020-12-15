@@ -4,6 +4,15 @@
 @section('content')
 <h1>ジャンル管理</h1>
 <a href="/genres/create" class="btn btn-primary mb-3">ジャンル新規作成</a>
+
+@if (session('message'))
+<div class="alert alert-danger mt-5">
+  <h3>削除に失敗しました</h3>
+  <ul>
+    <li>{{ session('message') }}</li>
+  </ul>
+</div>
+@endif
 <table class="table">
   <tr>
     <th>{{__('validation.attributes.genre_key')}}</th>

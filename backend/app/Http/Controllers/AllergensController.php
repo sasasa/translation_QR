@@ -58,7 +58,12 @@ class AllergensController extends Controller
 
     public function destroy(\App\Allergen $allergen)
     {
-        $allergen->delete();
+        if( !$allergen->items->isEmpty() ) {
+            // 紐づけてあるならば削除できない
+            session()->flash('message', $allergen->allergen_name. 'に紐づけてあるメニューが存在するため削除できません。');
+        } else {
+            $allergen->delete();
+        }
 
         return redirect('/allergens');
     }

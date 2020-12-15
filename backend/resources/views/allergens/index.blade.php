@@ -4,6 +4,15 @@
 @section('content')
 <h1>アレルギー品目管理</h1>
 <a href="/allergens/create" class="btn btn-primary mb-3">アレルギー品目新規作成</a>
+
+@if (session('message'))
+<div class="alert alert-danger mt-5">
+  <h3>削除に失敗しました</h3>
+  <ul>
+    <li>{{ session('message') }}</li>
+  </ul>
+</div>
+@endif
 <table class="table">
   <tr>
     <th>{{__('validation.attributes.allergen_key')}}</th>
