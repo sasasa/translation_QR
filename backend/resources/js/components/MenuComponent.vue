@@ -270,8 +270,6 @@
                 sessionStorage.setItem('cart', JSON.stringify(this.cart))
             },
             minus(item) {
-                this.cart = JSON.parse(sessionStorage.getItem('cart'));
-
                 let json_item = JSON.stringify(item)
                 if(item.is_out_of_stock.toString(10) === '1') {
                     Vue.delete(this.cart, json_item)
