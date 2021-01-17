@@ -1,6 +1,12 @@
 # translation_QR
 
 `
+mysql -u root -p
+CREATE DATABASE translation CHARACTER SET utf8;
+GRANT ALL PRIVILEGES ON translation.* TO root@localhost IDENTIFIED BY '';
+
+
+
 composer create-project laravel/laravel --prefer-dist translation_QR
 $mysql -u root -p
 CREATE DATABASE translation CHARACTER SET utf8;
