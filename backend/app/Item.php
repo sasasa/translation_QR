@@ -140,7 +140,7 @@ class Item extends Model
         }
     }
 
-    public static function whereItemKey(string $item_key): object
+    public static function whereItemKey(string $item_key): ?object
     {
         $model = self::where('item_key', $item_key)->where('lang', 'ja_JP')->first();
         if (!$model) {
