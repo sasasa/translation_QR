@@ -76,7 +76,7 @@
           {{ $key }}
         </td>
         <td>
-          {{ \App\Item::whereItemKey($key) ? \App\Item::whereItemKey($key)->item_name : '???' }}
+          {{ \App\Item::whereItemKey($key) ? \App\Item::whereItemKey($key)->item_name : '削除されたメニュー' }}
         </td>
         <td>
           {{ number_format($val) }}
@@ -89,7 +89,7 @@
           {{ $key }}
         </td>
         <td>
-          {{ \App\Item::whereItemKey($key) ? \App\Item::whereItemKey($key)->item_name : '???' }}
+          {{ \App\Item::whereItemKey($key) ? \App\Item::whereItemKey($key)->item_name : '削除されたメニュー' }}
         </td>
         <td>
           {{ 0 }}
