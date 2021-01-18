@@ -65,6 +65,7 @@ const messages = {
             // item_name: 'name',
             // item_price: 'price',
             // item_desc: 'description',
+            menu: 'Menu',
             allergens: 'allergens',
             ordered_products: 'Ordered Products',
 
@@ -96,6 +97,7 @@ const messages = {
             // item_name: '商品名',
             // item_price: '価格',
             // item_desc: '説明',
+            menu: 'メニュー',
             allergens: 'アレルギー品目',
             ordered_products: '注文済み商品',
 
@@ -127,6 +129,7 @@ const messages = {
             // item_name: '상품명',
             // item_price: '가격',
             // item_desc: '설명',
+            menu: '메뉴',
             allergens: '알레르기 물질',
             ordered_products: '주문 된 상품',
 
@@ -157,6 +160,7 @@ const messages = {
             // item_name: '产品名称',
             // item_price: '价钱',
             // item_desc: '说明',
+            menu: '菜单',
             allergens: '过敏物质',
             ordered_products: '订购的产品',
 
