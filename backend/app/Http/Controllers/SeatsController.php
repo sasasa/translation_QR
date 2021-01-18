@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 
 class SeatsController extends Controller
 {
@@ -35,8 +36,12 @@ class SeatsController extends Controller
 
     public function rehash(\App\Seat $seat)
     {
-        $seat->set_hash();
-        $seat->save();
+        if ($seat->seat_state == \App\Seat::EMPTY) {
+            $seat->set_hash();
+            $seat->save();
+        } else {
+            Session::flash('message', '座席の状態が'. \App\Seat::$seat_states[\App\Seat::EMPTY]. 'でないと再生成できません');
+        }
 
         return redirect('/seats');
     }

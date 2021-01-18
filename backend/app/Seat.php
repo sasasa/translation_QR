@@ -21,9 +21,11 @@ class Seat extends Model
         'seat_state',
         'how_many',
     ];
+
+    const EMPTY = 'empty';
     // 席の状態
     public static $seat_states = [
-        'empty' => '空き',
+        self::EMPTY => '空き',
         'presence' => '使用中',
         'payment' => '支払い中',
     ];

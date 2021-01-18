@@ -4,6 +4,15 @@
 @section('content')
 <h1>座席管理</h1>
 <a href="/seats/create" class="btn btn-primary mb-3">座席新規作成</a>
+
+@if (session('message'))
+<div class="alert alert-danger mt-5">
+  <h3>QRコード再生成に失敗しました</h3>
+  <ul>
+    <li>{{ session('message') }}</li>
+  </ul>
+</div>
+@endif
 <table class="table">
   @foreach ($seats as $seat)
   <tr>
