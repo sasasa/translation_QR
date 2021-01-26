@@ -14,6 +14,11 @@
 アプリケーションのバグや説明書に間違いがあった際は[こちら](https://github.com/sasasa/translation_QR/issues/new)
 までご連絡いただければ幸いです。
 
+## プリンタドライバインストール
+下記のページからプリンタのドライバをインストールしてください。
+
+http://www.51drv.com/dayinji/feie-fp-v58w.html
+
 ## インストール
 * Gitをインストールして下さい。Macの場合はHomebrewでインストールして下さい。Windowsの場合は[Git for Windows](https://gitforwindows.org/)をインストールして下さい。
 * ソースコードを見るためには[vscode](https://code.visualstudio.com/download)をインストールしてください。
