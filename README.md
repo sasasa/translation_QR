@@ -14,7 +14,7 @@
 アプリケーションのバグや説明書に間違いがあった際は[こちら](https://github.com/sasasa/translation_QR/issues/new)
 までご連絡いただければ幸いです。
 
-## プリンタドライバインストール
+## プリンタドライバインストール(サーマルプリンタ例)
 下記のページからプリンタのドライバをインストールしてください。
 
 http://www.51drv.com/dayinji/feie-fp-v58w.html
