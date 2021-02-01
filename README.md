@@ -14,6 +14,9 @@
 アプリケーションのバグや説明書に間違いがあった際は[こちら](https://github.com/sasasa/translation_QR/issues/new)
 までご連絡いただければ幸いです。
 
+## サーバー構築手順
+https://github.com/sasasa/translation_QR/issues/123
+
 ## プリンタドライバインストール(サーマルプリンタ例)
 下記のページからプリンタのドライバをインストールしてください。
 
