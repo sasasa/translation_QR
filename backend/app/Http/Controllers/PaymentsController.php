@@ -36,9 +36,17 @@ class PaymentsController extends Controller
     // API
     public function update(Request $req, \App\Payment $payment)
     {
+        if ($req->payment_state === 'preparation' || $req->payment_state === 'printing') {
+            $payment->is_paypay = false;
+        } else if ($req->payment_state === 'paypay') {
+            $payment->is_paypay = true;
+        }
+
         $payment->payment_state = $req->payment_state;
         $payment->save();
         $seat = $payment->seatSession->seat;
+
+
         if ($payment->payment_state === 'afterpaying') {
             $seat->seat_state = 'empty';
             $seat->save();
