@@ -22,6 +22,10 @@ https://github.com/sasasa/translation_QR/issues/123
 
 http://www.51drv.com/dayinji/feie-fp-v58w.html
 
+## paypayに関して
+調査結果を以下に記しています。
+https://github.com/sasasa/translation_QR/issues/125
+
 ## インストール
 * Gitをインストールして下さい。Macの場合はHomebrewでインストールして下さい。Windowsの場合は[Git for Windows](https://gitforwindows.org/)をインストールして下さい。
 * ソースコードを見るためには[vscode](https://code.visualstudio.com/download)をインストールしてください。
