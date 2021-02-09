@@ -23,7 +23,7 @@ class Item extends Model
             'file',
             'image',
             'mimes:jpeg,png',
-            'dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
         ],
     ];
 

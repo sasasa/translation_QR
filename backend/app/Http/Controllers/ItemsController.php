@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Traits\SeatCheckable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use InterventionImage;
 
 use Debugbar;
 
@@ -150,7 +151,34 @@ class ItemsController extends Controller
         }
 
         $file = $req->upfile;
-        $file_name = basename($file->store('public'));
+        $file_name = time() . '.' . $file->getClientOriginalExtension();
+        // EXIF情報を読み取りスマホ画像を回転させる
+        $exif = @exif_read_data($file);
+        $tmpImg = InterventionImage::make($file);
+        if(!empty($exif) && !empty($exif['Orientation'])) {
+            switch($exif['Orientation']) {
+                case 8:
+                    //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+                    $tmpImg = $tmpImg->rotate(90);
+                    break;
+                case 3:
+                    //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+                    $tmpImg = $tmpImg->rotate(180);
+                    break;
+                case 6:
+                    //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+                    $tmpImg = $tmpImg->rotate(-90);
+                    break;
+            }
+        }
+        //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+        $tmpImg->
+        resize(1080, null, function($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save(storage_path('app/public/'. $file_name));
+
+
         $item = new \App\Item();
         $item->fill($req->all());
         $item->image_path = $file_name;
@@ -220,7 +248,33 @@ class ItemsController extends Controller
             }
 
             $file = $req->upfile;
-            $file_name = basename($file->store('public'));
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            // EXIF情報を読み取りスマホ画像を回転させる
+            $exif = @exif_read_data($file);
+            $tmpImg = InterventionImage::make($file);
+            if(!empty($exif) && !empty($exif['Orientation'])) {
+                switch($exif['Orientation']) {
+                    case 8:
+                        //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+                        $tmpImg = $tmpImg->rotate(90);
+                        break;
+                    case 3:
+                        //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+                        $tmpImg = $tmpImg->rotate(180);
+                        break;
+                    case 6:
+                        //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+                        $tmpImg = $tmpImg->rotate(-90);
+                        break;
+                }
+            }
+            //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
+            $tmpImg->
+            resize(1080, null, function($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save(storage_path('app/public/'. $file_name));
+
             Storage::disk('public')->delete($item->image_path);
             $item->image_path = $file_name;
         } else {
