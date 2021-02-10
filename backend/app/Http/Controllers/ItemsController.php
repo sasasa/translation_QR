@@ -158,15 +158,12 @@ class ItemsController extends Controller
         if(!empty($exif) && !empty($exif['Orientation'])) {
             switch($exif['Orientation']) {
                 case 8:
-                    //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
                     $tmpImg = $tmpImg->rotate(90);
                     break;
                 case 3:
-                    //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
                     $tmpImg = $tmpImg->rotate(180);
                     break;
                 case 6:
-                    //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
                     $tmpImg = $tmpImg->rotate(-90);
                     break;
             }
